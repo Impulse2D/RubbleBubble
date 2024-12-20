@@ -1,36 +1,32 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody), typeof(MeshRenderer), typeof(Renderer))]
+[RequireComponent(typeof(Rigidbody), typeof(Renderer))]
 public abstract class Ball : MonoBehaviour
 {
     private Rigidbody _rigidBody;
     private Renderer _renderer;
-    private MeshRenderer _meshRenderer;
     private Color _color;
 
-    protected Rigidbody Rigidbody => _rigidBody;
     public Color Color => _color;
+    protected Rigidbody Rigidbody => _rigidBody;
+    protected Renderer Renderer => _renderer;
 
     private void OnEnable()
     {
         _renderer = GetComponent<Renderer>();
         _rigidBody = GetComponent<Rigidbody>();
-        _meshRenderer = GetComponent<MeshRenderer>();
+
+        EnableKinematic();
     }
 
     public void SetMaterial(Material material)
     {
         _renderer.material = material;
 
-        SetColor(_meshRenderer.material.color);
+        SetColor(_renderer.material.color);
     }
 
-    public void EnableKinematic()
-    {
-        Rigidbody.isKinematic = true;
-    }
-
-    protected void DisableKinematic()
+    public void DisableKinematic()
     {
         _rigidBody.isKinematic = false;
     }
@@ -38,5 +34,10 @@ public abstract class Ball : MonoBehaviour
     private void SetColor(Color color)
     {
         _color = color;
+    }
+
+    private void EnableKinematic()
+    {
+        Rigidbody.isKinematic = true;
     }
 }

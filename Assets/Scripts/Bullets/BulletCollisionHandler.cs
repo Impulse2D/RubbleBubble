@@ -8,22 +8,28 @@ public class BulletCollisionHandler : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent(out ColoredBall coloredBall))
         {
-            if (coloredBall.IsBlack == true)
-            {
-                Debug.Log("“ут будет событие дл€ GameOver");
-            }
-
             if (coloredBall.Color == _bullet.Color)
             {
                 coloredBall.EnableIsCollision();
 
                 _bullet.ReportRelease();
             }
+            else
+            {
+                _bullet.ReportRelease();
+
+                Debug.Log("Ёто событие дл€ Game Over");
+            }
         }
 
         if (collision.gameObject.TryGetComponent(out ColoredBallsDisabler disablerColoredBalls))
         {
             _bullet.ReportRelease();
+
+            if (_bullet.IsMoved == true)
+            {
+                Debug.Log("Ёто событие дл€ Game Over");
+            }
         }
     }
 }

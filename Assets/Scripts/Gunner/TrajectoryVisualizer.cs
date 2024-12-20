@@ -1,11 +1,12 @@
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
+
 public class TrajectoryVisualizer : MonoBehaviour
 {
     private LineRenderer _lineRenderer;
 
-    void Start()
+    private void Start()
     {
         _lineRenderer = GetComponent<LineRenderer>();
     }

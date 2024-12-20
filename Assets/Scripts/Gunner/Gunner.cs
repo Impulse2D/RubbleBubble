@@ -20,13 +20,27 @@ public class Gunner : MonoBehaviour
     private void OnEnable()
     {
         _inputReader.AimingReleased += SetTrajectoryPath;
-        _inputReader.ShootReleased += ReleaseProjectile;
+        _inputReader.ShootReleased += TryReleaseProjectile;
+        _inputReader.ReloadReleased += TryChangeProjectile;
     }
 
     private void OnDisable()
     {
         _inputReader.AimingReleased -= SetTrajectoryPath;
-        _inputReader.ShootReleased -= ReleaseProjectile;
+        _inputReader.ShootReleased -= TryReleaseProjectile;
+        _inputReader.ReloadReleased -= TryChangeProjectile;
+    }
+
+    private void TryChangeProjectile()
+    {
+        if (IsCurrentProjectile())
+        {
+            _projectileReloader.CurrentProjectile.DisableKinematic();
+
+            _projectileReloader.CurrentProjectile.DeactiveMeshRenderer();
+
+            _projectileReloader.Recharge();
+        }
     }
 
     private void SetTrajectoryPath(Vector3 position)
@@ -43,14 +57,19 @@ public class Gunner : MonoBehaviour
         _forceProjectile = (_endPositionProjectile - transform.position) * _power;
     }
 
-    private void ReleaseProjectile()
+    private void TryReleaseProjectile()
     {
-        if (_projectileReloader.CurrentProjectile != null)
+        if (IsCurrentProjectile())
         {
             _projectileReloader.CurrentProjectile.SetForce(_forceProjectile);
             _projectileReloader.CurrentProjectile.UseForce();
 
             _projectileReloader.Recharge();
         }
+    }
+
+    private bool IsCurrentProjectile()
+    {
+        return _projectileReloader.CurrentProjectile != null;
     }
 }

@@ -1,34 +1,44 @@
 using System;
+using System.Collections;
+using UnityEngine;
 
 public class ColoredBall : Ball
 {
     private LayerSphere _currentLayerSphere;
-    private float _identifierLayer;
     private bool _isCollision;
-    private bool _isBlack;
+    private Coroutine _coroutine;
+    private float _delayCoroutine;
 
+    public event Action<ColoredBall> CollisionDetected;
     public event Action<ColoredBall> Released;
+    public event Action<ColoredBall> Deactivated;
 
     public LayerSphere LayerSphere => _currentLayerSphere;
-    public float IdentifierLayer => _identifierLayer;
     public bool IsCollision => _isCollision;
-    public bool IsBlack => _isBlack;
 
     private void OnDisable()
     {
         _isCollision = false;
-        _isBlack = false;
+
+        Deactivated?.Invoke(this);
     }
 
-    public void FallDown()
+    public void TryFallDown()
     {
-        DisableKinematic();
-
         if (_currentLayerSphere != null)
         {
-            _currentLayerSphere.RemoveColoredBall(this);
-            transform.SetParent(null);
+            if (_coroutine != null)
+            {
+                StopCoroutine(_coroutine);
+            }
+
+            _coroutine = StartCoroutine(FallDown(_delayCoroutine));
         }
+    }
+
+    public void SetDelayCoroutine(float delay)
+    {
+        _delayCoroutine = delay;
     }
 
     public void SetLayerSphere(LayerSphere layerSphere)
@@ -40,11 +50,30 @@ public class ColoredBall : Ball
     {
         _isCollision = true;
 
-        Released?.Invoke(this);
+        CollisionDetected?.Invoke(this);
     }
 
-    public void EnableIsBlack()
+    private IEnumerator FallDown(float delay)
     {
-        _isBlack = true;
+        WaitForSeconds timeWait = new WaitForSeconds(delay);
+
+        yield return timeWait;
+
+        transform.SetParent(null);
+
+        DisableKinematic();
+
+        _currentLayerSphere.RemoveColoredBall(this);
+
+        Released?.Invoke(this);
+
+        ResetDelayCoroutine();
+    }
+
+    private void ResetDelayCoroutine()
+    {
+        float minValueDelayCoroutine = 0f;
+
+        _delayCoroutine = minValueDelayCoroutine;
     }
 }

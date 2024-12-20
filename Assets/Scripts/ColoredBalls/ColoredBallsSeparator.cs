@@ -6,20 +6,25 @@ public class ColoredBallsSeparator : MonoBehaviour
     [SerializeField] private SpawnerColoredBalls _spawnerColoredSpheres;
 
     private float _radius = 100f;
+    private float _delayColoredSpheres;
 
     private void OnEnable()
     {
-        _spawnerColoredSpheres.ColoredSphereReleased += TryTearOffMonochromeColoredSpheres;
+        ResetDelayColoredSpheres();
+
+        _spawnerColoredSpheres.ColoredSphereCollisionDetected += TearOffMonochromeColoredSpheres;
     }
 
     private void OnDisable()
     {
-        _spawnerColoredSpheres.ColoredSphereReleased -= TryTearOffMonochromeColoredSpheres;
+        _spawnerColoredSpheres.ColoredSphereCollisionDetected -= TearOffMonochromeColoredSpheres;
     }
 
-    private void TryTearOffMonochromeColoredSpheres(ColoredBall coloredSphere)
+    private void TearOffMonochromeColoredSpheres(ColoredBall currentColoredSphere)
     {
-        TryTearOffColoredSphere(coloredSphere);
+        float increaserDelayColoredSpheres = 0.008f;
+
+        ResetDelayColoredSpheres();
 
         Collider[] overlappedColliders = Physics.OverlapSphere(_spawnPointFirstLayerSphere.transform.position, _radius);
 
@@ -27,23 +32,31 @@ public class ColoredBallsSeparator : MonoBehaviour
         {
             if (overlappedColliders[j].TryGetComponent(out ColoredBall coloredBall))
             {
-                if (coloredBall.Color == coloredSphere.Color)
+                if (coloredBall.Color == currentColoredSphere.Color)
                 {
-                    if (coloredBall.LayerSphere.Identifier >= coloredSphere.LayerSphere.Identifier)
+                    IncreaseDelayColoredSpheres(increaserDelayColoredSpheres);
+
+                    if (coloredBall.LayerSphere.Identifier >= currentColoredSphere.LayerSphere.Identifier)
                     {
-                        coloredBall.FallDown();
+                        coloredBall.SetDelayCoroutine(_delayColoredSpheres);
+
+                        coloredBall.TryFallDown();
                     }
                 }
             }
         }
     }
 
-    private void TryTearOffColoredSphere(ColoredBall coloredSphere)
+    private void ResetDelayColoredSpheres()
     {
-        if (coloredSphere.IsCollision == true)
-        {
-            coloredSphere.FallDown();
-        }
+        float minValuedelayColoredSpheres = 0f;
+
+        _delayColoredSpheres = minValuedelayColoredSpheres;
+    }
+
+    private void IncreaseDelayColoredSpheres(float increaserDelayColoredSpheres)
+    {
+        _delayColoredSpheres += increaserDelayColoredSpheres;
     }
 }
 

@@ -1,33 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
-[RequireComponent(typeof(MeshFilter))]
 public class LayerSphere : MonoBehaviour
 {
-    private MeshFilter _meshFilter;
-    private Vector3[] _spawnPointsPositionsColoredBalls;
     private List<ColoredBall> _coloredBalls;
-    private List<ColoredBall> _blackBalls;
     private Coroutine _coroutine;
     private float _identifier;
     private float _speedIncreaseScale;
 
     public float Identifier => _identifier;
-    public Vector3[] SpawnPointsPositionsColoredBalls => _spawnPointsPositionsColoredBalls;
     public List<ColoredBall> ColoredBalls => _coloredBalls;
-    public List<ColoredBall> BlackBalls => _blackBalls;
 
     private void OnEnable()
     {
-        float startScaleX = 0.02f;
-        float startScaleY = 0.02f;
-        float startScaleZ = 0.02f;
+        float startScaleX = 0.7f;
+        float startScaleY = 0.7f;
+        float startScaleZ = 0.7f;
 
-        _meshFilter = GetComponent<MeshFilter>();
         _coloredBalls = new List<ColoredBall>();
-        _blackBalls = new List<ColoredBall>();
 
         Vector3 defaultScale = new Vector3(startScaleX, startScaleY, startScaleZ);
 
@@ -35,18 +26,11 @@ public class LayerSphere : MonoBehaviour
 
         _identifier = 0f;
         _speedIncreaseScale = 1f;
-
-        SetSpawnPointsPositionsColoredBalls(_meshFilter.mesh.vertices);
     }
 
     public void IncreaseIdentifier()
     {
         _identifier++;
-    }
-
-    public void AddBlackBall(ColoredBall blackBall)
-    {
-        _blackBalls.Add(blackBall);
     }
 
     public void AddColoredBall(ColoredBall coloredBall)
@@ -82,10 +66,5 @@ public class LayerSphere : MonoBehaviour
     private void SetDefaultScale(Vector3 scale)
     {
         transform.localScale = scale;
-    }
-
-    private void SetSpawnPointsPositionsColoredBalls(Vector3[] spawnPoints)
-    {
-        _spawnPointsPositionsColoredBalls = spawnPoints.Distinct().ToArray();
     }
 }

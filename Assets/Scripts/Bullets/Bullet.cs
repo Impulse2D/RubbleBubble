@@ -5,8 +5,16 @@ using UnityEngine;
 public class Bullet : Ball
 {
     private Vector3 _force;
+    private bool _isMoved;
 
     public event Action<Bullet> Released;
+
+    public bool IsMoved => _isMoved;
+
+    private void OnDisable()
+    {
+        ActivateMeshRenderer();
+    }
 
     public void ReportRelease()
     {
@@ -24,7 +32,29 @@ public class Bullet : Ball
         {
             DisableKinematic();
 
+            EnableIsMoved();
+
             Rigidbody.AddForce(_force, ForceMode.VelocityChange);
         }
+    }
+
+    private void EnableIsMoved()
+    {
+        _isMoved = true;
+    }
+
+    private void ActivateMeshRenderer()
+    {
+        Renderer.enabled = true;
+    }
+
+    public void DisableIsMoved()
+    {
+        _isMoved = false;
+    }
+
+    public void DeactiveMeshRenderer()
+    {
+        Renderer.enabled = false;
     }
 }

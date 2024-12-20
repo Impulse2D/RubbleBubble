@@ -45,7 +45,7 @@ public class BulletsReloader : MonoBehaviour
 
         SetCurrentProjectile(_projectiles[0]);
 
-        TryCreateNewProjectile();
+        CreateNewProjectile();
     }
 
     private IEnumerator MoveProjectile(Bullet projectiles)
@@ -60,14 +60,11 @@ public class BulletsReloader : MonoBehaviour
         }
     }
 
-    private void TryCreateNewProjectile()
+    private void CreateNewProjectile()
     {
-        if (_mainProjectilePosition != _nextProjectilePosition)
-        {
-            Bullet newBullet = _spawnerProjectiles.GetCreatedProjectile(_nextProjectilePosition, Quaternion.identity);
+        Bullet newBullet = _spawnerProjectiles.GetCreatedProjectile(_nextProjectilePosition, Quaternion.identity);
 
-            _projectiles.Add(newBullet);
-        }
+        _projectiles.Add(newBullet);
     }
 
     private void SetCurrentProjectile(Bullet projectile)

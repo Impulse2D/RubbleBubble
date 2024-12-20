@@ -4,42 +4,91 @@ using UnityEngine;
 public class SpawnerColoredBalls : Spawner<ColoredBallsPool>
 {
     [SerializeField] private SpawnerLayersSpheres _spawnerLayersSpheres;
-    [SerializeField] private MaterialsRandomizer _materialsRandomizer;
+    [SerializeField] private MaterialsDispenser _materialsDispenser;
+    [SerializeField] private SpawnerPrototypeLayerSphere _spawnerPrototypeLayerSphere;
 
+    private PrototypeLayerSphere _prototypeLayerSphere;
+    private Material _currentMaterial;
+    private int _maxQuantitySectors;
+    private int _quantityPointsSector;
+
+    public event Action<int> ColoredSphereInitialized;
+    public event Action<ColoredBall> ColoredSphereCollisionDetected;
     public event Action<ColoredBall> ColoredSphereReleased;
+
+
+    private void Start()
+    {
+        _prototypeLayerSphere = _spawnerPrototypeLayerSphere.GetCreatedInterLayer();
+
+        _maxQuantitySectors = 3;
+
+        _quantityPointsSector = _prototypeLayerSphere.SpawnPointsPositionsColoredBalls.Length / _maxQuantitySectors;
+    }
 
     private void OnEnable()
     {
+        _spawnerLayersSpheres.InterlayerInitialized += Initialize;
         _spawnerLayersSpheres.InterlayerReleased += Create;
     }
 
     private void OnDisable()
     {
+        _spawnerLayersSpheres.InterlayerInitialized -= Initialize;
         _spawnerLayersSpheres.InterlayerReleased -= Create;
+    }
+
+    private void Initialize(int maxQuantityInterlayers)
+    {
+        int maxQuantityColoredSpheres = _quantityPointsSector * maxQuantityInterlayers;
+
+
+        for (int i = 0; i < maxQuantityColoredSpheres; i++)
+        {   
+            ObjectsPool.Initialize();
+        }
+
+        ColoredSphereInitialized?.Invoke(maxQuantityColoredSpheres);
     }
 
     private void Create(LayerSphere layerSphere)
     {
         Vector3 defaultScaleColoredSphere = new Vector3(0.15f, 0.15f, 0.15f);
 
-        for (int i = 0; i < layerSphere.SpawnPointsPositionsColoredBalls.Length; i++)
+        int indexPointColoredSphere = 0;
+
+        for (int i = 0; i < _maxQuantitySectors; i++)
         {
-            ColoredBall coloredSphere = ObjectsPool.GetObject(layerSphere.SpawnPointsPositionsColoredBalls[i], Quaternion.identity);
+            _currentMaterial = _materialsDispenser.GetRandomMaterial();
 
-            coloredSphere.EnableKinematic();
+            for (int j = 0; j < _quantityPointsSector; j++)
+            {
+                ColoredBall coloredSphere = ObjectsPool.GetObject(_prototypeLayerSphere.SpawnPointsPositionsColoredBalls[indexPointColoredSphere], Quaternion.identity);
 
-            SetMaterial(coloredSphere, _materialsRandomizer.GetRandomMaterialColoredBall());
+                SetMaterial(coloredSphere, _currentMaterial);
 
-            SetParent(coloredSphere, layerSphere.transform);
+                SetParent(coloredSphere, layerSphere.transform);
 
-            TryAddSphere(coloredSphere, layerSphere);
+                AddSphere(coloredSphere, layerSphere);
 
-            SetDefaultLocalScale(coloredSphere, defaultScaleColoredSphere);
+                SetDefaultLocalScale(coloredSphere, defaultScaleColoredSphere);
 
-            coloredSphere.SetLayerSphere(layerSphere);
+                coloredSphere.SetLayerSphere(layerSphere);
 
-            coloredSphere.Released += ReportReleasedColoredSphere;
+                coloredSphere.CollisionDetected += ReportCollisionDetectedColoredSphere;
+
+                coloredSphere.Released += ReportReleasedColoredSphere;
+
+                ++indexPointColoredSphere;
+            }
         }
+    }
+
+    private void ReportCollisionDetectedColoredSphere(ColoredBall coloredSphere)
+    {
+        coloredSphere.CollisionDetected -= ReportCollisionDetectedColoredSphere;
+
+        ColoredSphereCollisionDetected?.Invoke(coloredSphere);
     }
 
     private void ReportReleasedColoredSphere(ColoredBall coloredSphere)
@@ -49,18 +98,9 @@ public class SpawnerColoredBalls : Spawner<ColoredBallsPool>
         ColoredSphereReleased?.Invoke(coloredSphere);
     }
 
-    private void TryAddSphere(ColoredBall coloredSphere, LayerSphere layerSphere)
+    private void AddSphere(ColoredBall coloredSphere, LayerSphere layerSphere)
     {
-        if (coloredSphere.Color == _materialsRandomizer.BlackMaterial.color)
-        {
-            layerSphere.AddBlackBall(coloredSphere);
-
-            coloredSphere.EnableIsBlack();
-        }
-        else
-        {
-            layerSphere.AddColoredBall(coloredSphere);
-        }
+        layerSphere.AddColoredBall(coloredSphere);
     }
 
     private void SetMaterial(ColoredBall coloredSphere, Material material)

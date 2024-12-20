@@ -109,6 +109,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "BulletsReloader",
+            "id": "872de15b-2c34-4124-b9a9-d178c25cc903",
+            "actions": [
+                {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "e1d776df-5321-4956-82fd-53db709a2762",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5bfecd9c-0592-4086-86d7-9eeffca52e0e",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

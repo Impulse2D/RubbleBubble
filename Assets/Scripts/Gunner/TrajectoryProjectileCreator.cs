@@ -25,7 +25,7 @@ public class TrajectoryProjectileCreator : MonoBehaviour
 
         _path.ShowTrajectory(transform.position, _gunner.ForceProjectile);
 
-        if(_projectileReloader.CurrentProjectile != null)
+        if (_projectileReloader.CurrentProjectile != null)
         {
             _path.SetColor(_projectileReloader.CurrentProjectile.Color);
         }

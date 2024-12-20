@@ -11,6 +11,6 @@ public class LayerSphereRotator : MonoBehaviour
 
     private void Rotate()
     {
-        transform.localRotation *= Quaternion.Euler(_speedRotation * Time.fixedDeltaTime, 0, 0);
+        transform.localRotation *= Quaternion.Euler(0f, _speedRotation * Time.fixedDeltaTime, 0f);
     }
 }

@@ -131,6 +131,34 @@ public partial class @InputController: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""BulletsReloader"",
+            ""id"": ""872de15b-2c34-4124-b9a9-d178c25cc903"",
+            ""actions"": [
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""e1d776df-5321-4956-82fd-53db709a2762"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""5bfecd9c-0592-4086-86d7-9eeffca52e0e"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -142,6 +170,9 @@ public partial class @InputController: IInputActionCollection2, IDisposable
         // ShootController
         m_ShootController = asset.FindActionMap("ShootController", throwIfNotFound: true);
         m_ShootController_Shoot = m_ShootController.FindAction("Shoot", throwIfNotFound: true);
+        // BulletsReloader
+        m_BulletsReloader = asset.FindActionMap("BulletsReloader", throwIfNotFound: true);
+        m_BulletsReloader_Reload = m_BulletsReloader.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -299,6 +330,52 @@ public partial class @InputController: IInputActionCollection2, IDisposable
         }
     }
     public ShootControllerActions @ShootController => new ShootControllerActions(this);
+
+    // BulletsReloader
+    private readonly InputActionMap m_BulletsReloader;
+    private List<IBulletsReloaderActions> m_BulletsReloaderActionsCallbackInterfaces = new List<IBulletsReloaderActions>();
+    private readonly InputAction m_BulletsReloader_Reload;
+    public struct BulletsReloaderActions
+    {
+        private @InputController m_Wrapper;
+        public BulletsReloaderActions(@InputController wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Reload => m_Wrapper.m_BulletsReloader_Reload;
+        public InputActionMap Get() { return m_Wrapper.m_BulletsReloader; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(BulletsReloaderActions set) { return set.Get(); }
+        public void AddCallbacks(IBulletsReloaderActions instance)
+        {
+            if (instance == null || m_Wrapper.m_BulletsReloaderActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_BulletsReloaderActionsCallbackInterfaces.Add(instance);
+            @Reload.started += instance.OnReload;
+            @Reload.performed += instance.OnReload;
+            @Reload.canceled += instance.OnReload;
+        }
+
+        private void UnregisterCallbacks(IBulletsReloaderActions instance)
+        {
+            @Reload.started -= instance.OnReload;
+            @Reload.performed -= instance.OnReload;
+            @Reload.canceled -= instance.OnReload;
+        }
+
+        public void RemoveCallbacks(IBulletsReloaderActions instance)
+        {
+            if (m_Wrapper.m_BulletsReloaderActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IBulletsReloaderActions instance)
+        {
+            foreach (var item in m_Wrapper.m_BulletsReloaderActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_BulletsReloaderActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public BulletsReloaderActions @BulletsReloader => new BulletsReloaderActions(this);
     public interface IAimControllerActions
     {
         void OnAimPosition(InputAction.CallbackContext context);
@@ -307,5 +384,9 @@ public partial class @InputController: IInputActionCollection2, IDisposable
     public interface IShootControllerActions
     {
         void OnShoot(InputAction.CallbackContext context);
+    }
+    public interface IBulletsReloaderActions
+    {
+        void OnReload(InputAction.CallbackContext context);
     }
 }
