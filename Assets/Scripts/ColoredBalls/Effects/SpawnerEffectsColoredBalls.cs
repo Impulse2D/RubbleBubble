@@ -48,7 +48,9 @@ public class SpawnerEffectsColoredBalls : Spawner<EffectsColoredBallsPool>
 
     private void ReportColoredSphereDeactivated(ColoredBall coloredBall)
     {
-        EffectColoredBall currentEffectColoredSphere = _effectsColoredSpheres[_effectsColoredSpheres.Count - 1];
+        int valueLengthSubtracted = 1;
+
+        EffectColoredBall currentEffectColoredSphere = _effectsColoredSpheres[_effectsColoredSpheres.Count - valueLengthSubtracted];
 
         coloredBall.Deactivated -= ReportColoredSphereDeactivated;
 
