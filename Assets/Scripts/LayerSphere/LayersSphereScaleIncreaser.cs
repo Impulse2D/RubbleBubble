@@ -6,8 +6,8 @@ public class LayersSphereScaleIncreaser : MonoBehaviour
     private const float FirstIdentifier = 1f;
     private const float SecondIdentifier = 2f;
 
-    [SerializeField] private SpawnerLayersSpheres _spawnerInterlayer;
     [SerializeField] private SpawnPointFirstLayerSphere _spawnPointFirstInterlayer;
+    [SerializeField] private SpawnerColoredBalls _spawnerColoredBalls;
 
     private float _radius = 100f;
     private List<Vector3> _scaleInterlayer;
@@ -28,15 +28,16 @@ public class LayersSphereScaleIncreaser : MonoBehaviour
 
     private void OnEnable()
     {
-        _spawnerInterlayer.InterlayerReleased += TryIncreaseInterlayers;
+        _spawnerColoredBalls.CreatingCompleted += IncreaseInterlayers;
+
     }
 
     private void OnDisable()
     {
-        _spawnerInterlayer.InterlayerReleased -= TryIncreaseInterlayers;
+        _spawnerColoredBalls.CreatingCompleted -= IncreaseInterlayers;
     }
 
-    private void TryIncreaseInterlayers(LayerSphere Interlayer)
+    private void IncreaseInterlayers()
     {
         Collider[] overlappedColliders = Physics.OverlapSphere(_spawnPointFirstInterlayer.transform.position, _radius);
 

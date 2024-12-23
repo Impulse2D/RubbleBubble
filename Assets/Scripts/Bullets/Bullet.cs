@@ -37,7 +37,7 @@ public class Bullet : Ball
             Rigidbody.AddForce(_force, ForceMode.VelocityChange);
         }
     }
-
+        
     private void EnableIsMoved()
     {
         _isMoved = true;

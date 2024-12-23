@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class ObjectsPool<T> : MonoBehaviour where T : MonoBehaviour
@@ -6,6 +7,8 @@ public class ObjectsPool<T> : MonoBehaviour where T : MonoBehaviour
     [SerializeField] private T _prefabObject;
 
     private List<T> _objects = new List<T>();
+
+    public List<T> Objects => _objects;
 
     public void Initialize()
     {
@@ -30,6 +33,22 @@ public class ObjectsPool<T> : MonoBehaviour where T : MonoBehaviour
         _objects.Remove(newObject);
 
         return newObject;
+    }
+
+    public T GetRemoveLastObject()
+    {
+        TryExpand();
+
+        T lastObject = _objects[_objects.Count - 1];
+
+        _objects.Remove(lastObject);
+
+        return lastObject;
+    }
+
+    public void ActiveObject(GameObject obj)
+    {
+        obj.SetActive(true);
     }
 
     public void ReturnObject(T obj)
@@ -58,11 +77,6 @@ public class ObjectsPool<T> : MonoBehaviour where T : MonoBehaviour
     private void AddObject(T obj)
     {
         _objects.Add(obj);
-    }
-
-    private void ActiveObject(GameObject obj)
-    {
-        obj.SetActive(true);
     }
 
     private void DeactivateObject(GameObject obj)

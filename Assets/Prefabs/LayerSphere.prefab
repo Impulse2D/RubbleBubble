@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 8975624689534131857}
   - component: {fileID: 1822870259739206685}
   - component: {fileID: 2867885198823250507}
-  - component: {fileID: 4212684791126488981}
   m_Layer: 0
   m_Name: LayerSphere
   m_TagString: Untagged
@@ -8551,7 +8550,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 696
+  m_VersionIndex: 702
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -8689,17 +8688,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dcba7886bbfe8884e871e1fc7dee0ae7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4212684791126488981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7974652527645588087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e45323ffa74b104cb985bbd992fbad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

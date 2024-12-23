@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,9 @@ public class LayerSphere : MonoBehaviour
     private Coroutine _coroutine;
     private float _identifier;
     private float _speedIncreaseScale;
+
+    public event Action<LayerSphere> ColoredBallsLosted;
+    public event Action<LayerSphere> Released;
 
     public float Identifier => _identifier;
     public List<ColoredBall> ColoredBalls => _coloredBalls;
@@ -40,7 +44,14 @@ public class LayerSphere : MonoBehaviour
 
     public void RemoveColoredBall(ColoredBall coloredBall)
     {
+        float minQuantityColoredBalls = 0f;
+
         _coloredBalls.Remove(coloredBall);
+
+        if (_coloredBalls.Count == minQuantityColoredBalls)
+        {
+            ColoredBallsLosted?.Invoke(this);
+        }
     }
 
     public void IncreaseScale(Vector3 targetScale)
@@ -51,6 +62,11 @@ public class LayerSphere : MonoBehaviour
         }
 
         _coroutine = StartCoroutine(ReachTargetScale(targetScale));
+    }
+
+    public void ReportReleased()
+    {
+        Released?.Invoke(this);
     }
 
     private IEnumerator ReachTargetScale(Vector3 targetScale)

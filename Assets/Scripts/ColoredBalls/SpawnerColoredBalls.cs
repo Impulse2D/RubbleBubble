@@ -8,6 +8,7 @@ public class SpawnerColoredBalls : Spawner<ColoredBallsPool>
     [SerializeField] private SpawnerPrototypeLayerSphere _spawnerPrototypeLayerSphere;
 
     private PrototypeLayerSphere _prototypeLayerSphere;
+    private Vector3 _centerPrototypeLayerSphere;
     private Material _currentMaterial;
     private int _maxQuantitySectors;
     private int _quantityPointsSector;
@@ -15,6 +16,7 @@ public class SpawnerColoredBalls : Spawner<ColoredBallsPool>
     public event Action<int> ColoredSphereInitialized;
     public event Action<ColoredBall> ColoredSphereCollisionDetected;
     public event Action<ColoredBall> ColoredSphereReleased;
+    public event Action CreatingCompleted;
 
 
     private void Start()
@@ -40,15 +42,18 @@ public class SpawnerColoredBalls : Spawner<ColoredBallsPool>
 
     private void Initialize(int maxQuantityInterlayers)
     {
-        int maxQuantityColoredSpheres = _quantityPointsSector * maxQuantityInterlayers;
+        int maxQuantityColoredSpheres = _prototypeLayerSphere.SpawnPointsPositionsColoredBalls.Length * maxQuantityInterlayers;
 
+        Debug.Log(maxQuantityColoredSpheres);
 
         for (int i = 0; i < maxQuantityColoredSpheres; i++)
-        {   
+        {
             ObjectsPool.Initialize();
         }
 
         ColoredSphereInitialized?.Invoke(maxQuantityColoredSpheres);
+
+        _centerPrototypeLayerSphere = _prototypeLayerSphere.Rigidbody.centerOfMass;
     }
 
     private void Create(LayerSphere layerSphere)
@@ -63,7 +68,11 @@ public class SpawnerColoredBalls : Spawner<ColoredBallsPool>
 
             for (int j = 0; j < _quantityPointsSector; j++)
             {
-                ColoredBall coloredSphere = ObjectsPool.GetObject(_prototypeLayerSphere.SpawnPointsPositionsColoredBalls[indexPointColoredSphere], Quaternion.identity);
+                ColoredBall coloredSphere = ObjectsPool.GetRemoveLastObject();
+
+                coloredSphere.transform.position = _prototypeLayerSphere.SpawnPointsPositionsColoredBalls[indexPointColoredSphere];
+
+                coloredSphere.transform.LookAt(_centerPrototypeLayerSphere);
 
                 SetMaterial(coloredSphere, _currentMaterial);
 
@@ -75,13 +84,20 @@ public class SpawnerColoredBalls : Spawner<ColoredBallsPool>
 
                 coloredSphere.SetLayerSphere(layerSphere);
 
-                coloredSphere.CollisionDetected += ReportCollisionDetectedColoredSphere;
-
-                coloredSphere.Released += ReportReleasedColoredSphere;
-
                 ++indexPointColoredSphere;
             }
         }
+
+        for (int i = 0; i < layerSphere.ColoredBalls.Count; i++)
+        {
+            ObjectsPool.ActiveObject(layerSphere.ColoredBalls[i].gameObject);
+
+            layerSphere.ColoredBalls[i].CollisionDetected += ReportCollisionDetectedColoredSphere;
+
+            layerSphere.ColoredBalls[i].Released += ReportReleasedColoredSphere;
+        }
+
+        CreatingCompleted?.Invoke();
     }
 
     private void ReportCollisionDetectedColoredSphere(ColoredBall coloredSphere)
