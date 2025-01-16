@@ -4,7 +4,7 @@ public class SkyboxInstaller : MonoBehaviour
 {
     [SerializeField] private Material _skybox;
 
-    private void Start()
+    public void Init()
     {
         RenderSettings.skybox = _skybox;
     }

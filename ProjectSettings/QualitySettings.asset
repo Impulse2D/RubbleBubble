@@ -56,13 +56,13 @@ QualitySettings:
     terrainFadeLength: 5
     terrainMaxTrees: 50
     excludedTargetPlatforms:
-    - WebGL
     - tvOS
     - Windows Store Apps
     - iPhone
     - Android
     - Server
     - Standalone
+    - WebGL
   m_TextureMipmapLimitGroupNames: []
   m_PerPlatformDefaultQuality:
     Android: 0

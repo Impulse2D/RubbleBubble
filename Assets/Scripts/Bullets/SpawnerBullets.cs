@@ -9,6 +9,8 @@ public class SpawnerBullets : Spawner<BulletsPool>
 
     public event Action<Bullet> ProjectileCreated;
 
+    public event Action<Bullet> CriticalCollisionProjectileReported;
+
     public Bullet GetCreatedProjectile(Vector3 position, Quaternion rotation)
     {
         int valueLengthSubtracted = 1;
@@ -25,11 +27,11 @@ public class SpawnerBullets : Spawner<BulletsPool>
 
         Bullet newProjectile = ObjectsPool.GetObject(position, rotation);
 
-        _materialsDispenser.GetRandomMaterial();
-
         newProjectile.SetMaterial(_materialsDispenser.MaterialsColoredBalls[_index]);
 
         newProjectile.DisableIsMoved();
+
+        newProjectile.CriticalCollisionDetected += ReportCriticalCollisionProjectile;
 
         ReportProjectileCreated(newProjectile);
 
@@ -44,5 +46,14 @@ public class SpawnerBullets : Spawner<BulletsPool>
     private void ReportProjectileCreated(Bullet newProjectile)
     {
         ProjectileCreated?.Invoke(newProjectile);
+    }
+
+    private void ReportCriticalCollisionProjectile(Bullet newProjectile)
+    {
+        newProjectile.CriticalCollisionDetected -= ReportCriticalCollisionProjectile;
+
+        Debug.Log("Передал инфу из спавнера");
+
+        CriticalCollisionProjectileReported?.Invoke(newProjectile);
     }
 }

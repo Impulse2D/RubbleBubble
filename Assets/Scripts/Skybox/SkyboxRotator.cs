@@ -2,11 +2,10 @@ using UnityEngine;
 
 public class SkyboxRotator : MonoBehaviour
 {
+    [SerializeField] private float _speed;
     private const string Rotation = "_Rotation";
 
-    private float _speed;
-
-    private void Start()
+    public void Init()
     {
         _speed = 2f;
     }

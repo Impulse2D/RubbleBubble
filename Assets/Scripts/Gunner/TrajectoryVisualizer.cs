@@ -6,7 +6,7 @@ public class TrajectoryVisualizer : MonoBehaviour
 {
     private LineRenderer _lineRenderer;
 
-    private void Start()
+    public void Init()
     {
         _lineRenderer = GetComponent<LineRenderer>();
     }

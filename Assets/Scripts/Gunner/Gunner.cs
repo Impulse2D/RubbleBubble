@@ -12,7 +12,7 @@ public class Gunner : MonoBehaviour
 
     public Vector3 ForceProjectile => _forceProjectile;
 
-    private void Start()
+    public void Init()
     {
         _mainCamera = Camera.main;
     }

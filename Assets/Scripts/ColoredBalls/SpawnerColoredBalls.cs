@@ -18,8 +18,7 @@ public class SpawnerColoredBalls : Spawner<ColoredBallsPool>
     public event Action<ColoredBall> ColoredSphereReleased;
     public event Action CreatingCompleted;
 
-
-    private void Start()
+    public void Init()
     {
         _prototypeLayerSphere = _spawnerPrototypeLayerSphere.GetCreatedInterLayer();
 
@@ -43,8 +42,6 @@ public class SpawnerColoredBalls : Spawner<ColoredBallsPool>
     private void Initialize(int maxQuantityInterlayers)
     {
         int maxQuantityColoredSpheres = _prototypeLayerSphere.SpawnPointsPositionsColoredBalls.Length * maxQuantityInterlayers;
-
-        Debug.Log(maxQuantityColoredSpheres);
 
         for (int i = 0; i < maxQuantityColoredSpheres; i++)
         {

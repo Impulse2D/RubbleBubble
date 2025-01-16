@@ -14,7 +14,7 @@ public class LayersSphereScaleIncreaser : MonoBehaviour
     private Vector3 _firstScaleTarget;
     private Vector3 _secondScaleTarget;
 
-    private void Start()
+    public void Init()
     {
         _scaleInterlayer = new List<Vector3>
         {

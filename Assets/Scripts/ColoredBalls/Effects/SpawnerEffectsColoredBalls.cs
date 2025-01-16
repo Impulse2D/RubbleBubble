@@ -1,19 +1,11 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnerEffectsColoredBalls : Spawner<EffectsColoredBallsPool>
 {
     [SerializeField] private SpawnerColoredBalls _spawnerColoredSpheres;
 
-    private List<EffectColoredBall> _effectsColoredSpheres;
-
     public event Action<EffectColoredBall> EffectReleased;
-
-    private void Start()
-    {
-        _effectsColoredSpheres = new List<EffectColoredBall>();
-    }
 
     private void OnEnable()
     {
@@ -41,24 +33,13 @@ public class SpawnerEffectsColoredBalls : Spawner<EffectsColoredBallsPool>
 
         newEffectColoredSphere.transform.localScale = coloredBall.transform.localScale;
 
-        _effectsColoredSpheres.Add(newEffectColoredSphere);
-
-        coloredBall.Deactivated += ReportColoredSphereDeactivated;
+        newEffectColoredSphere.Released += ReportColoredSphereDeactivated;
     }
 
-    private void ReportColoredSphereDeactivated(ColoredBall coloredBall)
+    private void ReportColoredSphereDeactivated(EffectColoredBall effectColoredBall)
     {
-        int valueLengthSubtracted = 1;
+        effectColoredBall.Released -= ReportColoredSphereDeactivated;
 
-        EffectColoredBall currentEffectColoredSphere = _effectsColoredSpheres[_effectsColoredSpheres.Count - valueLengthSubtracted];
-
-        coloredBall.Deactivated -= ReportColoredSphereDeactivated;
-
-        if (_effectsColoredSpheres != null)
-        {
-            EffectReleased?.Invoke(currentEffectColoredSphere);
-
-            _effectsColoredSpheres.Remove(currentEffectColoredSphere);
-        }
+        EffectReleased?.Invoke(effectColoredBall);
     }
 }

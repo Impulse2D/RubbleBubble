@@ -4,7 +4,7 @@ using UnityEngine;
 public class SpawnerLayersSpheres : Spawner<LayerSpherePool>
 {
     [SerializeField] private SpawnPointFirstLayerSphere _pointPosition;
-    [SerializeField] private ParentSpheres _parentSpheres;
+    [SerializeField] private SpawnerParentSphere _spawnerParentSpheres;
 
     private int _maxQuantityInterlayers;
     private ParentSpheres _currentParentSpheres;
@@ -13,9 +13,19 @@ public class SpawnerLayersSpheres : Spawner<LayerSpherePool>
     public event Action<LayerSphere> InterlayerReleased;
     public event Action<LayerSphere> ColoredballsLostedReporting;
 
-    private void Start()
+    private void OnEnable()
     {
-        _currentParentSpheres = Instantiate(_parentSpheres, _pointPosition.transform.position, Quaternion.identity);
+        _spawnerParentSpheres.Created += ÑreationInitial;
+    }
+
+    private void OnDisable()
+    {
+        _spawnerParentSpheres.Created += ÑreationInitial;
+    }
+
+    private void ÑreationInitial(ParentSpheres parentSpheres)
+    {
+        _currentParentSpheres = parentSpheres;
 
         _maxQuantityInterlayers = 2;
 

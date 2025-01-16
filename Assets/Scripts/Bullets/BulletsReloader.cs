@@ -15,7 +15,7 @@ public class BulletsReloader : MonoBehaviour
     private Vector3 _nextProjectilePosition;
     public Bullet CurrentProjectile => _currentProjectile;
 
-    private void Start()
+    public void Init()
     {
         _projectiles = new List<Bullet>();
 
