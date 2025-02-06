@@ -1,13 +1,22 @@
+using System;
 using UnityEngine;
+using YG;
 
-public class WinPanelOpener : ObjectsChanger
+public class WinPanelOpener : MonoBehaviour
 {
+    [SerializeField] private ObjectsChangerService _objectsChangerService;
     [SerializeField] private WinPanel _winPanel;
     [SerializeField] private GamePointsIndicator _gamePointsIndicator;
     [SerializeField] private PauseService _pauseService;
 
+    public event Action PanelOpened;
+
+    private bool _isPanelOpened;
+
     private void OnEnable()
     {
+        _isPanelOpened = false;
+
         _gamePointsIndicator.Filled += Show;
     }
 
@@ -18,8 +27,15 @@ public class WinPanelOpener : ObjectsChanger
 
     private void Show()
     {
-        EnabledObject(_winPanel.gameObject);
+        if (_isPanelOpened == false)
+        {
+            _isPanelOpened = true;
 
-        _pauseService.EnablePause();
+            _objectsChangerService.EnableObject(_winPanel.gameObject);
+
+            PanelOpened?.Invoke();
+
+            _pauseService.EnablePause();
+        }
     }
 }

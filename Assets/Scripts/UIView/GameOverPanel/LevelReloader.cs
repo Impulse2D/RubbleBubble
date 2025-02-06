@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class LevelReloader : MonoBehaviour
 {
-    [SerializeField] private PauseService _pauseService;
     [SerializeField] private LevelService _levelService;
     [SerializeField] private Button _buttonReloading;
 

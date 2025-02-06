@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TrajectoryProjectileCreator : MonoBehaviour
 {
-    [SerializeField] private TrajectoryVisualizer _path;
+    [SerializeField] private TrajectoryVisualizer _trajectoryVisualizer;
     [SerializeField] private Gunner _gunner;
     [SerializeField] private InputReader _inputReader;
     [SerializeField] private BulletsReloader _projectileReloader;
@@ -21,25 +21,25 @@ public class TrajectoryProjectileCreator : MonoBehaviour
 
     private void TryShowTrajectoryProjectile()
     {
-        _path.EnableLinear();
+        _trajectoryVisualizer.EnableLinear();
 
-        _path.ShowTrajectory(transform.position, _gunner.ForceProjectile);
+        _trajectoryVisualizer.ShowTrajectory(transform.position, _gunner.ForceProjectile);
 
         if (_projectileReloader.CurrentProjectile != null)
         {
-            _path.SetColor(_projectileReloader.CurrentProjectile.Color);
+            _trajectoryVisualizer.SetColor(_projectileReloader.CurrentProjectile.Color);
         }
     }
 
     private void EnableTrajectoryProjectile()
     {
-        _path.EnableLinear();
+        _trajectoryVisualizer.EnableLinear();
 
         TryShowTrajectoryProjectile();
     }
 
     private void DisableTrajectoryProjectile()
     {
-        _path.DisableLinear();
+        _trajectoryVisualizer.DisableLinear();
     }
 }

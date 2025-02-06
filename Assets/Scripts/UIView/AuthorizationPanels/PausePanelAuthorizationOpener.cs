@@ -1,9 +1,10 @@
 using UnityEngine;
 
-public class PausePanelAuthorizationOpener : ObjectsChanger
+public class PausePanelAuthorizationOpener : MonoBehaviour
 {
+    [SerializeField] private ObjectsChangerService _objectsChangerService;
     [SerializeField] private PausePanelAuthorization _pausePanelAuthorization;
-    [SerializeField] private AuthorizationOffer _authorizationOffer;
+    [SerializeField] private AuthorizationView _authorizationOffer;
 
     private void OnEnable()
     {
@@ -17,6 +18,6 @@ public class PausePanelAuthorizationOpener : ObjectsChanger
 
     private void Show()
     {
-        EnabledObject(_pausePanelAuthorization.gameObject);
+        _objectsChangerService.EnableObject(_pausePanelAuthorization.gameObject);
     }
 }

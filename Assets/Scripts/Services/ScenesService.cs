@@ -3,8 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class ScenesService : MonoBehaviour
 {
-    private const string LoadScene = "LoadScene";
-    private const string GameScene = "GameScene";
+    private const string LoadScene = nameof(LoadScene);
+    private const string GameScene = nameof(GameScene);
 
     public void LoadGameScene()
     {

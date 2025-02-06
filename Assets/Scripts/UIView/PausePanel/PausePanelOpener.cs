@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class PausePanelOpener : ObjectsChanger
+public class PausePanelOpener : MonoBehaviour
 {
+    [SerializeField] private ObjectsChangerService _objectsChangerService;
     [SerializeField] private PauseService _pauseService;
     [SerializeField] private PausePanel _pausePanel;
-    [SerializeField] private LevelService _levelService;
 
     private void OnEnable()
     {
@@ -18,7 +18,7 @@ public class PausePanelOpener : ObjectsChanger
 
     private void Show()
     {
-        EnabledObject(_pausePanel.gameObject);
+        _objectsChangerService.EnableObject(_pausePanel.gameObject);
 
         _pauseService.EnablePause();
     }

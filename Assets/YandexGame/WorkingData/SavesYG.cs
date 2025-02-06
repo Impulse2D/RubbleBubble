@@ -18,9 +18,11 @@ namespace YG
 
         // Ваши сохранения
 
-        public int numberLevel;
+        public int numberLevel = 1;
 
         public int currentRecord;
+
+        public int counterActivatedTeaching;
 
         // ...
 

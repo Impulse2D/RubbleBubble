@@ -5,7 +5,9 @@ using YG;
 
 public class LevelService : MonoBehaviour
 {
-    private const string CurrentLevel = "CurrentLevel";
+    private const string GameScene = nameof(GameScene);
+    private const string CurrentLevel = nameof(CurrentLevel);
+    private const string MainScene = nameof(MainScene);
 
     private int _numberLevel;
 
@@ -53,18 +55,7 @@ public class LevelService : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void ResetRecord() // временно
-    {
-        _numberLevel = 1;
-
-        YandexGame.savesData.currentRecord = YandexGame.savesData.numberLevel;
-
-        YandexGame.SaveProgress();
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    public void ResetLevel() // временно
+    public void ResetLevel() 
     {
         _numberLevel = 1;
 
@@ -72,6 +63,20 @@ public class LevelService : MonoBehaviour
 
         YandexGame.SaveProgress();
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SetScene(GameScene);
+    }
+
+    public void LoadMainScene()
+    {
+        IncreaseLevel();
+
+        SaveData();
+
+        SetScene(MainScene);
+    }
+
+    private void SetScene(string nameScene)
+    {
+        SceneManager.LoadScene(nameScene);
     }
 }

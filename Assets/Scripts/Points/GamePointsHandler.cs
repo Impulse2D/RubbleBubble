@@ -12,9 +12,9 @@ public class GamePointsHandler : MonoBehaviour
             ReportCollisionDetected();
         }
 
-        if(other.TryGetComponent(out BulletCollisionHandler bulletCollisionHandler))
+        if(other.TryGetComponent(out Bullet bullet))
         {
-            if(bulletCollisionHandler.IsOneColorCollision == true)
+            if(bullet.IsOneColorCollision == true)
             {
                 ReportCollisionDetected();
             }

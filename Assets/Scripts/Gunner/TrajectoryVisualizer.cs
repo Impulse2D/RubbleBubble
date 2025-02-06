@@ -18,6 +18,9 @@ public class TrajectoryVisualizer : MonoBehaviour
         float minQuantityPoints = 0f;
         int indexPoint = 1;
         int quantityPoints = 40;
+        int quantityDeductibleIndexesRenderingRestrictions = 3;
+        int minIndexRenderingRestrictions = 2;
+        float radius = 0.03f;
 
 
         Vector3[] points = new Vector3[quantityPoints];
@@ -30,11 +33,30 @@ public class TrajectoryVisualizer : MonoBehaviour
 
             points[i] = origin + speed * time + Physics.gravity * time * time / divider;
 
-            if (points[i].y < minQuantityPoints)
+            if (i > minIndexRenderingRestrictions)
             {
-                _lineRenderer.positionCount = i + indexPoint;
+                RaycastHit raycastHit;
 
-                break;
+                Vector3 direction = points[points.Length - quantityDeductibleIndexesRenderingRestrictions] - points[i - quantityDeductibleIndexesRenderingRestrictions];
+
+                if (Physics.SphereCast(points[i - quantityDeductibleIndexesRenderingRestrictions], radius, direction, out raycastHit))
+                {
+                    if (raycastHit.collider.gameObject.TryGetComponent(out GameplayParticipator gameplayParticipator))
+                    {
+                        SetPositionCount(i, indexPoint);
+
+                        break;
+                    }
+                    else
+                    {
+                        if (points[i].y < minQuantityPoints)
+                        {
+                            SetPositionCount(i, indexPoint);
+
+                            break;
+                        }
+                    }
+                }
             }
         }
 
@@ -54,5 +76,10 @@ public class TrajectoryVisualizer : MonoBehaviour
     public void SetColor(Color color)
     {
         _lineRenderer.startColor = color;
+    }
+
+    private void SetPositionCount(int index, int indexPoint)
+    {
+        _lineRenderer.positionCount = index + indexPoint;
     }
 }

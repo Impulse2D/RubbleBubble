@@ -8,15 +8,18 @@ public class InputReader : MonoBehaviour
     private bool _isAiming;
     private bool _isControlBlocked;
     private bool _isÑanShoot;
+    private bool _isCanceledAiming;
 
     public event Action<Vector3> AimingReleased;
     public event Action AimingEnabled;
     public event Action AimingDisabled;
     public event Action ShootReleased;
     public event Action ReloadReleased;
+    public event Action AimingCanceled;
 
     public bool IsAim => _isAiming;
     public bool IsBlockedControl => _isControlBlocked;
+    public bool IsCanceledAiming => _isCanceledAiming;
 
     private void OnEnable()
     {
@@ -25,6 +28,7 @@ public class InputReader : MonoBehaviour
         _isControlBlocked = false;
         _isAiming = false;
         _isÑanShoot = false;
+        _isCanceledAiming = false;
 
         _inputController.ShootController.Shoot.canceled += TryShoot;
         _inputController.AimController.Aimimg.performed += ActivateAiming;
@@ -64,6 +68,16 @@ public class InputReader : MonoBehaviour
     public void DisableIsÑanShoot()
     {
         _isÑanShoot = false;
+    }
+
+    public void EnableCanceledAiming()
+    {
+        _isCanceledAiming = true;
+    }
+
+    public void DisableCanceledAiming()
+    {
+        _isCanceledAiming = false; 
     }
 
     private void EnableIsÑanShoot()
@@ -118,6 +132,11 @@ public class InputReader : MonoBehaviour
 
     private void ActivateAiming(InputAction.CallbackContext context)
     {
+        if (_isCanceledAiming == true)
+        {
+            DisableCanceledAiming();
+        }
+
         EnableIsÑanShoot();
 
         EnableAiming();
@@ -132,9 +151,13 @@ public class InputReader : MonoBehaviour
 
     private void TryShoot(InputAction.CallbackContext context)
     {
-        if (IsControlBlocked() == false && IsShotAttempted() == true)
+        if (IsControlBlocked() == false && IsShotAttempted() == true && _isCanceledAiming == false)
         {
             ReportShootReleased();
+        }
+        else if(_isCanceledAiming == true)
+        {
+            AimingCanceled?.Invoke();
         }
     }
 

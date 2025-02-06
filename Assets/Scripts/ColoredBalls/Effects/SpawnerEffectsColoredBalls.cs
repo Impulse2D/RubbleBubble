@@ -3,20 +3,20 @@ using UnityEngine;
 
 public class SpawnerEffectsColoredBalls : Spawner<EffectsColoredBallsPool>
 {
-    [SerializeField] private SpawnerColoredBalls _spawnerColoredSpheres;
+    [SerializeField] private SpawnerColoredBalls _spawnerColoredBalls;
 
     public event Action<EffectColoredBall> EffectReleased;
 
     private void OnEnable()
     {
-        _spawnerColoredSpheres.ColoredSphereInitialized += Initialize;
-        _spawnerColoredSpheres.ColoredSphereReleased += Create;
+        _spawnerColoredBalls.ColoredSphereInitialized += Initialize;
+        _spawnerColoredBalls.ColoredSphereReleased += Create;
     }
 
     private void OnDisable()
     {
-        _spawnerColoredSpheres.ColoredSphereInitialized -= Initialize;
-        _spawnerColoredSpheres.ColoredSphereReleased -= Create;
+        _spawnerColoredBalls.ColoredSphereInitialized -= Initialize;
+        _spawnerColoredBalls.ColoredSphereReleased -= Create;
     }
 
     private void Initialize(int maxQuantityEffects)

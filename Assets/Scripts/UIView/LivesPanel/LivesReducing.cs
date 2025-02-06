@@ -15,11 +15,8 @@ public class LivesReducing : MonoBehaviour
         _spawnerBullets.CriticalCollisionProjectileReported -= TryReduceQuantitylives;
     }
 
-    private void TryReduceQuantitylives(Bullet bullet)
+    private void TryReduceQuantitylives()
     {
-        if (bullet.IsCriticalCollision == true)
-        {
-            _lifeService.TryReduceQuantitylives();
-        }
+        _lifeService.TryReduceQuantitylives();
     }
 }

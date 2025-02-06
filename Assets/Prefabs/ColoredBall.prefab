@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7279759562504340862}
   - component: {fileID: 5269413993421024436}
   - component: {fileID: 6283873704648833220}
+  - component: {fileID: 5009771627739071487}
   m_Layer: 7
   m_Name: ColoredBall
   m_TagString: Untagged
@@ -144,5 +145,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b99114523a5d65f448ee6e4886d76ffb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5009771627739071487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2568628237167648201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b479ace66452447be4292fd370ea87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

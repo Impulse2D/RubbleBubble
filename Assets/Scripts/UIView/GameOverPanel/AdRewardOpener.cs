@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using YG;
 
-public class AdRewardOpener : ObjectsChanger
+public class AdRewardOpener : ObjectsChangerService
 {
     [SerializeField] private PauseService _pauseService;
     [SerializeField] private Button _buttonAdReward;
@@ -45,7 +45,9 @@ public class AdRewardOpener : ObjectsChanger
 
             DisableObject(_gameOverPanel.gameObject);
 
-            EnabledObject(_pausePanel.gameObject);
+            EnableObject(_pausePanel.gameObject);
+
+            _lifeService.ResetQuantitylives();
         }
     }
 

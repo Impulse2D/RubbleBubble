@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
+using YG;
 
 public class GamePointsCounter : MonoBehaviour
 {
     [SerializeField] private GamePointsHandler _gamePointsHandler;
-
     [SerializeField] private float _maxQuantityGamePoints;
     private float _currentQuantityGamePoints;
 
@@ -15,6 +15,8 @@ public class GamePointsCounter : MonoBehaviour
 
     public void Init()
     {
+        CalculateMaxQuantityGamePoints();
+
         ResetCurrentQuantityGamePoints();
     }
 
@@ -50,5 +52,15 @@ public class GamePointsCounter : MonoBehaviour
         float minQuantityGamePoints = 0f;
 
         _currentQuantityGamePoints = minQuantityGamePoints;
+    }
+
+    private void CalculateMaxQuantityGamePoints()
+    {
+        int minRandomQuantityGamePoints = 300;
+        int maxRandomQuantityGamePoints = 1000;
+
+        int randomQuantityGamePoints = UnityEngine.Random.Range(minRandomQuantityGamePoints, maxRandomQuantityGamePoints);
+
+        _maxQuantityGamePoints = randomQuantityGamePoints;
     }
 }

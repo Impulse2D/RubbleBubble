@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class ColoredBallsSeparator : MonoBehaviour
     private float _radius = 100f;
     private float _delayColoredSpheres;
     private float _increaserDelayColoredSpheres;
+
+    public event Action AttemptedTearOffEnabled;
 
     private void OnEnable()
     {
@@ -28,6 +31,8 @@ public class ColoredBallsSeparator : MonoBehaviour
         Vector3 positionCurrentColoredSphere = currentColoredSphere.transform.position;
 
         ResetDelayColoredSpheres();
+
+        AttemptedTearOffEnabled?.Invoke();
 
         Collider[] overlappedColliders = Physics.OverlapSphere(_spawnPointFirstLayerSphere.transform.position, _radius);
 

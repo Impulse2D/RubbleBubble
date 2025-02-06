@@ -1,5 +1,5 @@
 {
-  "idSave": 367,
+  "idSave": 1620,
   "isFirstSession": false,
   "language": "ru",
   "promptDone": false,
@@ -10,6 +10,7 @@
     true,
     false
   ],
-  "numberLevel": 37,
-  "currentRecord": 37
+  "numberLevel": 3,
+  "currentRecord": 236,
+  "counterActivatedTeaching": 0
 }

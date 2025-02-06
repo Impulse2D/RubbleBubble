@@ -1,10 +1,14 @@
+using System;
 using UnityEngine;
 
-public class GameOverPanelOpener : ObjectsChanger
+public class GameOverPanelOpener : MonoBehaviour
 {
+    [SerializeField] private ObjectsChangerService _objectsChangerService;
     [SerializeField] private PauseService _pauseService;
     [SerializeField] private GameOverPanel _gameOverPanel;
     [SerializeField] private LifeService _lifeService;
+
+    public event Action PanelOpened;
 
     private void OnEnable()
     {
@@ -18,7 +22,9 @@ public class GameOverPanelOpener : ObjectsChanger
 
     private void Show()
     {
-        EnabledObject(_gameOverPanel.gameObject);
+        _objectsChangerService.EnableObject(_gameOverPanel.gameObject);
+
+        PanelOpened?.Invoke();
 
         _pauseService.EnablePause();
     }

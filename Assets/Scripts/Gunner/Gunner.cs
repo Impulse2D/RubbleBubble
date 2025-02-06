@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Gunner : MonoBehaviour
 {
-    [SerializeField] private float _power = 10;
+    [SerializeField] private float _power = 12;
     [SerializeField] private InputReader _inputReader;
     [SerializeField] private BulletsReloader _projectileReloader;
 
@@ -22,6 +22,7 @@ public class Gunner : MonoBehaviour
         _inputReader.AimingReleased += SetTrajectoryPath;
         _inputReader.ShootReleased += TryReleaseProjectile;
         _inputReader.ReloadReleased += TryChangeProjectile;
+        _inputReader.AimingCanceled += TryChangeProjectile;
     }
 
     private void OnDisable()
@@ -29,6 +30,7 @@ public class Gunner : MonoBehaviour
         _inputReader.AimingReleased -= SetTrajectoryPath;
         _inputReader.ShootReleased -= TryReleaseProjectile;
         _inputReader.ReloadReleased -= TryChangeProjectile;
+        _inputReader.AimingCanceled -= TryChangeProjectile;
     }
 
     private void TryChangeProjectile()

@@ -17,20 +17,21 @@ public class LifeService : MonoBehaviour
 
     public void TryReduceQuantitylives()
     {
-        int _minQuantitylives = 0;
+        int minQuantitylives = 0;
 
         _quantitylives--;
 
-        if (_quantitylives > _minQuantitylives)
+        if (_quantitylives <= minQuantitylives)
+        {
+            _quantitylives = 0;
+
+            SetQuantitylives(_textLives);
+
+            LivesExhausted?.Invoke();
+        }
+        else 
         {
             SetQuantitylives(_textLives);
-        }
-        
-        if(_quantitylives <= _minQuantitylives)
-        {
-            LivesExhausted?.Invoke();
-
-            ResetQuantitylives();
         }
     }
 

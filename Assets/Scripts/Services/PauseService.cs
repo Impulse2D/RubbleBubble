@@ -1,19 +1,15 @@
 using System;
 using UnityEngine;
 
-public class PauseService : ObjectsChanger
+public class PauseService : MonoBehaviour
 {
-    [SerializeField] private TrajectoryVisualizer _trajectoryVisualizer;
-    [SerializeField] private InputReader _inputReader;
-    [SerializeField] private CanvasMainUI _canvasMainUI;
-    [SerializeField] private CanvasReloadBullets _canvasReloadBullets;
-
     private float _minValueTime = 0f;
     private float _maxValueTime = 1f;
 
     public event Action FocusNotDetected;
-
-    public float MaxValueTime => _maxValueTime;
+    public event Action FocusOnPauseNotDetected;
+    public event Action PauseEnabled;
+    public event Action PauseDisabled;
 
     private void OnApplicationFocus(bool focus)
     {
@@ -21,33 +17,34 @@ public class PauseService : ObjectsChanger
         {
             FocusNotDetected?.Invoke();
         }
+        else if(focus == false)
+        {
+            FocusOnPauseNotDetected?.Invoke();
+        }
     }
 
     public void Init()
     {
         if (IsPause() == true)
         {
-            ÑhangeTime(_maxValueTime);
+            DisablePause();
+
+            ReportDisablePause();
         }
     }
 
     public void EnablePause()
     {
-        DisableObject(_trajectoryVisualizer.gameObject);
-        DisableObject(_canvasReloadBullets.gameObject);
-        DisableObject(_canvasMainUI.gameObject);
-        DisableObject(_inputReader.gameObject);
-
         ÑhangeTime(_minValueTime);
+
+        ReportEnabledPause();
     }
 
     public void DisablePause()
     {
-        EnabledObject(_canvasReloadBullets.gameObject);
-        EnabledObject(_canvasMainUI.gameObject);
-        EnabledObject(_inputReader.gameObject);
-
         ÑhangeTime(_maxValueTime);
+
+        ReportDisablePause();
     }
 
     private void ÑhangeTime(float valueTime)
@@ -58,5 +55,15 @@ public class PauseService : ObjectsChanger
     private bool IsPause()
     {
         return Time.timeScale < _maxValueTime;
+    }
+
+    private void ReportEnabledPause()
+    {
+        PauseEnabled?.Invoke();
+    }
+
+    private void ReportDisablePause()
+    {
+        PauseDisabled?.Invoke();
     }
 }

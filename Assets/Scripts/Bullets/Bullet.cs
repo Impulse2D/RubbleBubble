@@ -2,17 +2,24 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
+
 public class Bullet : Ball
 {
     private Vector3 _force;
     private bool _isMoved;
     private bool _isCriticalCollision;
 
+    private bool _isOneColorCollision;
+    private bool _isBallCollision;
+
     public event Action<Bullet> Released;
-    public event Action<Bullet> CriticalCollisionDetected;
+    public event Action<Bullet> CollisionDetected;
 
     public bool IsMoved => _isMoved;
     public bool IsCriticalCollision => _isCriticalCollision;
+
+    public bool IsOneColorCollision => _isOneColorCollision;
+    public bool IsBallCollision => _isBallCollision;
 
     private void OnDisable()
     {
@@ -41,6 +48,16 @@ public class Bullet : Ball
         }
     }
 
+    public void EnableIsOneColorCollision()
+    {
+        _isOneColorCollision = true;
+    }
+
+    public void DisableIsOneColorCollision()
+    {
+        _isOneColorCollision = false;
+    }
+
     public void DisableIsMoved()
     {
         _isMoved = false;
@@ -51,13 +68,6 @@ public class Bullet : Ball
         Renderer.enabled = false;
     }
 
-    public void ReportCriticalCollisionDetected()
-    {
-        Debug.Log("Передал инфу о критическом повреждении");
-
-        CriticalCollisionDetected?.Invoke(this);
-    }
-
     public void EnableCriticalCollision()
     {
         _isCriticalCollision = true;
@@ -66,6 +76,21 @@ public class Bullet : Ball
     public void DisableCriticalCollision()
     {
         _isCriticalCollision = false;
+    }
+
+    public void ReportCollisionDetected()
+    {
+        CollisionDetected?.Invoke(this);
+    }
+
+    public void EnableIsBallCollision()
+    {
+        _isBallCollision = true;
+    }
+
+    public void DisableIsBallCollision()
+    {
+        _isBallCollision = false;
     }
 
     private void EnableIsMoved()
