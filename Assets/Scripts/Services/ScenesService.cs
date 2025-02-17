@@ -1,23 +1,26 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ScenesService : MonoBehaviour
+namespace Services
 {
-    private const string LoadScene = nameof(LoadScene);
-    private const string GameScene = nameof(GameScene);
-
-    public void LoadGameScene()
+    public class ScenesService : MonoBehaviour
     {
-        SetNameScene(GameScene);
-    }
+        private const string LoadScene = nameof(LoadScene);
+        private const string GameScene = nameof(GameScene);
 
-    public void LoadLoadingScene()
-    {
-        SetNameScene(LoadScene);
-    }
+        public void LoadGameScene()
+        {
+            SetNameScene(GameScene);
+        }
 
-    private void SetNameScene(string nameScene)
-    {
-        SceneManager.LoadScene(nameScene);
+        public void LoadLoadingScene()
+        {
+            SetNameScene(LoadScene);
+        }
+
+        private void SetNameScene(string nameScene)
+        {
+            SceneManager.LoadScene(nameScene);
+        }
     }
 }

@@ -1,63 +1,67 @@
 using System.Collections.Generic;
+using ColoredBalls;
 using UnityEngine;
 
-public class LayersSphereScaleIncreaser : MonoBehaviour
+namespace LayerSpheres
 {
-    private const float FirstIdentifier = 1f;
-    private const float SecondIdentifier = 2f;
-
-    [SerializeField] private SpawnPointFirstLayerSphere _spawnPointFirstInterlayer;
-    [SerializeField] private SpawnerColoredBalls _spawnerColoredBalls;
-
-    private float _radius = 100f;
-    private List<Vector3> _scaleInterlayer;
-    private Vector3 _firstScaleTarget;
-    private Vector3 _secondScaleTarget;
-
-    public void Init()
+    public class LayersSphereScaleIncreaser : MonoBehaviour
     {
-        _scaleInterlayer = new List<Vector3>
+        private const float FirstIdentifier = 1f;
+        private const float SecondIdentifier = 2f;
+
+        [SerializeField] private SpawnPointFirstLayerSphere _spawnPointFirstInterlayer;
+        [SerializeField] private SpawnerColoredBalls _spawnerColoredBalls;
+
+        private float _radius = 100f;
+        private List<Vector3> _scaleInterlayer;
+        private Vector3 _firstScaleTarget;
+        private Vector3 _secondScaleTarget;
+
+        public void Init()
+        {
+            _scaleInterlayer = new List<Vector3>
         {
             new Vector3(1.5f, 1.5f, 1.5f),
             new Vector3(1.8f, 1.8f, 1.8f)
         };
 
-        _firstScaleTarget = _scaleInterlayer[0];
-        _secondScaleTarget = _scaleInterlayer[1];
-    }
+            _firstScaleTarget = _scaleInterlayer[0];
+            _secondScaleTarget = _scaleInterlayer[1];
+        }
 
-    private void OnEnable()
-    {
-        _spawnerColoredBalls.CreatingCompleted += IncreaseInterlayers;
-
-    }
-
-    private void OnDisable()
-    {
-        _spawnerColoredBalls.CreatingCompleted -= IncreaseInterlayers;
-    }
-
-    private void IncreaseInterlayers()
-    {
-        Collider[] overlappedColliders = Physics.OverlapSphere(_spawnPointFirstInterlayer.transform.position, _radius);
-
-        for (int i = 0; i < overlappedColliders.Length; i++)
+        private void OnEnable()
         {
-            if (overlappedColliders[i].TryGetComponent(out LayerSphere interlayer))
-            {
-                interlayer.IncreaseIdentifier();
+            _spawnerColoredBalls.CreatingCompleted += IncreaseInterlayers;
 
-                TryIncreaseInterlayer(FirstIdentifier, interlayer, _firstScaleTarget);
-                TryIncreaseInterlayer(SecondIdentifier, interlayer, _secondScaleTarget);
+        }
+
+        private void OnDisable()
+        {
+            _spawnerColoredBalls.CreatingCompleted -= IncreaseInterlayers;
+        }
+
+        private void IncreaseInterlayers()
+        {
+            Collider[] overlappedColliders = Physics.OverlapSphere(_spawnPointFirstInterlayer.transform.position, _radius);
+
+            for (int i = 0; i < overlappedColliders.Length; i++)
+            {
+                if (overlappedColliders[i].TryGetComponent(out LayerSphere interlayer))
+                {
+                    interlayer.IncreaseIdentifier();
+
+                    TryIncreaseInterlayer(FirstIdentifier, interlayer, _firstScaleTarget);
+                    TryIncreaseInterlayer(SecondIdentifier, interlayer, _secondScaleTarget);
+                }
             }
         }
-    }
 
-    private void TryIncreaseInterlayer(float identifierInterlayer, LayerSphere interlayer, Vector3 targetScale)
-    {
-        if (interlayer.Identifier == identifierInterlayer)
+        private void TryIncreaseInterlayer(float identifierInterlayer, LayerSphere interlayer, Vector3 targetScale)
         {
-            interlayer.IncreaseScale(targetScale);
+            if (interlayer.Identifier == identifierInterlayer)
+            {
+                interlayer.IncreaseScale(targetScale);
+            }
         }
     }
 }

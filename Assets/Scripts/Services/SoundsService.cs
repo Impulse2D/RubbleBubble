@@ -1,24 +1,27 @@
 using UnityEngine;
 
-public class SoundsService : MonoBehaviour
+namespace Services
 {
-    public void PlaySoundOneShot(AudioSource audioSource, AudioClip _audioClip)
+    public class SoundsService : MonoBehaviour
     {
-        audioSource.PlayOneShot(_audioClip);
-    }
+        public void PlaySoundOneShot(AudioSource audioSource, AudioClip _audioClip)
+        {
+            audioSource.PlayOneShot(_audioClip);
+        }
 
-    public void PlaySound(AudioSource audioSource)
-    {
-        audioSource.Play();
-    }
+        public void PlaySound(AudioSource audioSource)
+        {
+            audioSource.Play();
+        }
 
-    public void EnablePauseAudio(AudioSource audioSource)
-    {
-        audioSource.Pause();
-    }
+        public void EnablePauseAudio(AudioSource audioSource)
+        {
+            audioSource.Pause();
+        }
 
-    public void StopSound(AudioSource audioSource)
-    {
-        audioSource.Stop();
+        public void StopSound(AudioSource audioSource)
+        {
+            audioSource.Stop();
+        }
     }
 }

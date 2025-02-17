@@ -1,3 +1,4 @@
+using ColoredBalls;
 using UnityEngine;
 
 public class LayerMaskResidentSpherDisabler : MonoBehaviour

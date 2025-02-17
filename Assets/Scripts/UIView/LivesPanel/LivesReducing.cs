@@ -1,22 +1,27 @@
+using Bullets;
+using Services;
 using UnityEngine;
 
-public class LivesReducing : MonoBehaviour
+namespace LivesPanel
 {
-    [SerializeField] private SpawnerBullets _spawnerBullets;
-    [SerializeField] private LifeService _lifeService;
-
-    private void OnEnable()
+    public class LivesReducing : MonoBehaviour
     {
-        _spawnerBullets.CriticalCollisionProjectileReported += TryReduceQuantitylives;
-    }
+        [SerializeField] private SpawnerBullets _spawnerBullets;
+        [SerializeField] private LifeService _lifeService;
 
-    private void OnDisable()
-    {
-        _spawnerBullets.CriticalCollisionProjectileReported -= TryReduceQuantitylives;
-    }
+        private void OnEnable()
+        {
+            _spawnerBullets.CriticalCollisionProjectileReported += TryReduceQuantitylives;
+        }
 
-    private void TryReduceQuantitylives()
-    {
-        _lifeService.TryReduceQuantitylives();
+        private void OnDisable()
+        {
+            _spawnerBullets.CriticalCollisionProjectileReported -= TryReduceQuantitylives;
+        }
+
+        private void TryReduceQuantitylives()
+        {
+            _lifeService.TryReduceQuantitylives();
+        }
     }
 }

@@ -1,32 +1,36 @@
+using ColoredBalls;
 using UnityEngine;
 
-public class OneСolorСollisionSoundPlayer : SoundsPlayer
+namespace SoundsPlayers
 {
-    [SerializeField] private ColoredBallsSeparator _coloredBallsSeparator;
-
-    private void OnEnable()
+    public class OneСolorСollisionSoundPlayer : SoundsPlayer
     {
-        _coloredBallsSeparator.AttemptedTearOffEnabled += PlaySound;
+        [SerializeField] private ColoredBallsSeparator _coloredBallsSeparator;
 
-        PauseService.PauseEnabled += StopSound;
-    }
+        private void OnEnable()
+        {
+            _coloredBallsSeparator.AttemptedTearOffEnabled += PlaySound;
 
-    private void OnDisable()
-    {
-        _coloredBallsSeparator.AttemptedTearOffEnabled -= PlaySound;
+            PauseService.PauseEnabled += StopSound;
+        }
 
-        PauseService.PauseEnabled -= StopSound;
-    }
+        private void OnDisable()
+        {
+            _coloredBallsSeparator.AttemptedTearOffEnabled -= PlaySound;
 
-    public override void PlaySound()
-    {
-        float minValuePitch = 0.9f;
-        float maxValuePitch = 1.1f;
+            PauseService.PauseEnabled -= StopSound;
+        }
 
-        StopSound();
+        public override void PlaySound()
+        {
+            float minValuePitch = 0.9f;
+            float maxValuePitch = 1.1f;
 
-        AudioSource.pitch = Random.Range(minValuePitch, maxValuePitch);
+            StopSound();
 
-        SoundsService.PlaySound(AudioSource);
+            AudioSource.pitch = Random.Range(minValuePitch, maxValuePitch);
+
+            SoundsService.PlaySound(AudioSource);
+        }
     }
 }

@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class MainMenuPanel : MonoBehaviour
+namespace MainScene
 {
+    public class MainMenuPanel : MonoBehaviour
+    {
 
+    }
 }

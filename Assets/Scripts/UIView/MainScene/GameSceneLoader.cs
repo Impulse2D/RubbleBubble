@@ -1,23 +1,27 @@
+using Services;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameSceneLoader : ObjectsChangerService
+namespace MainScene
 {
-    [SerializeField] private Button _startButton;
-    [SerializeField] private ScenesService _scenesService;
-
-    private void OnEnable()
+    public class GameSceneLoader : ObjectsChangerService
     {
-        _startButton.onClick.AddListener(GoSceneGame);
-    }
+        [SerializeField] private Button _startButton;
+        [SerializeField] private ScenesService _scenesService;
 
-    private void OnDisable()
-    {
-        _startButton.onClick.RemoveListener(GoSceneGame);
-    }
+        private void OnEnable()
+        {
+            _startButton.onClick.AddListener(GoSceneGame);
+        }
 
-    private void GoSceneGame()
-    {
-        _scenesService.LoadGameScene();
+        private void OnDisable()
+        {
+            _startButton.onClick.RemoveListener(GoSceneGame);
+        }
+
+        private void GoSceneGame()
+        {
+            _scenesService.LoadGameScene();
+        }
     }
 }

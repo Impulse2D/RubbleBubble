@@ -1,6 +1,10 @@
 using UnityEngine;
 
-public class CanvasMainUI : MonoBehaviour
+namespace Canvases
 {
+    public class CanvasMainUI : MonoBehaviour
+    {
 
+    }
 }
+

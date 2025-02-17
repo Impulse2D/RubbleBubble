@@ -1,29 +1,32 @@
 using UnityEngine;
 
-public class BulletsDisabler : MonoBehaviour
+namespace Bullets
 {
-    [SerializeField] private SpawnerBullets _spawnerProjectiles;
-    [SerializeField] private BulletsPool _projectilesPool;
-
-    private void OnEnable()
+    public class BulletsDisabler : MonoBehaviour
     {
-        _spawnerProjectiles.ProjectileCreated += SetProjectile;
-    }
+        [SerializeField] private SpawnerBullets _spawnerBullets;
+        [SerializeField] private BulletsPool _bulletsPool;
 
-    private void OnDisable()
-    {
-        _spawnerProjectiles.ProjectileCreated -= SetProjectile;
-    }
+        private void OnEnable()
+        {
+            _spawnerBullets.ProjectileCreated += SetProjectile;
+        }
 
-    private void SetProjectile(Bullet projectile)
-    {
-        projectile.Released += RemoveProjectile;
-    }
+        private void OnDisable()
+        {
+            _spawnerBullets.ProjectileCreated -= SetProjectile;
+        }
 
-    private void RemoveProjectile(Bullet projectile)
-    {
-        projectile.Released -= RemoveProjectile;
+        private void SetProjectile(Bullet projectile)
+        {
+            projectile.Released += RemoveProjectile;
+        }
 
-        _projectilesPool.ReturnObject(projectile);
+        private void RemoveProjectile(Bullet projectile)
+        {
+            projectile.Released -= RemoveProjectile;
+
+            _bulletsPool.ReturnObject(projectile);
+        }
     }
 }

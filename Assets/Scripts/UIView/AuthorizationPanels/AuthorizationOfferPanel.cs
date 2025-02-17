@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class AuthorizationOfferPanel : MonoBehaviour
+namespace AuthorizationPanels
 {
+    public class AuthorizationOfferPanel : MonoBehaviour
+    {
 
+    }
 }

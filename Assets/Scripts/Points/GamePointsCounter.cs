@@ -1,66 +1,68 @@
 using System;
 using UnityEngine;
-using YG;
 
-public class GamePointsCounter : MonoBehaviour
+namespace Points
 {
-    [SerializeField] private GamePointsHandler _gamePointsHandler;
-    [SerializeField] private float _maxQuantityGamePoints;
-    private float _currentQuantityGamePoints;
-
-    public event Action<float> PointCounted;
-    public event Action MaxResultAchieved;
-
-    public float MaxQuantityGamePoints => _maxQuantityGamePoints;
-
-    public void Init()
+    public class GamePointsCounter : MonoBehaviour
     {
-        CalculateMaxQuantityGamePoints();
+        [SerializeField] private GamePointsHandler _gamePointsHandler;
+        [SerializeField] private float _maxQuantityGamePoints;
+        private float _currentQuantityGamePoints;
 
-        ResetCurrentQuantityGamePoints();
-    }
+        public event Action<float> PointCounted;
+        public event Action MaxResultAchieved;
 
-    private void OnEnable()
-    {
-        _gamePointsHandler.CollisionDetected += Count;
-    }
+        public float MaxQuantityGamePoints => _maxQuantityGamePoints;
 
-    private void OnDisable()
-    {
-        _gamePointsHandler.CollisionDetected -= Count;
-    }
-
-    private void Count()
-    {
-        _currentQuantityGamePoints++;
-
-        PointCounted?.Invoke(_currentQuantityGamePoints);
-
-        TryReportMaxResultAchieved();
-    }
-
-    private void TryReportMaxResultAchieved()
-    {
-        if (_currentQuantityGamePoints == _maxQuantityGamePoints)
+        public void Init()
         {
-            MaxResultAchieved?.Invoke();
+            CalculateMaxQuantityGamePoints();
+
+            ResetCurrentQuantityGamePoints();
         }
-    }
 
-    private void ResetCurrentQuantityGamePoints()
-    {
-        float minQuantityGamePoints = 0f;
+        private void OnEnable()
+        {
+            _gamePointsHandler.CollisionDetected += Count;
+        }
 
-        _currentQuantityGamePoints = minQuantityGamePoints;
-    }
+        private void OnDisable()
+        {
+            _gamePointsHandler.CollisionDetected -= Count;
+        }
 
-    private void CalculateMaxQuantityGamePoints()
-    {
-        int minRandomQuantityGamePoints = 300;
-        int maxRandomQuantityGamePoints = 1000;
+        private void Count()
+        {
+            _currentQuantityGamePoints++;
 
-        int randomQuantityGamePoints = UnityEngine.Random.Range(minRandomQuantityGamePoints, maxRandomQuantityGamePoints);
+            PointCounted?.Invoke(_currentQuantityGamePoints);
 
-        _maxQuantityGamePoints = randomQuantityGamePoints;
+            TryReportMaxResultAchieved();
+        }
+
+        private void TryReportMaxResultAchieved()
+        {
+            if (_currentQuantityGamePoints == _maxQuantityGamePoints)
+            {
+                MaxResultAchieved?.Invoke();
+            }
+        }
+
+        private void ResetCurrentQuantityGamePoints()
+        {
+            float minQuantityGamePoints = 0f;
+
+            _currentQuantityGamePoints = minQuantityGamePoints;
+        }
+
+        private void CalculateMaxQuantityGamePoints()
+        {
+            int minRandomQuantityGamePoints = 300;
+            int maxRandomQuantityGamePoints = 1000;
+
+            int randomQuantityGamePoints = UnityEngine.Random.Range(minRandomQuantityGamePoints, maxRandomQuantityGamePoints);
+
+            _maxQuantityGamePoints = randomQuantityGamePoints;
+        }
     }
 }

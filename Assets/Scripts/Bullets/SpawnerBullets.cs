@@ -1,67 +1,70 @@
 using System;
 using UnityEngine;
 
-public class SpawnerBullets : Spawner<BulletsPool>
+namespace Bullets
 {
-    [SerializeField] private MaterialsDispenser _materialsDispenser;
-
-    private int _index;
-
-    public event Action<Bullet> ProjectileCreated;
-
-    public event Action CriticalCollisionProjectileReported;
-
-    public event Action ProjectileCollisionDetected;
-
-    public Bullet GetCreatedProjectile(Vector3 position, Quaternion rotation)
+    public class SpawnerBullets : Spawner<BulletsPool>
     {
-        int valueLengthSubtracted = 1;
-        int minValueIndex = 0;
+        [SerializeField] private MaterialsDispenser _materialsDispenser;
 
-        if (_index >= _materialsDispenser.MaterialsColoredBalls.Count - valueLengthSubtracted)
+        private int _index;
+
+        public event Action<Bullet> ProjectileCreated;
+
+        public event Action CriticalCollisionProjectileReported;
+
+        public event Action ProjectileCollisionDetected;
+
+        public Bullet GetCreatedProjectile(Vector3 position, Quaternion rotation)
         {
-            ResetIndexMaterialsColoredBalls(minValueIndex);
-        }
-        else
-        {
-            _index++;
-        }
+            int valueLengthSubtracted = 1;
+            int minValueIndex = 0;
 
-        Bullet newProjectile = ObjectsPool.GetObject(position, rotation);
+            if (_index >= _materialsDispenser.MaterialsColoredBalls.Count - valueLengthSubtracted)
+            {
+                ResetIndexMaterialsColoredBalls(minValueIndex);
+            }
+            else
+            {
+                _index++;
+            }
 
-        newProjectile.SetMaterial(_materialsDispenser.MaterialsColoredBalls[_index]);
+            Bullet newProjectile = ObjectsPool.GetObject(position, rotation);
 
-        newProjectile.DisableIsMoved();
+            newProjectile.SetMaterial(_materialsDispenser.MaterialsColoredBalls[_index]);
 
-        newProjectile.CollisionDetected += ReportCollisionDetectedProjectile;
+            newProjectile.DisableIsMoved();
 
-        ReportProjectileCreated(newProjectile);
+            newProjectile.CollisionDetected += ReportCollisionDetectedProjectile;
 
-        return newProjectile;
-    }
+            ReportProjectileCreated(newProjectile);
 
-    private void ResetIndexMaterialsColoredBalls(int minValueIndex)
-    {
-        _index = minValueIndex;
-    }
-
-    private void ReportProjectileCreated(Bullet newProjectile)
-    {
-        ProjectileCreated?.Invoke(newProjectile);
-    }
-
-    private void ReportCollisionDetectedProjectile(Bullet newProjectile)
-    {
-        newProjectile.CollisionDetected -= ReportCollisionDetectedProjectile;
-
-        if (newProjectile.IsCriticalCollision == true)
-        {
-            CriticalCollisionProjectileReported?.Invoke();
+            return newProjectile;
         }
 
-        if(newProjectile.IsBallCollision == true)
+        private void ResetIndexMaterialsColoredBalls(int minValueIndex)
         {
-            ProjectileCollisionDetected?.Invoke();
+            _index = minValueIndex;
+        }
+
+        private void ReportProjectileCreated(Bullet newProjectile)
+        {
+            ProjectileCreated?.Invoke(newProjectile);
+        }
+
+        private void ReportCollisionDetectedProjectile(Bullet newProjectile)
+        {
+            newProjectile.CollisionDetected -= ReportCollisionDetectedProjectile;
+
+            if (newProjectile.IsCriticalCollision == true)
+            {
+                CriticalCollisionProjectileReported?.Invoke();
+            }
+
+            if (newProjectile.IsBallCollision == true)
+            {
+                ProjectileCollisionDetected?.Invoke();
+            }
         }
     }
 }

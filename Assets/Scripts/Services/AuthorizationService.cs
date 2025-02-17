@@ -1,10 +1,13 @@
 using UnityEngine;
 using YG;
 
-public class AuthorizationService : MonoBehaviour
+namespace Services
 {
-    public void ShowAuthDialog()
+    public class AuthorizationService : MonoBehaviour
     {
-        YandexGame.AuthDialog();
+        public void ShowAuthDialog()
+        {
+            YandexGame.AuthDialog();
+        }
     }
 }

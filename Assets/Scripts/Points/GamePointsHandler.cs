@@ -1,28 +1,33 @@
 using System;
+using Bullets;
+using ColoredBalls;
 using UnityEngine;
 
-public class GamePointsHandler : MonoBehaviour
+namespace Points
 {
-    public event Action CollisionDetected;
-
-    private void OnTriggerEnter(Collider other)
+    public class GamePointsHandler : MonoBehaviour
     {
-        if (other.TryGetComponent(out ColoredBall coloredBall))
-        {
-            ReportCollisionDetected();
-        }
+        public event Action CollisionDetected;
 
-        if(other.TryGetComponent(out Bullet bullet))
+        private void OnTriggerEnter(Collider other)
         {
-            if(bullet.IsOneColorCollision == true)
+            if (other.TryGetComponent(out ColoredBall coloredBall))
             {
                 ReportCollisionDetected();
             }
-        }
-    }
 
-    private void ReportCollisionDetected()
-    {
-        CollisionDetected?.Invoke();
+            if (other.TryGetComponent(out Bullet bullet))
+            {
+                if (bullet.IsOneColorCollision == true)
+                {
+                    ReportCollisionDetected();
+                }
+            }
+        }
+
+        private void ReportCollisionDetected()
+        {
+            CollisionDetected?.Invoke();
+        }
     }
 }

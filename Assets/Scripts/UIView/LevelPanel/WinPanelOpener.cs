@@ -1,41 +1,45 @@
 using System;
+using GamePointsSlidebar;
+using Services;
 using UnityEngine;
-using YG;
 
-public class WinPanelOpener : MonoBehaviour
+namespace LevelPanel
 {
-    [SerializeField] private ObjectsChangerService _objectsChangerService;
-    [SerializeField] private WinPanel _winPanel;
-    [SerializeField] private GamePointsIndicator _gamePointsIndicator;
-    [SerializeField] private PauseService _pauseService;
-
-    public event Action PanelOpened;
-
-    private bool _isPanelOpened;
-
-    private void OnEnable()
+    public class WinPanelOpener : MonoBehaviour
     {
-        _isPanelOpened = false;
+        [SerializeField] private ObjectsChangerService _objectsChangerService;
+        [SerializeField] private WinPanel _winPanel;
+        [SerializeField] private GamePointsIndicator _gamePointsIndicator;
+        [SerializeField] private PauseService _pauseService;
 
-        _gamePointsIndicator.Filled += Show;
-    }
+        public event Action PanelOpened;
 
-    private void OnDisable()
-    {
-        _gamePointsIndicator.Filled -= Show;
-    }
+        private bool _isPanelOpened;
 
-    private void Show()
-    {
-        if (_isPanelOpened == false)
+        private void OnEnable()
         {
-            _isPanelOpened = true;
+            _isPanelOpened = false;
 
-            _objectsChangerService.EnableObject(_winPanel.gameObject);
+            _gamePointsIndicator.Filled += Show;
+        }
 
-            PanelOpened?.Invoke();
+        private void OnDisable()
+        {
+            _gamePointsIndicator.Filled -= Show;
+        }
 
-            _pauseService.EnablePause();
+        private void Show()
+        {
+            if (_isPanelOpened == false)
+            {
+                _isPanelOpened = true;
+
+                _objectsChangerService.EnableObject(_winPanel.gameObject);
+
+                PanelOpened?.Invoke();
+
+                _pauseService.EnablePause();
+            }
         }
     }
 }

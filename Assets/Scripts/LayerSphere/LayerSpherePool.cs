@@ -1,4 +1,7 @@
-public class LayerSpherePool : ObjectsPool<LayerSphere>
+namespace LayerSpheres
 {
+    public class LayerSpherePool : ObjectsPool<LayerSphere>
+    {
 
+    }
 }

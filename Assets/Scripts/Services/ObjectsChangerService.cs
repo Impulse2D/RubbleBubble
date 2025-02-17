@@ -1,14 +1,17 @@
 using UnityEngine;
 
-public class ObjectsChangerService : MonoBehaviour
+namespace Services
 {
-    public void EnableObject(GameObject gameObjectPanel)
+    public class ObjectsChangerService : MonoBehaviour
     {
-        gameObjectPanel.SetActive(true);
-    }
+        public void EnableObject(GameObject gameObjectPanel)
+        {
+            gameObjectPanel.SetActive(true);
+        }
 
-    public void DisableObject(GameObject gameObjectPanel)
-    {
-        gameObjectPanel.SetActive(false);
+        public void DisableObject(GameObject gameObjectPanel)
+        {
+            gameObjectPanel.SetActive(false);
+        }
     }
 }

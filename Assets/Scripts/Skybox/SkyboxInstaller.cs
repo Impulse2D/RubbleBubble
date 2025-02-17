@@ -1,17 +1,20 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class SkyboxInstaller : MonoBehaviour
+namespace Skybox
 {
-    [SerializeField] private List<Material> _materialsSkyboxes;
-
-    public void Init()
+    public class SkyboxInstaller : MonoBehaviour
     {
-        float minIndexMaterialsSkyboxes = 0f;
-        float maxIndexMaterialsSkyboxes = _materialsSkyboxes.Count;
+        [SerializeField] private List<Material> _materialsSkyboxes;
 
-        float randomMaterial = Random.Range(minIndexMaterialsSkyboxes, maxIndexMaterialsSkyboxes);
+        public void Init()
+        {
+            float minIndexMaterialsSkyboxes = 0f;
+            float maxIndexMaterialsSkyboxes = _materialsSkyboxes.Count;
 
-        RenderSettings.skybox = _materialsSkyboxes[(int)randomMaterial];
+            float randomMaterial = Random.Range(minIndexMaterialsSkyboxes, maxIndexMaterialsSkyboxes);
+
+            RenderSettings.skybox = _materialsSkyboxes[(int)randomMaterial];
+        }
     }
 }

@@ -2,19 +2,22 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 
-public class DiamondPlusMover : MonoBehaviour
+namespace Diamonds
 {
-    public event Action<DiamondPlusMover> Released;
-
-    public void Move(Vector3 targetPosition)
+    public class DiamondPlusMover : MonoBehaviour
     {
-        float duraction = 2f;
+        public event Action<DiamondPlusMover> Released;
 
-        transform.DOMove(targetPosition, duraction).onComplete = ReportReleased;
-    }
+        public void Move(Vector3 targetPosition)
+        {
+            float duraction = 2f;
 
-    private void ReportReleased()
-    {
-        Released?.Invoke(this);
+            transform.DOMove(targetPosition, duraction).onComplete = ReportReleased;
+        }
+
+        private void ReportReleased()
+        {
+            Released?.Invoke(this);
+        }
     }
 }

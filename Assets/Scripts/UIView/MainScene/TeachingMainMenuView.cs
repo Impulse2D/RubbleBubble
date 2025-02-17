@@ -1,41 +1,46 @@
+using Services;
+using SoundsPlayers;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TeachingMainMenuView : MonoBehaviour
+namespace MainScene
 {
-    [SerializeField] private ObjectsChangerService _objectsChangerService;
-    [SerializeField] private TeachingPanelCanvas _teachingPanelCanvas;
-    [SerializeField] private Button _teachingPanelOpenerButton;
-    [SerializeField] private Button _teachingPanelCloserButton;
-    [SerializeField] private PauseService _pauseService;
-    [SerializeField] private UIPanelsSoundsPlayer _uIPanelsSoundsPlayer;
-
-    private void OnEnable()
+    public class TeachingMainMenuView : MonoBehaviour
     {
-        _teachingPanelOpenerButton.onClick.AddListener(Show);
-        _teachingPanelCloserButton.onClick.AddListener(Hide);
-    }
+        [SerializeField] private ObjectsChangerService _objectsChangerService;
+        [SerializeField] private TeachingPanelCanvas _teachingPanelCanvas;
+        [SerializeField] private Button _teachingPanelOpenerButton;
+        [SerializeField] private Button _teachingPanelCloserButton;
+        [SerializeField] private PauseService _pauseService;
+        [SerializeField] private UIPanelsSoundsPlayer _uIPanelsSoundsPlayer;
 
-    private void OnDisable()
-    {
-        _teachingPanelOpenerButton.onClick.RemoveListener(Show);
-        _teachingPanelCloserButton.onClick.RemoveListener(Hide);
-    }
+        private void OnEnable()
+        {
+            _teachingPanelOpenerButton.onClick.AddListener(Show);
+            _teachingPanelCloserButton.onClick.AddListener(Hide);
+        }
 
-    private void Show()
-    {
-        _objectsChangerService.EnableObject(_teachingPanelCanvas.gameObject);
+        private void OnDisable()
+        {
+            _teachingPanelOpenerButton.onClick.RemoveListener(Show);
+            _teachingPanelCloserButton.onClick.RemoveListener(Hide);
+        }
 
-        _pauseService.EnablePause();
+        private void Show()
+        {
+            _objectsChangerService.EnableObject(_teachingPanelCanvas.gameObject);
 
-        _uIPanelsSoundsPlayer.PlaySound();
-    }
+            _pauseService.EnablePause();
 
-    private void Hide()
-    {
-        _objectsChangerService.DisableObject(_teachingPanelCanvas.gameObject);
+            _uIPanelsSoundsPlayer.PlaySound();
+        }
+
+        private void Hide()
+        {
+            _objectsChangerService.DisableObject(_teachingPanelCanvas.gameObject);
 
 
-        _pauseService.DisablePause();
+            _pauseService.DisablePause();
+        }
     }
 }

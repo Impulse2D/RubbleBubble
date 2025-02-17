@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class SpawnPointFirstLayerSphere : MonoBehaviour
+namespace LayerSpheres
 {
+    public class SpawnPointFirstLayerSphere : MonoBehaviour
+    {
 
+    }
 }

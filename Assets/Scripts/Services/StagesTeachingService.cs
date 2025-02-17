@@ -1,18 +1,21 @@
 using UnityEngine;
 
-public class StagesTeachingService : MonoBehaviour
+namespace Services
 {
-    private int _numberStage;
-
-    public int NumberStage => _numberStage;
-
-    public void Init()
+    public class StagesTeachingService : MonoBehaviour
     {
-        _numberStage = 1;
-    }
+        private int _numberStage;
 
-    public void IncreaseNumberStage()
-    {
-        _numberStage++;
+        public int NumberStage => _numberStage;
+
+        public void Init()
+        {
+            _numberStage = 1;
+        }
+
+        public void IncreaseNumberStage()
+        {
+            _numberStage++;
+        }
     }
 }

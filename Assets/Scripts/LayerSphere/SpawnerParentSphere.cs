@@ -1,26 +1,29 @@
 using System;
 using UnityEngine;
 
-public class SpawnerParentSphere : MonoBehaviour
+namespace LayerSpheres
 {
-    [SerializeField] private SpawnPointFirstLayerSphere _spawnPointFirstLayerSphere;
-    [SerializeField] private ParentSpheres _parentSpheres;
-
-    private ParentSpheres _currentParentSpheres;
-
-    public ParentSpheres CurrentParentSpheres => _currentParentSpheres;
-
-    public event Action<ParentSpheres> Created;
-
-    public void Init()
+    public class SpawnerParentSphere : MonoBehaviour
     {
-        Create();
+        [SerializeField] private SpawnPointFirstLayerSphere _spawnPointFirstLayerSphere;
+        [SerializeField] private ParentSpheres _parentSpheres;
 
-        Created?.Invoke(_currentParentSpheres);
-    }
+        private ParentSpheres _currentParentSpheres;
 
-    private void Create()
-    {
-        _currentParentSpheres = Instantiate(_parentSpheres, _spawnPointFirstLayerSphere.transform.position, Quaternion.identity);
+        public ParentSpheres CurrentParentSpheres => _currentParentSpheres;
+
+        public event Action<ParentSpheres> Created;
+
+        public void Init()
+        {
+            Create();
+
+            Created?.Invoke(_currentParentSpheres);
+        }
+
+        private void Create()
+        {
+            _currentParentSpheres = Instantiate(_parentSpheres, _spawnPointFirstLayerSphere.transform.position, Quaternion.identity);
+        }
     }
 }

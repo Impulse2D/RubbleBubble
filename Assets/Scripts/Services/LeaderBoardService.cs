@@ -2,67 +2,70 @@ using System.Collections;
 using UnityEngine;
 using YG;
 
-public class LeaderBoardService : MonoBehaviour
+namespace Services
 {
-    private const string NameLiderBoard = "LevelScore";
-
-    [SerializeField] private LevelService _levelService;
-
-    private int _newScore;
-
-    private int _currentScore;
-    private Coroutine _coroutine;
-
-    public void Init()
+    public class LeaderBoardService : MonoBehaviour
     {
-        _newScore = YandexGame.savesData.numberLevel;
-        _currentScore = YandexGame.savesData.currentRecord;
+        private const string NameLiderBoard = "LevelScore";
 
-        if (YandexGame.auth == true)
+        [SerializeField] private LevelService _levelService;
+
+        private int _newScore;
+
+        private int _currentScore;
+        private Coroutine _coroutine;
+
+        public void Init()
         {
-            AddNewLeaderboardScores();
-        }
-    }
+            _newScore = YandexGame.savesData.numberLevel;
+            _currentScore = YandexGame.savesData.currentRecord;
 
-    public void AddNewLeaderboardScores()
-    {
-        if (_newScore > _currentScore)
-        {
-            YandexGame.NewLeaderboardScores(NameLiderBoard, _newScore);
-
-            YandexGame.savesData.currentRecord = _newScore;
-
-            SaveDataLeaderboard();
-        }
-        else
-        {
-            YandexGame.NewLeaderboardScores(NameLiderBoard, _currentScore);
-
-            YandexGame.savesData.currentRecord = _currentScore;
-
-            SaveDataLeaderboard();
-        }
-    }
-
-    private void SaveDataLeaderboard()
-    {
-        if (_coroutine != null)
-        {
-            StopCoroutine(CountDelayAfterSaveValueRecord());
+            if (YandexGame.auth == true)
+            {
+                AddNewLeaderboardScores();
+            }
         }
 
-        StartCoroutine(CountDelayAfterSaveValueRecord());
-    }
+        public void AddNewLeaderboardScores()
+        {
+            if (_newScore > _currentScore)
+            {
+                YandexGame.NewLeaderboardScores(NameLiderBoard, _newScore);
 
-    private IEnumerator CountDelayAfterSaveValueRecord()
-    {
-        float delay = 1f;
+                YandexGame.savesData.currentRecord = _newScore;
 
-        WaitForSeconds timeWait = new WaitForSeconds(delay);
+                SaveDataLeaderboard();
+            }
+            else
+            {
+                YandexGame.NewLeaderboardScores(NameLiderBoard, _currentScore);
 
-        yield return timeWait;
+                YandexGame.savesData.currentRecord = _currentScore;
 
-        YandexGame.SaveProgress();
+                SaveDataLeaderboard();
+            }
+        }
+
+        private void SaveDataLeaderboard()
+        {
+            if (_coroutine != null)
+            {
+                StopCoroutine(CountDelayAfterSaveValueRecord());
+            }
+
+            StartCoroutine(CountDelayAfterSaveValueRecord());
+        }
+
+        private IEnumerator CountDelayAfterSaveValueRecord()
+        {
+            float delay = 1f;
+
+            WaitForSeconds timeWait = new WaitForSeconds(delay);
+
+            yield return timeWait;
+
+            YandexGame.SaveProgress();
+        }
     }
 }
 

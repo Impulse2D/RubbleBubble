@@ -1,34 +1,40 @@
+using Canvases;
+using Gun;
+using Services;
 using UnityEngine;
 
-public class ShootingChanger : MonoBehaviour
+namespace UIPanelsVisibleChanger
 {
-    [SerializeField] private ObjectsChangerService _objectsChangerService;
-    [SerializeField] private CanvasReloadBullets _canvasReloadBullets;
-    [SerializeField] private PauseService _pauseService;
-    [SerializeField] private InputReader _inputReader;
-    [SerializeField] private TrajectoryVisualizer _trajectoryVisualizer;
-
-    private void OnEnable()
+    public class ShootingChanger : MonoBehaviour
     {
-        _pauseService.PauseEnabled += EnablePause;
-        _pauseService.PauseDisabled += DisablePause;
-    }
+        [SerializeField] private ObjectsChangerService _objectsChangerService;
+        [SerializeField] private CanvasReloadBullets _canvasReloadBullets;
+        [SerializeField] private PauseService _pauseService;
+        [SerializeField] private InputReader _inputReader;
+        [SerializeField] private TrajectoryVisualizer _trajectoryVisualizer;
 
-    private void OnDisable()
-    {
-        _pauseService.PauseEnabled -= EnablePause;
-        _pauseService.PauseDisabled -= DisablePause;
-    }
+        private void OnEnable()
+        {
+            _pauseService.PauseEnabled += EnablePause;
+            _pauseService.PauseDisabled += DisablePause;
+        }
 
-    private void EnablePause()
-    {
-        _objectsChangerService.DisableObject(_trajectoryVisualizer.gameObject);
+        private void OnDisable()
+        {
+            _pauseService.PauseEnabled -= EnablePause;
+            _pauseService.PauseDisabled -= DisablePause;
+        }
 
-        _objectsChangerService.DisableObject(_inputReader.gameObject);
-    }
+        private void EnablePause()
+        {
+            _objectsChangerService.DisableObject(_trajectoryVisualizer.gameObject);
 
-    private void DisablePause()
-    {
-        _objectsChangerService.EnableObject(_inputReader.gameObject);
+            _objectsChangerService.DisableObject(_inputReader.gameObject);
+        }
+
+        private void DisablePause()
+        {
+            _objectsChangerService.EnableObject(_inputReader.gameObject);
+        }
     }
 }

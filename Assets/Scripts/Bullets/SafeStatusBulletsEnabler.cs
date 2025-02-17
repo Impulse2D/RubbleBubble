@@ -1,35 +1,40 @@
+using LayerSpheres;
+using Services;
 using UnityEngine;
 
-public class SafeStatusBulletsEnabler : MonoBehaviour
+namespace Bullets
 {
-    [SerializeField] private LifeService _lifeService;
-    [SerializeField] private SpawnPointFirstLayerSphere _spawnPointFirstLayerSphere;
-
-    private void OnEnable()
+    public class SafeStatusBulletsEnabler : MonoBehaviour
     {
-        _lifeService.LivesExhausted += TryRemoveAllProjectile;
-    }
+        [SerializeField] private LifeService _lifeService;
+        [SerializeField] private SpawnPointFirstLayerSphere _spawnPointFirstLayerSphere;
 
-    private void OnDisable()
-    {
-        _lifeService.LivesExhausted -= TryRemoveAllProjectile;
-    }
-
-    private void TryRemoveAllProjectile()
-    {
-        float radius = 1000f;
-
-        Collider[] overlappedColliders = Physics.OverlapSphere(_spawnPointFirstLayerSphere.transform.position, radius);
-
-        for (int i = 0; i < overlappedColliders.Length; i++)
+        private void OnEnable()
         {
-            if (overlappedColliders[i] != null)
+            _lifeService.LivesExhausted += TryRemoveAllProjectile;
+        }
+
+        private void OnDisable()
+        {
+            _lifeService.LivesExhausted -= TryRemoveAllProjectile;
+        }
+
+        private void TryRemoveAllProjectile()
+        {
+            float radius = 1000f;
+
+            Collider[] overlappedColliders = Physics.OverlapSphere(_spawnPointFirstLayerSphere.transform.position, radius);
+
+            for (int i = 0; i < overlappedColliders.Length; i++)
             {
-                if (overlappedColliders[i].TryGetComponent(out Bullet projectile))
+                if (overlappedColliders[i] != null)
                 {
-                    if (projectile.IsMoved == true)
+                    if (overlappedColliders[i].TryGetComponent(out Bullet projectile))
                     {
-                        projectile.DisableIsMoved();
+                        if (projectile.IsMoved == true)
+                        {
+                            projectile.DisableIsMoved();
+                        }
                     }
                 }
             }

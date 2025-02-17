@@ -1952,8 +1952,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acc3e8c545ba66944b5938f115e98158, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnerProjectiles: {fileID: 400932824}
-  _projectilesPool: {fileID: 400932825}
+  _spawnerBullets: {fileID: 400932824}
+  _bulletsPool: {fileID: 400932825}
 --- !u!1 &324314934
 GameObject:
   m_ObjectHideFlags: 0
@@ -2573,11 +2573,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2be13c60b2a6c4fa2ba53502c2a577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnerProjectiles: {fileID: 400932824}
-  _spawnPointProjectiles:
+  _spawnerBullets: {fileID: 400932824}
+  _spawnPointBullets:
   - {fileID: 1429644404}
   - {fileID: 653962983}
-  _projectilesPool: {fileID: 400932825}
+  _bulletsPool: {fileID: 400932825}
 --- !u!1 &369242155
 GameObject:
   m_ObjectHideFlags: 0
@@ -26132,8 +26132,8 @@ SceneRoots:
   - {fileID: 369242157}
   - {fileID: 442102437}
   - {fileID: 1429644403}
-  - {fileID: 1355310537}
   - {fileID: 653962986}
+  - {fileID: 1355310537}
   - {fileID: 937004720}
   - {fileID: 1375840411}
   - {fileID: 2068890558}

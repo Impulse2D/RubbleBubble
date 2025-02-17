@@ -1,24 +1,28 @@
+using LevelPanel;
 using UnityEngine;
 
-public class WinPanelsSoundPlayer : SoundsPlayer
+namespace SoundsPlayers
 {
-    [SerializeField] private WinPanelOpener _winPanelOpener;
-
-    private void OnEnable()
+    public class WinPanelsSoundPlayer : SoundsPlayer
     {
-        _winPanelOpener.PanelOpened += PlaySound;
-        PauseService.FocusOnPauseNotDetected += StopSound;
-    }
+        [SerializeField] private WinPanelOpener _winPanelOpener;
 
-    private void OnDisable()
-    {
-        _winPanelOpener.PanelOpened -= PlaySound;
-        PauseService.FocusOnPauseNotDetected -= StopSound;
-    }
+        private void OnEnable()
+        {
+            _winPanelOpener.PanelOpened += PlaySound;
+            PauseService.FocusOnPauseNotDetected += StopSound;
+        }
+
+        private void OnDisable()
+        {
+            _winPanelOpener.PanelOpened -= PlaySound;
+            PauseService.FocusOnPauseNotDetected -= StopSound;
+        }
 
 
-    public override void PlaySound()
-    {
-        SoundsService.PlaySoundOneShot(AudioSource, AudioClip);
+        public override void PlaySound()
+        {
+            SoundsService.PlaySoundOneShot(AudioSource, AudioClip);
+        }
     }
 }

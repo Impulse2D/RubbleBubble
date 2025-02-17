@@ -1,6 +1,10 @@
 using UnityEngine;
 
-public class PausePanelAuthorization : MonoBehaviour
+namespace AuthorizationPanels
 {
+    public class PausePanelAuthorization : MonoBehaviour
+    {
+
+    }
 
 }

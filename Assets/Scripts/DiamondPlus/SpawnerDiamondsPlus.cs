@@ -1,37 +1,41 @@
 using System;
+using Points;
 using UnityEngine;
 
-public class SpawnerDiamondsPlus : Spawner<DiamondPlusPool>
+namespace Diamonds
 {
-    [SerializeField] private SpawnPointDiamondPlus _spawnPointDiamondPlus;
-    [SerializeField] private TargetPointDiamondPlus _targetPointDiamondPlus;
-    [SerializeField] private GamePointsHandler _gamePointsHandler;
-
-    public event Action<DiamondPlusMover> DiamondPlusReleased;
-
-    private void OnEnable()
+    public class SpawnerDiamondsPlus : Spawner<DiamondPlusPool>
     {
-        _gamePointsHandler.CollisionDetected += Create;
-    }
+        [SerializeField] private SpawnPointDiamondPlus _spawnPointDiamondPlus;
+        [SerializeField] private TargetPointDiamondPlus _targetPointDiamondPlus;
+        [SerializeField] private GamePointsHandler _gamePointsHandler;
 
-    private void OnDisable()
-    {
-        _gamePointsHandler.CollisionDetected -= Create;
-    }
+        public event Action<DiamondPlusMover> DiamondPlusReleased;
 
-    private void Create()
-    {
-        DiamondPlusMover diamondPlus = ObjectsPool.GetObject(_spawnPointDiamondPlus.transform.position, Quaternion.identity);
+        private void OnEnable()
+        {
+            _gamePointsHandler.CollisionDetected += Create;
+        }
 
-        diamondPlus.Move(_targetPointDiamondPlus.transform.position);
+        private void OnDisable()
+        {
+            _gamePointsHandler.CollisionDetected -= Create;
+        }
 
-        diamondPlus.Released += ReportDiamondPlusReleased;
-    }
+        private void Create()
+        {
+            DiamondPlusMover diamondPlus = ObjectsPool.GetObject(_spawnPointDiamondPlus.transform.position, Quaternion.identity);
 
-    private void ReportDiamondPlusReleased(DiamondPlusMover diamondPlus)
-    {
-        diamondPlus.Released -= ReportDiamondPlusReleased;
+            diamondPlus.Move(_targetPointDiamondPlus.transform.position);
 
-        DiamondPlusReleased?.Invoke(diamondPlus);
+            diamondPlus.Released += ReportDiamondPlusReleased;
+        }
+
+        private void ReportDiamondPlusReleased(DiamondPlusMover diamondPlus)
+        {
+            diamondPlus.Released -= ReportDiamondPlusReleased;
+
+            DiamondPlusReleased?.Invoke(diamondPlus);
+        }
     }
 }

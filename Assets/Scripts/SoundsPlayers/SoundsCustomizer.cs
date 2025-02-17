@@ -1,143 +1,147 @@
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.Audio;
+using Services;
 
-public class SoundsCustomizer : MonoBehaviour
+namespace SoundsPlayers
 {
-    private const string MusicVolume = nameof(MusicVolume);
-    private const string EffectsVolume = nameof(EffectsVolume);
-    private const string MuteMusicVolumeStatus = nameof(MuteMusicVolumeStatus);
-    private const string MuteEffectsVolumeStatus = nameof(MuteEffectsVolumeStatus);
-    private const string MuteEnabled = nameof(MuteEnabled);
-    private const string MuteDisabled = nameof(MuteDisabled);
-
-    [SerializeField] private ObjectsChangerService _objectsChangerService;
-    [SerializeField] private AudioMixerGroup _mixer;
-    [SerializeField] private Toggle _toggleSwitchMusicVolume;
-    [SerializeField] private Toggle _toggleSwitchEffectsVolume;
-    [SerializeField] private Image _enabledMuteImageMusicVolume;
-    [SerializeField] private Image _disabledMuteImageMusicVolume;
-    [SerializeField] private Image _enabledMuteImageEffectsVolume;
-    [SerializeField] private Image _disabledMuteImageEffectsVolume;
-
-    private float _minValueVolumeSounds = -80f;
-    private float _maxValueVolumeSounds = 0f;
-
-    private string _statusMuteMusicVolume;
-    private string _statusMuteEffectsVolume;
-
-    private void OnEnable()
+    public class SoundsCustomizer : MonoBehaviour
     {
-        _toggleSwitchMusicVolume.onValueChanged.AddListener(SwitchMusicVolume);
-        _toggleSwitchEffectsVolume.onValueChanged.AddListener(SwitchEffectsVolume);
-    }
+        private const string MusicVolume = nameof(MusicVolume);
+        private const string EffectsVolume = nameof(EffectsVolume);
+        private const string MuteMusicVolumeStatus = nameof(MuteMusicVolumeStatus);
+        private const string MuteEffectsVolumeStatus = nameof(MuteEffectsVolumeStatus);
+        private const string MuteEnabled = nameof(MuteEnabled);
+        private const string MuteDisabled = nameof(MuteDisabled);
 
-    private void OnDisable()
-    {
-        _toggleSwitchMusicVolume.onValueChanged.RemoveListener(SwitchMusicVolume);
-        _toggleSwitchEffectsVolume.onValueChanged.RemoveListener(SwitchEffectsVolume);
-    }
+        [SerializeField] private ObjectsChangerService _objectsChangerService;
+        [SerializeField] private AudioMixerGroup _mixer;
+        [SerializeField] private Toggle _toggleSwitchMusicVolume;
+        [SerializeField] private Toggle _toggleSwitchEffectsVolume;
+        [SerializeField] private Image _enabledMuteImageMusicVolume;
+        [SerializeField] private Image _disabledMuteImageMusicVolume;
+        [SerializeField] private Image _enabledMuteImageEffectsVolume;
+        [SerializeField] private Image _disabledMuteImageEffectsVolume;
 
-    public void Init()
-    {
-        _statusMuteMusicVolume = PlayerPrefs.GetString(MuteMusicVolumeStatus);
-        _statusMuteEffectsVolume = PlayerPrefs.GetString(MuteEffectsVolumeStatus);
+        private float _minValueVolumeSounds = -80f;
+        private float _maxValueVolumeSounds = 0f;
 
-        LoadSavedDataMusicVolumeSettings();
-        LoadSavedDataEffectsVolumeSettings();
-    }
+        private string _statusMuteMusicVolume;
+        private string _statusMuteEffectsVolume;
 
-    private void LoadSavedDataMusicVolumeSettings()
-    {
-        if (_statusMuteMusicVolume == MuteEnabled)
+        private void OnEnable()
         {
-            SetIsOnToggleSwitchVolume(_toggleSwitchMusicVolume, false);
-
-            EnableMute(MusicVolume, _enabledMuteImageMusicVolume, _disabledMuteImageMusicVolume);
+            _toggleSwitchMusicVolume.onValueChanged.AddListener(SwitchMusicVolume);
+            _toggleSwitchEffectsVolume.onValueChanged.AddListener(SwitchEffectsVolume);
         }
-        else
+
+        private void OnDisable()
         {
-            SetIsOnToggleSwitchVolume(_toggleSwitchMusicVolume, true);
-
-            DisableMute(MusicVolume, _enabledMuteImageMusicVolume, _disabledMuteImageMusicVolume);
+            _toggleSwitchMusicVolume.onValueChanged.RemoveListener(SwitchMusicVolume);
+            _toggleSwitchEffectsVolume.onValueChanged.RemoveListener(SwitchEffectsVolume);
         }
-    }
 
-    private void LoadSavedDataEffectsVolumeSettings()
-    {
-        if (_statusMuteEffectsVolume == MuteEnabled)
+        public void Init()
         {
-            SetIsOnToggleSwitchVolume(_toggleSwitchEffectsVolume, false);
+            _statusMuteMusicVolume = PlayerPrefs.GetString(MuteMusicVolumeStatus);
+            _statusMuteEffectsVolume = PlayerPrefs.GetString(MuteEffectsVolumeStatus);
 
-            EnableMute(EffectsVolume, _enabledMuteImageEffectsVolume, _disabledMuteImageEffectsVolume);
+            LoadSavedDataMusicVolumeSettings();
+            LoadSavedDataEffectsVolumeSettings();
         }
-        else
+
+        private void LoadSavedDataMusicVolumeSettings()
         {
-            SetIsOnToggleSwitchVolume(_toggleSwitchEffectsVolume, true);
+            if (_statusMuteMusicVolume == MuteEnabled)
+            {
+                SetIsOnToggleSwitchVolume(_toggleSwitchMusicVolume, false);
 
-            DisableMute(EffectsVolume, _enabledMuteImageEffectsVolume, _disabledMuteImageEffectsVolume);
+                EnableMute(MusicVolume, _enabledMuteImageMusicVolume, _disabledMuteImageMusicVolume);
+            }
+            else
+            {
+                SetIsOnToggleSwitchVolume(_toggleSwitchMusicVolume, true);
+
+                DisableMute(MusicVolume, _enabledMuteImageMusicVolume, _disabledMuteImageMusicVolume);
+            }
         }
-    }
 
-    private void SetIsOnToggleSwitchVolume(Toggle toggle, bool isOnToggleSwitchMusicVolume)
-    {
-        toggle.isOn = isOnToggleSwitchMusicVolume;
-    }
-
-    private void SwitchMusicVolume(bool enabled)
-    {
-        SwitchVolume(MusicVolume, MuteMusicVolumeStatus, _enabledMuteImageMusicVolume, _disabledMuteImageMusicVolume, enabled);
-    }
-
-    private void SwitchEffectsVolume(bool enabled)
-    {
-        SwitchVolume(EffectsVolume, MuteEffectsVolumeStatus, _enabledMuteImageEffectsVolume, _disabledMuteImageEffectsVolume, enabled);
-    }
-
-    private void SwitchVolume(string nameMixerParametr, string statusMute, Image enabledMute, Image disabledMute, bool isEnabled)
-    {
-        if (isEnabled == true)
+        private void LoadSavedDataEffectsVolumeSettings()
         {
-            DisableMute(nameMixerParametr, enabledMute, disabledMute);
+            if (_statusMuteEffectsVolume == MuteEnabled)
+            {
+                SetIsOnToggleSwitchVolume(_toggleSwitchEffectsVolume, false);
 
-            SaveToggleVolumeData(statusMute, MuteDisabled);
+                EnableMute(EffectsVolume, _enabledMuteImageEffectsVolume, _disabledMuteImageEffectsVolume);
+            }
+            else
+            {
+                SetIsOnToggleSwitchVolume(_toggleSwitchEffectsVolume, true);
+
+                DisableMute(EffectsVolume, _enabledMuteImageEffectsVolume, _disabledMuteImageEffectsVolume);
+            }
         }
-        else
+
+        private void SetIsOnToggleSwitchVolume(Toggle toggle, bool isOnToggleSwitchMusicVolume)
         {
-            EnableMute(nameMixerParametr, enabledMute, disabledMute);
-
-            SaveToggleVolumeData(statusMute, MuteEnabled);
+            toggle.isOn = isOnToggleSwitchMusicVolume;
         }
-    }
 
-    private void DisableMute(string nameMixerParametr, Image enabledMute, Image disabledMute)
-    {
-        SetFloatMixer(nameMixerParametr, _maxValueVolumeSounds);
+        private void SwitchMusicVolume(bool enabled)
+        {
+            SwitchVolume(MusicVolume, MuteMusicVolumeStatus, _enabledMuteImageMusicVolume, _disabledMuteImageMusicVolume, enabled);
+        }
 
-        SwitchImages(enabledMute, disabledMute);
-    }
+        private void SwitchEffectsVolume(bool enabled)
+        {
+            SwitchVolume(EffectsVolume, MuteEffectsVolumeStatus, _enabledMuteImageEffectsVolume, _disabledMuteImageEffectsVolume, enabled);
+        }
 
-    private void EnableMute(string nameMixerParametr, Image enabledMute, Image disabledMute)
-    {
-        SetFloatMixer(nameMixerParametr, _minValueVolumeSounds);
+        private void SwitchVolume(string nameMixerParametr, string statusMute, Image enabledMute, Image disabledMute, bool isEnabled)
+        {
+            if (isEnabled == true)
+            {
+                DisableMute(nameMixerParametr, enabledMute, disabledMute);
 
-        SwitchImages(disabledMute, enabledMute);
-    }
+                SaveToggleVolumeData(statusMute, MuteDisabled);
+            }
+            else
+            {
+                EnableMute(nameMixerParametr, enabledMute, disabledMute);
 
-    private void SwitchImages(Image firstStatusMuteImage, Image secondtStatusMuteImage)
-    {
-        _objectsChangerService.DisableObject(firstStatusMuteImage.gameObject);
-        _objectsChangerService.EnableObject(secondtStatusMuteImage.gameObject);
-    }
+                SaveToggleVolumeData(statusMute, MuteEnabled);
+            }
+        }
 
-    private void SaveToggleVolumeData(string statusMute, string nameStatusMute)
-    {
-        PlayerPrefs.SetString(statusMute, nameStatusMute);
-        PlayerPrefs.Save();
-    }
+        private void DisableMute(string nameMixerParametr, Image enabledMute, Image disabledMute)
+        {
+            SetFloatMixer(nameMixerParametr, _maxValueVolumeSounds);
 
-    private void SetFloatMixer(string nameMixerParametr, float valueVolumeSound)
-    {
-        _mixer.audioMixer.SetFloat(nameMixerParametr, valueVolumeSound);
+            SwitchImages(enabledMute, disabledMute);
+        }
+
+        private void EnableMute(string nameMixerParametr, Image enabledMute, Image disabledMute)
+        {
+            SetFloatMixer(nameMixerParametr, _minValueVolumeSounds);
+
+            SwitchImages(disabledMute, enabledMute);
+        }
+
+        private void SwitchImages(Image firstStatusMuteImage, Image secondtStatusMuteImage)
+        {
+            _objectsChangerService.DisableObject(firstStatusMuteImage.gameObject);
+            _objectsChangerService.EnableObject(secondtStatusMuteImage.gameObject);
+        }
+
+        private void SaveToggleVolumeData(string statusMute, string nameStatusMute)
+        {
+            PlayerPrefs.SetString(statusMute, nameStatusMute);
+            PlayerPrefs.Save();
+        }
+
+        private void SetFloatMixer(string nameMixerParametr, float valueVolumeSound)
+        {
+            _mixer.audioMixer.SetFloat(nameMixerParametr, valueVolumeSound);
+        }
     }
 }

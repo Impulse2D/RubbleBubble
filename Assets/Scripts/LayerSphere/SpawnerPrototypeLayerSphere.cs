@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class SpawnerPrototypeLayerSphere : MonoBehaviour
+namespace LayerSpheres
 {
-    [SerializeField] private SpawnPointPrototypeLayerSphere _spawnPointPrototypeInterLayer;
-    [SerializeField] private PrototypeLayerSphere _prototypeInterLayer;
-
-    public PrototypeLayerSphere GetCreatedInterLayer()
+    public class SpawnerPrototypeLayerSphere : MonoBehaviour
     {
-        return Instantiate(_prototypeInterLayer, _spawnPointPrototypeInterLayer.transform.position, Quaternion.identity);
+        [SerializeField] private SpawnPointPrototypeLayerSphere _spawnPointPrototypeInterLayer;
+        [SerializeField] private PrototypeLayerSphere _prototypeInterLayer;
+
+        public PrototypeLayerSphere GetCreatedInterLayer()
+        {
+            return Instantiate(_prototypeInterLayer, _spawnPointPrototypeInterLayer.transform.position, Quaternion.identity);
+        }
     }
 }

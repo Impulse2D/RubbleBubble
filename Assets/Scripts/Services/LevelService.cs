@@ -3,80 +3,83 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using YG;
 
-public class LevelService : MonoBehaviour
+namespace Services
 {
-    private const string GameScene = nameof(GameScene);
-    private const string CurrentLevel = nameof(CurrentLevel);
-    private const string MainScene = nameof(MainScene);
-
-    private int _numberLevel;
-
-    public event Action<string> LeveliInstalled;
-
-    public int NumberLevel => _numberLevel;
-
-    public void Init()
+    public class LevelService : MonoBehaviour
     {
-        LoadData();
-    }
+        private const string GameScene = nameof(GameScene);
+        private const string CurrentLevel = nameof(CurrentLevel);
+        private const string MainScene = nameof(MainScene);
 
-    public void LoadData()
-    {
-        _numberLevel = YandexGame.savesData.numberLevel;
+        private int _numberLevel;
 
-        PlayerPrefs.SetInt(CurrentLevel, _numberLevel);
+        public event Action<string> LeveliInstalled;
 
-        LeveliInstalled?.Invoke(_numberLevel.ToString());
-    }
+        public int NumberLevel => _numberLevel;
 
-    public void SaveData()
-    {
-        YandexGame.savesData.numberLevel = _numberLevel;
+        public void Init()
+        {
+            LoadData();
+        }
 
-        YandexGame.SaveProgress();
-    }
+        public void LoadData()
+        {
+            _numberLevel = YandexGame.savesData.numberLevel;
 
-    public void IncreaseLevel()
-    {
-        _numberLevel++;
-    }
+            PlayerPrefs.SetInt(CurrentLevel, _numberLevel);
 
-    public void GoNextLevel()
-    {
-        IncreaseLevel();
+            LeveliInstalled?.Invoke(_numberLevel.ToString());
+        }
 
-        SaveData();
+        public void SaveData()
+        {
+            YandexGame.savesData.numberLevel = _numberLevel;
 
-        ReloadLevel();
-    }
+            YandexGame.SaveProgress();
+        }
 
-    public void ReloadLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
+        public void IncreaseLevel()
+        {
+            _numberLevel++;
+        }
 
-    public void ResetLevel() 
-    {
-        _numberLevel = 1;
+        public void GoNextLevel()
+        {
+            IncreaseLevel();
 
-        YandexGame.savesData.numberLevel = _numberLevel;
+            SaveData();
 
-        YandexGame.SaveProgress();
+            ReloadLevel();
+        }
 
-        SetScene(GameScene);
-    }
+        public void ReloadLevel()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
 
-    public void LoadMainScene()
-    {
-        IncreaseLevel();
+        public void ResetLevel()
+        {
+            _numberLevel = 1;
 
-        SaveData();
+            YandexGame.savesData.numberLevel = _numberLevel;
 
-        SetScene(MainScene);
-    }
+            YandexGame.SaveProgress();
 
-    private void SetScene(string nameScene)
-    {
-        SceneManager.LoadScene(nameScene);
+            SetScene(GameScene);
+        }
+
+        public void LoadMainScene()
+        {
+            IncreaseLevel();
+
+            SaveData();
+
+            SetScene(MainScene);
+        }
+
+        private void SetScene(string nameScene)
+        {
+            SceneManager.LoadScene(nameScene);
+        }
     }
 }

@@ -1,19 +1,24 @@
 using UnityEngine;
 
-public class ColoredBallsDisabler : MonoBehaviour
+namespace ColoredBalls
 {
-    [SerializeField] private ColoredBallsPool _coloredSpheresPool;
-
-    private void OnCollisionEnter(Collision collision)
+    public class ColoredBallsDisabler : MonoBehaviour
     {
-        if (collision.gameObject.TryGetComponent(out ColoredBall coloredBalls))
+        [SerializeField] private ColoredBallsPool _coloredSpheresPool;
+
+        private void OnCollisionEnter(Collision collision)
         {
-            RemoveColoredSphere(coloredBalls);
+            if (collision.gameObject.TryGetComponent(out ColoredBall coloredBalls))
+            {
+                RemoveColoredSphere(coloredBalls);
+            }
+        }
+
+        public void RemoveColoredSphere(ColoredBall coloredBalls)
+        {
+            _coloredSpheresPool.ReturnObject(coloredBalls);
         }
     }
-
-    public void RemoveColoredSphere(ColoredBall coloredBalls)
-    {
-        _coloredSpheresPool.ReturnObject(coloredBalls);
-    }
 }
+
+

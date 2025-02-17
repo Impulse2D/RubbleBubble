@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class WinPanel : MonoBehaviour
+namespace LevelPanel
 {
+    public class WinPanel : MonoBehaviour
+    {
 
+    }
 }

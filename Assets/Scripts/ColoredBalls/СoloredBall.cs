@@ -1,98 +1,102 @@
 using System;
 using System.Collections;
+using LayerSpheres;
 using UnityEngine;
 
-public class ColoredBall : Ball
+namespace ColoredBalls
 {
-    private const string ResidentSphere = "ResidentSphere";
-    private const string Ball = "Ball";
-
-    private LayerSphere _currentLayerSphere;
-    private bool _isCollision;
-    private Coroutine _coroutine;
-    private Vector3 _defaultScale;
-
-    public event Action<ColoredBall> CollisionDetected;
-    public event Action<ColoredBall> Released;
-    public event Action<ColoredBall> Deactivated;
-
-    public LayerSphere LayerSphere => _currentLayerSphere;
-    public bool IsCollision => _isCollision;
-
-    private void OnDisable()
+    public class ColoredBall : Ball
     {
-        _defaultScale = new Vector3(0.2699991f, 0.2699991f, 0.2699991f);
+        private const string ResidentSphere = "ResidentSphere";
+        private const string Ball = "Ball";
 
-        EnableLayerMaskResidentSphere();
+        private LayerSphere _currentLayerSphere;
+        private bool _isCollision;
+        private Coroutine _coroutine;
+        private Vector3 _defaultScale;
 
-        _isCollision = false;
+        public event Action<ColoredBall> CollisionDetected;
+        public event Action<ColoredBall> Released;
+        public event Action<ColoredBall> Deactivated;
 
-        Deactivated?.Invoke(this);
-    }
+        public LayerSphere LayerSphere => _currentLayerSphere;
+        public bool IsCollision => _isCollision;
 
-    public void TryFallDown(float delay)
-    {
-        if (_currentLayerSphere != null)
+        private void OnDisable()
         {
-            if (_coroutine != null)
-            {
-                StopCoroutine(_coroutine);
-            }
+            _defaultScale = new Vector3(0.2699991f, 0.2699991f, 0.2699991f);
 
-            _coroutine = StartCoroutine(CountDownFallDown(delay));
+            EnableLayerMaskResidentSphere();
+
+            _isCollision = false;
+
+            Deactivated?.Invoke(this);
         }
-    }
 
-    public void SetLayerSphere(LayerSphere layerSphere)
-    {
-        _currentLayerSphere = layerSphere;
-    }
+        public void TryFallDown(float delay)
+        {
+            if (_currentLayerSphere != null)
+            {
+                if (_coroutine != null)
+                {
+                    StopCoroutine(_coroutine);
+                }
 
-    public void EnableIsCollision()
-    {
-        _isCollision = true;
+                _coroutine = StartCoroutine(CountDownFallDown(delay));
+            }
+        }
 
-        CollisionDetected?.Invoke(this);
-    }
+        public void SetLayerSphere(LayerSphere layerSphere)
+        {
+            _currentLayerSphere = layerSphere;
+        }
 
-    public void DisableLayerMaskResidentSphere()
-    {
-        SetNameLayerMask(Ball);
-    }
+        public void EnableIsCollision()
+        {
+            _isCollision = true;
 
-    public void FallDown()
-    {
-        Vector3 force = new Vector3(0f, 0f, -1.2f);
+            CollisionDetected?.Invoke(this);
+        }
 
-        DisableKinematic();
+        public void DisableLayerMaskResidentSphere()
+        {
+            SetNameLayerMask(Ball);
+        }
 
-        transform.SetParent(null);
+        public void FallDown()
+        {
+            Vector3 force = new Vector3(0f, 0f, -1.2f);
 
-        transform.localScale = _defaultScale;
+            DisableKinematic();
 
-        Rigidbody.AddForce(force, ForceMode.VelocityChange);
+            transform.SetParent(null);
 
-        _currentLayerSphere.RemoveColoredBall(this);
+            transform.localScale = _defaultScale;
 
-        Released?.Invoke(this);
-    }
+            Rigidbody.AddForce(force, ForceMode.VelocityChange);
 
-    private IEnumerator CountDownFallDown(float delay)
-    {
-        WaitForSeconds timeWait = new WaitForSeconds(delay);
+            _currentLayerSphere.RemoveColoredBall(this);
 
-        yield return timeWait;
+            Released?.Invoke(this);
+        }
 
-        FallDown();
-    }
+        private IEnumerator CountDownFallDown(float delay)
+        {
+            WaitForSeconds timeWait = new WaitForSeconds(delay);
 
-    private void EnableLayerMaskResidentSphere()
-    {
-        SetNameLayerMask(ResidentSphere);
-    }
+            yield return timeWait;
 
-    private void SetNameLayerMask(string nameLayerMask)
-    {
-        gameObject.layer = LayerMask.NameToLayer(nameLayerMask);
+            FallDown();
+        }
+
+        private void EnableLayerMaskResidentSphere()
+        {
+            SetNameLayerMask(ResidentSphere);
+        }
+
+        private void SetNameLayerMask(string nameLayerMask)
+        {
+            gameObject.layer = LayerMask.NameToLayer(nameLayerMask);
+        }
     }
 }

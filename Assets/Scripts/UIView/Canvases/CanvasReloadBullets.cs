@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class CanvasReloadBullets : MonoBehaviour
+namespace Canvases
 {
+    public class CanvasReloadBullets : MonoBehaviour
+    {
 
+    }
 }

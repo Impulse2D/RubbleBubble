@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class CompletedGameMenuPanel : MonoBehaviour
+namespace MainScene
 {
+    public class CompletedGameMenuPanel : MonoBehaviour
+    {
 
+    }
 }

@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class SpawnPointBullet : MonoBehaviour
+namespace Bullets
 {
+    public class SpawnPointBullet : MonoBehaviour
+    {
 
+    }
 }

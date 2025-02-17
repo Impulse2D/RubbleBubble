@@ -2,45 +2,48 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class AimingCanceler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+namespace AimingCanceling
 {
-    [SerializeField] private InputReader _inputReader;
-
-    public event Action AbilityCancelAimingEnabled;
-    public event Action AbilityCancelAimingDisabled;
-
-    private void OnDisable()
+    public class AimingCanceler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        ReportAbilityCancelAimingDisabled();
-    }
+        [SerializeField] private InputReader _inputReader;
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (IsAim() == true)
+        public event Action AbilityCancelAimingEnabled;
+        public event Action AbilityCancelAimingDisabled;
+
+        private void OnDisable()
         {
-            _inputReader.EnableCanceledAiming();
-
-            AbilityCancelAimingEnabled?.Invoke();
-        }
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (IsAim() == true)
-        {
-            _inputReader.DisableCanceledAiming();
-
             ReportAbilityCancelAimingDisabled();
         }
-    }
 
-    private bool IsAim()
-    {
-        return _inputReader.IsAim;
-    }
-    
-    private void ReportAbilityCancelAimingDisabled()
-    {
-        AbilityCancelAimingDisabled?.Invoke();
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (IsAim() == true)
+            {
+                _inputReader.EnableCanceledAiming();
+
+                AbilityCancelAimingEnabled?.Invoke();
+            }
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (IsAim() == true)
+            {
+                _inputReader.DisableCanceledAiming();
+
+                ReportAbilityCancelAimingDisabled();
+            }
+        }
+
+        private bool IsAim()
+        {
+            return _inputReader.IsAim;
+        }
+
+        private void ReportAbilityCancelAimingDisabled()
+        {
+            AbilityCancelAimingDisabled?.Invoke();
+        }
     }
 }

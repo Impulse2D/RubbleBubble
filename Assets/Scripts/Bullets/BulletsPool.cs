@@ -1,4 +1,7 @@
-public class BulletsPool : ObjectsPool<Bullet>
+namespace Bullets
 {
+    public class BulletsPool : ObjectsPool<Bullet>
+    {
 
+    }
 }

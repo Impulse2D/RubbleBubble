@@ -1,23 +1,27 @@
+using PanelGameOver;
 using UnityEngine;
 
-public class GameOverPanelSoundsPlayer : SoundsPlayer
+namespace SoundsPlayers
 {
-    [SerializeField] private GameOverPanelOpener _gameOverPanelOpener;
-
-    private void OnEnable()
+    public class GameOverPanelSoundsPlayer : SoundsPlayer
     {
-        _gameOverPanelOpener.PanelOpened += PlaySound;
-        PauseService.FocusOnPauseNotDetected += StopSound;
-    }
+        [SerializeField] private GameOverPanelOpener _gameOverPanelOpener;
 
-    private void OnDisable()
-    {
-        _gameOverPanelOpener.PanelOpened -= PlaySound;
-        PauseService.FocusOnPauseNotDetected -= StopSound;
-    }
+        private void OnEnable()
+        {
+            _gameOverPanelOpener.PanelOpened += PlaySound;
+            PauseService.FocusOnPauseNotDetected += StopSound;
+        }
 
-    public override void PlaySound()
-    {
-        SoundsService.PlaySoundOneShot(AudioSource, AudioClip);
+        private void OnDisable()
+        {
+            _gameOverPanelOpener.PanelOpened -= PlaySound;
+            PauseService.FocusOnPauseNotDetected -= StopSound;
+        }
+
+        public override void PlaySound()
+        {
+            SoundsService.PlaySoundOneShot(AudioSource, AudioClip);
+        }
     }
 }

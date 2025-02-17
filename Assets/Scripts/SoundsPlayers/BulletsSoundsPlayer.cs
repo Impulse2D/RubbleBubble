@@ -1,30 +1,34 @@
+using Bullets;
 using UnityEngine;
 
-public class BulletsSoundsPlayer : SoundsPlayer
+namespace SoundsPlayers
 {
-    [SerializeField] private SpawnerBullets _spawnerBullets;
-
-    private void OnEnable()
+    public class BulletsSoundsPlayer : SoundsPlayer
     {
-        _spawnerBullets.ProjectileCollisionDetected += PlaySound;
+        [SerializeField] private SpawnerBullets _spawnerBullets;
 
-        PauseService.PauseDisabled += StopSound;
-    }
+        private void OnEnable()
+        {
+            _spawnerBullets.ProjectileCollisionDetected += PlaySound;
 
-    private void OnDisable()
-    {
-        _spawnerBullets.ProjectileCollisionDetected -= PlaySound;
+            PauseService.PauseDisabled += StopSound;
+        }
 
-        PauseService.PauseDisabled -= StopSound;
-    }
+        private void OnDisable()
+        {
+            _spawnerBullets.ProjectileCollisionDetected -= PlaySound;
 
-    public override void PlaySound()
-    {
-        float minValuePitch = 0.9f;
-        float maxValuePitch = 1.1f;
+            PauseService.PauseDisabled -= StopSound;
+        }
 
-        AudioSource.pitch = Random.Range(minValuePitch, maxValuePitch);
+        public override void PlaySound()
+        {
+            float minValuePitch = 0.9f;
+            float maxValuePitch = 1.1f;
 
-        SoundsService.PlaySoundOneShot(AudioSource, AudioClip);
+            AudioSource.pitch = Random.Range(minValuePitch, maxValuePitch);
+
+            SoundsService.PlaySoundOneShot(AudioSource, AudioClip);
+        }
     }
 }

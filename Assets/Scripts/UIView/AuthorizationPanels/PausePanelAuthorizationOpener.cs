@@ -1,23 +1,27 @@
+using Services;
 using UnityEngine;
 
-public class PausePanelAuthorizationOpener : MonoBehaviour
+namespace AuthorizationPanels
 {
-    [SerializeField] private ObjectsChangerService _objectsChangerService;
-    [SerializeField] private PausePanelAuthorization _pausePanelAuthorization;
-    [SerializeField] private AuthorizationView _authorizationOffer;
-
-    private void OnEnable()
+    public class PausePanelAuthorizationOpener : MonoBehaviour
     {
-        _authorizationOffer.AuthorizationOfferPanelClosed += Show;
-    }
+        [SerializeField] private ObjectsChangerService _objectsChangerService;
+        [SerializeField] private PausePanelAuthorization _pausePanelAuthorization;
+        [SerializeField] private AuthorizationView _authorizationOffer;
 
-    private void OnDisable()
-    {
-        _authorizationOffer.AuthorizationOfferPanelClosed -= Show;
-    }
+        private void OnEnable()
+        {
+            _authorizationOffer.AuthorizationOfferPanelClosed += Show;
+        }
 
-    private void Show()
-    {
-        _objectsChangerService.EnableObject(_pausePanelAuthorization.gameObject);
+        private void OnDisable()
+        {
+            _authorizationOffer.AuthorizationOfferPanelClosed -= Show;
+        }
+
+        private void Show()
+        {
+            _objectsChangerService.EnableObject(_pausePanelAuthorization.gameObject);
+        }
     }
 }

@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class TeachingPanelCanvas : MonoBehaviour
+namespace MainScene
 {
+    public class TeachingPanelCanvas : MonoBehaviour
+    {
 
+    }
 }

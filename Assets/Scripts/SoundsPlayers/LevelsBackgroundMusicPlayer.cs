@@ -1,19 +1,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelsBackgroundMusicPlayer : BackgroundMusicPlayer
+namespace SoundsPlayers
 {
-    [SerializeField] private List<AudioClip> _audioClips;
-
-    public void Init()
+    public class LevelsBackgroundMusicPlayer : BackgroundMusicPlayer
     {
-        float minIndexAudioClip = 0f;
-        float maxIndexAudioClip = _audioClips.Count;
+        [SerializeField] private List<AudioClip> _audioClips;
 
-        float randomAudioClip = Random.Range(minIndexAudioClip, maxIndexAudioClip);
+        public void Init()
+        {
+            float minIndexAudioClip = 0f;
+            float maxIndexAudioClip = _audioClips.Count;
 
-        AudioSource.clip = _audioClips[(int)randomAudioClip];
+            float randomAudioClip = Random.Range(minIndexAudioClip, maxIndexAudioClip);
 
-        PlayMusic();
+            AudioSource.clip = _audioClips[(int)randomAudioClip];
+
+            PlayMusic();
+        }
     }
+
 }

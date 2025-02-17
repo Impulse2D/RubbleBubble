@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class CanvasSettings : MonoBehaviour
+namespace Settings
 {
+    public class CanvasSettings : MonoBehaviour
+    {
 
+    }
 }

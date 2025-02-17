@@ -1,23 +1,27 @@
+using Services;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelResetter : MonoBehaviour
+namespace MainScene
 {
-    [SerializeField] private Button _numberLevelResetterButton;
-    [SerializeField] private LevelService _levelService;
-
-    private void OnEnable()
+    public class LevelResetter : MonoBehaviour
     {
-        _numberLevelResetterButton.onClick.AddListener(ResetNubmerLevel);
-    }
+        [SerializeField] private Button _numberLevelResetterButton;
+        [SerializeField] private LevelService _levelService;
 
-    private void OnDisable()
-    {
-        _numberLevelResetterButton.onClick.RemoveListener(ResetNubmerLevel);
-    }
+        private void OnEnable()
+        {
+            _numberLevelResetterButton.onClick.AddListener(ResetNubmerLevel);
+        }
 
-    private void ResetNubmerLevel()
-    {
-        _levelService.ResetLevel();
+        private void OnDisable()
+        {
+            _numberLevelResetterButton.onClick.RemoveListener(ResetNubmerLevel);
+        }
+
+        private void ResetNubmerLevel()
+        {
+            _levelService.ResetLevel();
+        }
     }
 }

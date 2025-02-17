@@ -1,9 +1,10 @@
-using UnityEngine;
-
-public class MainSceneBackgroundMusicPlayer : BackgroundMusicPlayer
+namespace SoundsPlayers
 {
-    public void Init()
+    public class MainSceneBackgroundMusicPlayer : BackgroundMusicPlayer
     {
-        PlayMusic();
+        public void Init()
+        {
+            PlayMusic();
+        }
     }
 }

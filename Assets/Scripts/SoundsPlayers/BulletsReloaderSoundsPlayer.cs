@@ -1,23 +1,26 @@
 using UnityEngine;
 
-public class BulletsReloaderSoundsPlayer : SoundsPlayer
+namespace SoundsPlayers
 {
-    [SerializeField] private InputReader _inputReader;
-
-    private void OnEnable()
+    public class BulletsReloaderSoundsPlayer : SoundsPlayer
     {
-        PauseService.PauseDisabled += StopSound;
-        _inputReader.ReloadReleased += PlaySound;
-    }
+        [SerializeField] private InputReader _inputReader;
 
-    private void OnDisable()
-    {
-        PauseService.PauseDisabled -= StopSound;
-        _inputReader.ReloadReleased -= PlaySound;
-    }
+        private void OnEnable()
+        {
+            PauseService.PauseDisabled += StopSound;
+            _inputReader.ReloadReleased += PlaySound;
+        }
 
-    public override void PlaySound()
-    {
-        SoundsService.PlaySoundOneShot(AudioSource, AudioClip);
+        private void OnDisable()
+        {
+            PauseService.PauseDisabled -= StopSound;
+            _inputReader.ReloadReleased -= PlaySound;
+        }
+
+        public override void PlaySound()
+        {
+            SoundsService.PlaySoundOneShot(AudioSource, AudioClip);
+        }
     }
 }

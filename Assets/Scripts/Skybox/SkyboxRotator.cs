@@ -1,13 +1,16 @@
 using UnityEngine;
 
-public class SkyboxRotator : MonoBehaviour
+namespace Skybox
 {
-    private float _speed = 2;
-    private const string Rotation = "_Rotation";
-
-    private void Update()
+    public class SkyboxRotator : MonoBehaviour
     {
-        RenderSettings.skybox.SetFloat(Rotation, Time.time * _speed);
+        private float _speed = 2;
+        private const string Rotation = "_Rotation";
+
+        private void Update()
+        {
+            RenderSettings.skybox.SetFloat(Rotation, Time.time * _speed);
+        }
     }
 }
 

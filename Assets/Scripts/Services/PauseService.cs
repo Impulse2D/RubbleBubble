@@ -1,69 +1,72 @@
 using System;
 using UnityEngine;
 
-public class PauseService : MonoBehaviour
+namespace Services
 {
-    private float _minValueTime = 0f;
-    private float _maxValueTime = 1f;
-
-    public event Action FocusNotDetected;
-    public event Action FocusOnPauseNotDetected;
-    public event Action PauseEnabled;
-    public event Action PauseDisabled;
-
-    private void OnApplicationFocus(bool focus)
+    public class PauseService : MonoBehaviour
     {
-        if (focus == false && IsPause() == false)
-        {
-            FocusNotDetected?.Invoke();
-        }
-        else if(focus == false)
-        {
-            FocusOnPauseNotDetected?.Invoke();
-        }
-    }
+        private float _minValueTime = 0f;
+        private float _maxValueTime = 1f;
 
-    public void Init()
-    {
-        if (IsPause() == true)
+        public event Action FocusNotDetected;
+        public event Action FocusOnPauseNotDetected;
+        public event Action PauseEnabled;
+        public event Action PauseDisabled;
+
+        private void OnApplicationFocus(bool focus)
         {
-            DisablePause();
+            if (focus == false && IsPause() == false)
+            {
+                FocusNotDetected?.Invoke();
+            }
+            else if (focus == false)
+            {
+                FocusOnPauseNotDetected?.Invoke();
+            }
+        }
+
+        public void Init()
+        {
+            if (IsPause() == true)
+            {
+                DisablePause();
+
+                ReportDisablePause();
+            }
+        }
+
+        public void EnablePause()
+        {
+            ÑhangeTime(_minValueTime);
+
+            ReportEnabledPause();
+        }
+
+        public void DisablePause()
+        {
+            ÑhangeTime(_maxValueTime);
 
             ReportDisablePause();
         }
-    }
 
-    public void EnablePause()
-    {
-        ÑhangeTime(_minValueTime);
+        private void ÑhangeTime(float valueTime)
+        {
+            Time.timeScale = valueTime;
+        }
 
-        ReportEnabledPause();
-    }
+        private bool IsPause()
+        {
+            return Time.timeScale < _maxValueTime;
+        }
 
-    public void DisablePause()
-    {
-        ÑhangeTime(_maxValueTime);
+        private void ReportEnabledPause()
+        {
+            PauseEnabled?.Invoke();
+        }
 
-        ReportDisablePause();
-    }
-
-    private void ÑhangeTime(float valueTime)
-    {
-        Time.timeScale = valueTime;
-    }
-
-    private bool IsPause()
-    {
-        return Time.timeScale < _maxValueTime;
-    }
-
-    private void ReportEnabledPause()
-    {
-        PauseEnabled?.Invoke();
-    }
-
-    private void ReportDisablePause()
-    {
-        PauseDisabled?.Invoke();
+        private void ReportDisablePause()
+        {
+            PauseDisabled?.Invoke();
+        }
     }
 }

@@ -2,73 +2,76 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletsReloader : MonoBehaviour
+namespace Bullets
 {
-    [SerializeField] private SpawnerBullets _spawnerProjectiles;
-    [SerializeField] private List<SpawnPointBullet> _spawnPointProjectiles;
-    [SerializeField] private BulletsPool _projectilesPool;
-
-    private Bullet _currentProjectile;
-    private List<Bullet> _projectiles;
-    private Coroutine _coroutine;
-    private Vector3 _mainProjectilePosition;
-    private Vector3 _nextProjectilePosition;
-    public Bullet CurrentProjectile => _currentProjectile;
-
-    public void Init()
+    public class BulletsReloader : MonoBehaviour
     {
-        _projectiles = new List<Bullet>();
+        [SerializeField] private SpawnerBullets _spawnerBullets;
+        [SerializeField] private List<SpawnPointBullet> _spawnPointBullets;
+        [SerializeField] private BulletsPool _bulletsPool;
 
-        _mainProjectilePosition = _spawnPointProjectiles[0].transform.position;
-        _nextProjectilePosition = _spawnPointProjectiles[1].transform.position;
+        private Bullet _currentBullet;
+        private List<Bullet> _bullets;
+        private Coroutine _coroutine;
+        private Vector3 _mainBulletPosition;
+        private Vector3 _nextBulletPosition;
+        public Bullet CurrentBullet => _currentBullet;
 
-        for (int i = 0; i < _spawnPointProjectiles.Count; i++)
+        public void Init()
         {
-            Bullet bullet = _spawnerProjectiles.GetCreatedProjectile(_spawnPointProjectiles[i].transform.position, Quaternion.identity);
+            _bullets = new List<Bullet>();
 
-            _projectiles.Add(bullet);
+            _mainBulletPosition = _spawnPointBullets[0].transform.position;
+            _nextBulletPosition = _spawnPointBullets[1].transform.position;
+
+            for (int i = 0; i < _spawnPointBullets.Count; i++)
+            {
+                Bullet bullet = _spawnerBullets.GetCreatedProjectile(_spawnPointBullets[i].transform.position, Quaternion.identity);
+
+                _bullets.Add(bullet);
+            }
+
+            SetCurrentProjectile(_bullets[0]);
         }
 
-        SetCurrentProjectile(_projectiles[0]);
-    }
-
-    public void Recharge()
-    {
-        _projectiles.Remove(_projectiles[0]);
-
-        if (_coroutine != null)
+        public void Recharge()
         {
-            StopCoroutine(_coroutine);
+            _bullets.Remove(_bullets[0]);
+
+            if (_coroutine != null)
+            {
+                StopCoroutine(_coroutine);
+            }
+
+            _coroutine = StartCoroutine(MoveProjectile(_bullets[0]));
+
+            SetCurrentProjectile(_bullets[0]);
+
+            CreateNewProjectile();
         }
 
-        _coroutine = StartCoroutine(MoveProjectile(_projectiles[0]));
-
-        SetCurrentProjectile(_projectiles[0]);
-
-        CreateNewProjectile();
-    }
-
-    private IEnumerator MoveProjectile(Bullet projectiles)
-    {
-        float speedMovement = 15f;
-
-        while (projectiles.transform.position != _mainProjectilePosition)
+        private IEnumerator MoveProjectile(Bullet projectiles)
         {
-            projectiles.transform.position = Vector3.Lerp(projectiles.transform.position, _mainProjectilePosition, speedMovement * Time.deltaTime);
+            float speedMovement = 15f;
 
-            yield return null;
+            while (projectiles.transform.position != _mainBulletPosition)
+            {
+                projectiles.transform.position = Vector3.Lerp(projectiles.transform.position, _mainBulletPosition, speedMovement * Time.deltaTime);
+
+                yield return null;
+            }
         }
-    }
 
-    private void CreateNewProjectile()
-    {
-        Bullet newBullet = _spawnerProjectiles.GetCreatedProjectile(_nextProjectilePosition, Quaternion.identity);
+        private void CreateNewProjectile()
+        {
+            Bullet newBullet = _spawnerBullets.GetCreatedProjectile(_nextBulletPosition, Quaternion.identity);
 
-        _projectiles.Add(newBullet);
-    }
+            _bullets.Add(newBullet);
+        }
 
-    private void SetCurrentProjectile(Bullet projectile)
-    {
-        _currentProjectile = projectile;
+        private void SetCurrentProjectile(Bullet projectile)
+        {
+            _currentBullet = projectile;
+        }
     }
 }

@@ -1,4 +1,8 @@
-public class ColoredBallsPool : ObjectsPool<ColoredBall>
+namespace ColoredBalls
 {
+    public class ColoredBallsPool : ObjectsPool<ColoredBall>
+    {
+
+    }
 
 }

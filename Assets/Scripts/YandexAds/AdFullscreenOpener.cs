@@ -1,10 +1,13 @@
 using UnityEngine;
 using YG;
 
-public class AdFullscreenOpener : MonoBehaviour
+namespace YandexAds
 {
-    public void OnOpenFullAdEvent()
+    public class AdFullscreenOpener : MonoBehaviour
     {
-        YandexGame.FullscreenShow();
+        public void OnOpenFullAdEvent()
+        {
+            YandexGame.FullscreenShow();
+        }
     }
 }

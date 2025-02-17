@@ -1,23 +1,27 @@
+using SoundsPlayers;
 using UnityEngine;
 
-public class PlateSoundsPlayer : SoundsPlayer
+namespace Plate
 {
-    [SerializeField] private PlateCollisionHandler _collisionHandler;
-
-    private void OnEnable()
+    public class PlateSoundsPlayer : SoundsPlayer
     {
-        _collisionHandler.CollisionDetected += PlaySound;
-        PauseService.PauseEnabled += StopSound;
-    }
+        [SerializeField] private PlateCollisionHandler _collisionHandler;
 
-    private void OnDisable()
-    {
-        _collisionHandler.CollisionDetected -= PlaySound;
-        PauseService.PauseEnabled -= StopSound;
-    }
+        private void OnEnable()
+        {
+            _collisionHandler.CollisionDetected += PlaySound;
+            PauseService.PauseEnabled += StopSound;
+        }
 
-    public override void PlaySound()
-    {
-        SoundsService.PlaySoundOneShot(AudioSource, AudioClip);
+        private void OnDisable()
+        {
+            _collisionHandler.CollisionDetected -= PlaySound;
+            PauseService.PauseEnabled -= StopSound;
+        }
+
+        public override void PlaySound()
+        {
+            SoundsService.PlaySoundOneShot(AudioSource, AudioClip);
+        }
     }
 }

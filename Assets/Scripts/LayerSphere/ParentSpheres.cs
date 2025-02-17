@@ -1,18 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ParentSpheres : MonoBehaviour
+namespace LayerSpheres
 {
-    // Start is called before the first frame update
-    void Start()
+    public class ParentSpheres : MonoBehaviour
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

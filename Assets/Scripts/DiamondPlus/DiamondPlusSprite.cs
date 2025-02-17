@@ -1,18 +1,21 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DiamondPlusSprite : MonoBehaviour
+namespace Diamonds
 {
-    [SerializeField] private Image _image;
-    [SerializeField] private Color _transparent—olor;
-
-    public Image Image => _image;
-    public Color Color => _transparent—olor;
-
-    private void OnEnable()
+    public class DiamondPlusSprite : MonoBehaviour
     {
-        Color defaultColor = new Color(255f, 255f, 255f, 255f);
+        [SerializeField] private Image _image;
+        [SerializeField] private Color _transparent—olor;
 
-        _image.color = defaultColor;
+        public Image Image => _image;
+        public Color Color => _transparent—olor;
+
+        private void OnEnable()
+        {
+            Color defaultColor = new Color(255f, 255f, 255f, 255f);
+
+            _image.color = defaultColor;
+        }
     }
 }

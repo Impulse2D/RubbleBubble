@@ -2,48 +2,51 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class LifeService : MonoBehaviour
+namespace Services
 {
-    [SerializeField] private TextMeshProUGUI _textLives;
-
-    private int _quantitylives;
-
-    public event Action LivesExhausted;
-
-    public void Init()
+    public class LifeService : MonoBehaviour
     {
-        ResetQuantitylives();
-    }
+        [SerializeField] private TextMeshProUGUI _textLives;
 
-    public void TryReduceQuantitylives()
-    {
-        int minQuantitylives = 0;
+        private int _quantitylives;
 
-        _quantitylives--;
+        public event Action LivesExhausted;
 
-        if (_quantitylives <= minQuantitylives)
+        public void Init()
         {
-            _quantitylives = 0;
+            ResetQuantitylives();
+        }
+
+        public void TryReduceQuantitylives()
+        {
+            int minQuantitylives = 0;
+
+            _quantitylives--;
+
+            if (_quantitylives <= minQuantitylives)
+            {
+                _quantitylives = 0;
+
+                SetQuantitylives(_textLives);
+
+                LivesExhausted?.Invoke();
+            }
+            else
+            {
+                SetQuantitylives(_textLives);
+            }
+        }
+
+        public void ResetQuantitylives()
+        {
+            _quantitylives = 3;
 
             SetQuantitylives(_textLives);
-
-            LivesExhausted?.Invoke();
         }
-        else 
+
+        private void SetQuantitylives(TextMeshProUGUI textLives)
         {
-            SetQuantitylives(_textLives);
+            textLives.text = _quantitylives.ToString();
         }
-    }
-
-    public void ResetQuantitylives()
-    {
-        _quantitylives = 3;
-
-        SetQuantitylives(_textLives);
-    }
-
-    private void SetQuantitylives(TextMeshProUGUI textLives)
-    {
-        textLives.text = _quantitylives.ToString();
     }
 }

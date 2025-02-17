@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class TargetPointDiamondPlus : MonoBehaviour
+namespace Diamonds
 {
+    public class TargetPointDiamondPlus : MonoBehaviour
+    {
 
+    }
 }

@@ -1,22 +1,26 @@
 using UnityEngine;
 
-public class DiamondPlusDisabler : MonoBehaviour
+namespace Diamonds
 {
-    [SerializeField] private SpawnerDiamondsPlus _spawnerDiamondsPlus;
-    [SerializeField] private DiamondPlusPool _diamondPlusPool;
-
-    private void OnEnable()
+    public class DiamondPlusDisabler : MonoBehaviour
     {
-        _spawnerDiamondsPlus.DiamondPlusReleased += RemoveDiamondPlus;
-    }
+        [SerializeField] private SpawnerDiamondsPlus _spawnerDiamondsPlus;
+        [SerializeField] private DiamondPlusPool _diamondPlusPool;
 
-    private void OnDisable()
-    {
-        _spawnerDiamondsPlus.DiamondPlusReleased -= RemoveDiamondPlus;
-    }
+        private void OnEnable()
+        {
+            _spawnerDiamondsPlus.DiamondPlusReleased += RemoveDiamondPlus;
+        }
 
-    private void RemoveDiamondPlus(DiamondPlusMover diamondPlus)
-    {
-        _diamondPlusPool.ReturnObject(diamondPlus);
+        private void OnDisable()
+        {
+            _spawnerDiamondsPlus.DiamondPlusReleased -= RemoveDiamondPlus;
+        }
+
+        private void RemoveDiamondPlus(DiamondPlusMover diamondPlus)
+        {
+            _diamondPlusPool.ReturnObject(diamondPlus);
+        }
     }
 }
+

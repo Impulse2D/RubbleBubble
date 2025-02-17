@@ -1,80 +1,84 @@
 using System;
 using System.Collections;
+using Points;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GamePointsIndicator : MonoBehaviour
+namespace GamePointsSlidebar
 {
-    [SerializeField] private GamePointsCounter _gamePointsCounter;
-    [SerializeField] private Image Image;
-
-    private float _currentValuePercentage;
-    private Coroutine _coroutine;
-
-    public event Action Filled;
-
-    private void OnEnable()
+    public class GamePointsIndicator : MonoBehaviour
     {
-        ResetFillAmount();
+        [SerializeField] private GamePointsCounter _gamePointsCounter;
+        [SerializeField] private Image Image;
 
-        _gamePointsCounter.PointCounted += ShowFillAmount;
-    }
+        private float _currentValuePercentage;
+        private Coroutine _coroutine;
 
-    private void OnDisable()
-    {
-        _gamePointsCounter.PointCounted -= ShowFillAmount;
-    }
+        public event Action Filled;
 
-    private void ShowFillAmount(float valuePoints)
-    {
-        CalculatePercentage(valuePoints);
-
-        SetValueFillAmount(_currentValuePercentage);
-    }
-
-    private void ResetFillAmount()
-    {
-        float minValueFillAmount = 0f;
-
-        Image.fillAmount = minValueFillAmount;
-    }
-
-    private void CalculatePercentage(float valuePoints)
-    {
-        _currentValuePercentage = valuePoints / _gamePointsCounter.MaxQuantityGamePoints;
-    }
-
-    private void SetValueFillAmount(float valuePercentage)
-    {
-        if (_coroutine != null)
+        private void OnEnable()
         {
-            StopCoroutine(_coroutine);
+            ResetFillAmount();
+
+            _gamePointsCounter.PointCounted += ShowFillAmount;
         }
 
-        _coroutine = StartCoroutine(ShiftSlowlyValueFillAmoun(valuePercentage));
-    }
-
-    private IEnumerator ShiftSlowlyValueFillAmoun(float valuePoints)
-    {
-        float maxValueFillAmount = 1f;
-        float cuurentValueFillAmount = Image.fillAmount;
-        float valueTarget = valuePoints;
-        float speedFillAmount = 1f;
-        float delay = 1f;
-
-        for (float i = 0; i < delay; i += speedFillAmount * Time.deltaTime)
+        private void OnDisable()
         {
-            yield return null;
+            _gamePointsCounter.PointCounted -= ShowFillAmount;
+        }
 
-            Image.fillAmount = Mathf.Lerp(cuurentValueFillAmount, valueTarget, i);
+        private void ShowFillAmount(float valuePoints)
+        {
+            CalculatePercentage(valuePoints);
 
-            if (Image.fillAmount == maxValueFillAmount)
+            SetValueFillAmount(_currentValuePercentage);
+        }
+
+        private void ResetFillAmount()
+        {
+            float minValueFillAmount = 0f;
+
+            Image.fillAmount = minValueFillAmount;
+        }
+
+        private void CalculatePercentage(float valuePoints)
+        {
+            _currentValuePercentage = valuePoints / _gamePointsCounter.MaxQuantityGamePoints;
+        }
+
+        private void SetValueFillAmount(float valuePercentage)
+        {
+            if (_coroutine != null)
             {
-                Filled?.Invoke();
+                StopCoroutine(_coroutine);
             }
+
+            _coroutine = StartCoroutine(ShiftSlowlyValueFillAmoun(valuePercentage));
         }
 
-        Image.fillAmount = valueTarget;
+        private IEnumerator ShiftSlowlyValueFillAmoun(float valuePoints)
+        {
+            float maxValueFillAmount = 1f;
+            float cuurentValueFillAmount = Image.fillAmount;
+            float valueTarget = valuePoints;
+            float speedFillAmount = 1f;
+            float delay = 1f;
+
+            for (float i = 0; i < delay; i += speedFillAmount * Time.deltaTime)
+            {
+                yield return null;
+
+                Image.fillAmount = Mathf.Lerp(cuurentValueFillAmount, valueTarget, i);
+
+                if (Image.fillAmount == maxValueFillAmount)
+                {
+                    Filled?.Invoke();
+                }
+            }
+
+            Image.fillAmount = valueTarget;
+        }
     }
 }
 

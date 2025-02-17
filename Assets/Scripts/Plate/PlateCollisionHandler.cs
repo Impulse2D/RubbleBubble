@@ -1,15 +1,18 @@
 using System;
 using UnityEngine;
 
-public class PlateCollisionHandler : MonoBehaviour
+namespace Plate
 {
-    public event Action CollisionDetected;
-
-    private void OnCollisionEnter(Collision collision)
+    public class PlateCollisionHandler : MonoBehaviour
     {
-        if(collision != null)
+        public event Action CollisionDetected;
+
+        private void OnCollisionEnter(Collision collision)
         {
-            CollisionDetected?.Invoke();
+            if (collision != null)
+            {
+                CollisionDetected?.Invoke();
+            }
         }
     }
 }

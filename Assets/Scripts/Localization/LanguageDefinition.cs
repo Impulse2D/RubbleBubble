@@ -1,40 +1,43 @@
 using UnityEngine;
 using YG;
 
-public class LanguageDefinition : MonoBehaviour
+namespace Localization
 {
-    [SerializeField] private LocalizationSelect _localizationSelect;
-
-    private string _currentLanguage;
-
-    public void Init()
+    public class LanguageDefinition : MonoBehaviour
     {
-        string emptyValue = "";
+        [SerializeField] private LocalizationSelect _localizationSelect;
 
-        _currentLanguage =  _localizationSelect.GetLanguage();
+        private string _currentLanguage;
 
-        if (_currentLanguage == emptyValue)
+        public void Init()
         {
-            if (YandexGame.EnvironmentData.language == _localizationSelect.RussianCodeLanguage)
+            string emptyValue = "";
+
+            _currentLanguage = _localizationSelect.GetLanguage();
+
+            if (_currentLanguage == emptyValue)
             {
-                _localizationSelect.TranslateToRussian();
-            }
-            else if (YandexGame.EnvironmentData.language == _localizationSelect.EnglishCodeLanguage)
-            {
-                _localizationSelect.TranslateToEnglish();
-            }
-            else if (YandexGame.EnvironmentData.language == _localizationSelect.TurkishCodeLanguage)
-            {
-                _localizationSelect.TranslateToTurkish();
+                if (YandexGame.EnvironmentData.language == _localizationSelect.RussianCodeLanguage)
+                {
+                    _localizationSelect.TranslateToRussian();
+                }
+                else if (YandexGame.EnvironmentData.language == _localizationSelect.EnglishCodeLanguage)
+                {
+                    _localizationSelect.TranslateToEnglish();
+                }
+                else if (YandexGame.EnvironmentData.language == _localizationSelect.TurkishCodeLanguage)
+                {
+                    _localizationSelect.TranslateToTurkish();
+                }
+                else
+                {
+                    _localizationSelect.TranslateToEnglish();
+                }
             }
             else
             {
-                _localizationSelect.TranslateToEnglish();
+                _localizationSelect.SetInstallableLanguage(_currentLanguage);
             }
-        }
-        else
-        {
-            _localizationSelect.SetInstallableLanguage(_currentLanguage);
         }
     }
 }

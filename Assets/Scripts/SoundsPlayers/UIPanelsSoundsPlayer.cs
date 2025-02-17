@@ -1,17 +1,20 @@
-public class UIPanelsSoundsPlayer : SoundsPlayer
+namespace SoundsPlayers
 {
-    private void OnEnable()
+    public class UIPanelsSoundsPlayer : SoundsPlayer
     {
-        PauseService.FocusOnPauseNotDetected += StopSound;
-    }
+        private void OnEnable()
+        {
+            PauseService.FocusOnPauseNotDetected += StopSound;
+        }
 
-    private void OnDisable()
-    {
-        PauseService.FocusOnPauseNotDetected -= StopSound;
-    }
+        private void OnDisable()
+        {
+            PauseService.FocusOnPauseNotDetected -= StopSound;
+        }
 
-    public override void PlaySound()
-    {
-        SoundsService.PlaySound(AudioSource);
+        public override void PlaySound()
+        {
+            SoundsService.PlaySound(AudioSource);
+        }
     }
 }

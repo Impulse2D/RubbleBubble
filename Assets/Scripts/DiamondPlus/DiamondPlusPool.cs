@@ -1,4 +1,7 @@
-public class DiamondPlusPool : ObjectsPool<DiamondPlusMover>
+namespace Diamonds
 {
+    public class DiamondPlusPool : ObjectsPool<DiamondPlusMover>
+    {
 
+    }
 }

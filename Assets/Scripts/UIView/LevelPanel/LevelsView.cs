@@ -1,23 +1,27 @@
+using Services;
 using TMPro;
 using UnityEngine;
 
-public class LevelsView : MonoBehaviour
+namespace LevelPanel
 {
-    [SerializeField] private TextMeshProUGUI _textLevel;
-    [SerializeField] private LevelService _levelService;
-
-    private void OnEnable()
+    public class LevelsView : MonoBehaviour
     {
-        _levelService.LeveliInstalled += Show;
-    }
+        [SerializeField] private TextMeshProUGUI _textLevel;
+        [SerializeField] private LevelService _levelService;
 
-    private void OnDisable()
-    {
-        _levelService.LeveliInstalled -= Show;
-    }
+        private void OnEnable()
+        {
+            _levelService.LeveliInstalled += Show;
+        }
 
-    private void Show(string numberLevel)
-    {
-        _textLevel.text = numberLevel;
+        private void OnDisable()
+        {
+            _levelService.LeveliInstalled -= Show;
+        }
+
+        private void Show(string numberLevel)
+        {
+            _textLevel.text = numberLevel;
+        }
     }
 }
