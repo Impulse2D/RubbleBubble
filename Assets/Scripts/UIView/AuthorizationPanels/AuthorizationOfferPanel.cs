@@ -4,6 +4,5 @@ namespace AuthorizationPanels
 {
     public class AuthorizationOfferPanel : MonoBehaviour
     {
-
     }
 }

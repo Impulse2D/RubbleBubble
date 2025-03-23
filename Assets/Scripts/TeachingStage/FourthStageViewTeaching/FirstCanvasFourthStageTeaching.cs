@@ -4,6 +4,5 @@ namespace FourthStageViewTeaching
 {
     public class FirstCanvasFourthStageTeaching : MonoBehaviour
     {
-
     }
 }

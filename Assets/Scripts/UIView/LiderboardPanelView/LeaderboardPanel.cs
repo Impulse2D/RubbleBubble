@@ -4,6 +4,5 @@ namespace LiderboardPanelView
 {
     public class LeaderboardPanel : MonoBehaviour
     {
-
     }
 }

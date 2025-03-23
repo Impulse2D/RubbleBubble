@@ -4,8 +4,8 @@ namespace Skybox
 {
     public class SkyboxRotator : MonoBehaviour
     {
-        private float _speed = 2;
         private const string Rotation = "_Rotation";
+        private float _speed = 2;
 
         private void Update()
         {
@@ -13,4 +13,3 @@ namespace Skybox
         }
     }
 }
-

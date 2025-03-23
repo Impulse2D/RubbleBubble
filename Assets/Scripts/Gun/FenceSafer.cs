@@ -4,6 +4,5 @@ namespace Gun
 {
     public class FenceSafer : MonoBehaviour
     {
-
     }
 }

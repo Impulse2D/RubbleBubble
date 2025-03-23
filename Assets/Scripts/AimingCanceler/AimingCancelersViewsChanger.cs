@@ -58,6 +58,5 @@ namespace AimingCanceling
 
             PanelCanceled?.Invoke();
         }
-
     }
 }

@@ -48,7 +48,6 @@ namespace Bullets
 
             if (collision.gameObject.TryGetComponent(out ColoredBallsDisabler disablerColoredBalls))
             {
-
                 _bullet.DisableIsBallCollision();
 
                 if (_bullet.IsMoved == true && _bullet.IsOneColorCollision == false)
@@ -61,7 +60,6 @@ namespace Bullets
                 }
                 else if (_bullet.IsMoved == true && _bullet.IsOneColorCollision == true)
                 {
-
                     Debug.Log("ударился после выстрела, было столкновение с шаром своего цвета - игра продолжается");
                 }
                 else if (_bullet.IsMoved == false)

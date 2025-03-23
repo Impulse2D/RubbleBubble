@@ -24,7 +24,6 @@ namespace Gun
             int minIndexRenderingRestrictions = 2;
             float radius = 0.03f;
 
-
             Vector3[] points = new Vector3[quantityPoints];
 
             _lineRenderer.positionCount = points.Length;

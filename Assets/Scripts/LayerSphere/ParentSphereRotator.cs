@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace LayerSpheres
 {
-    public class LayerSphereRotator : MonoBehaviour
+    public class ParentSphereRotator : MonoBehaviour
     {
         private float _speedRotation = 10f;
 
@@ -15,6 +15,5 @@ namespace LayerSpheres
         {
             transform.localRotation *= Quaternion.Euler(0f, _speedRotation * Time.fixedDeltaTime, 0f);
         }
-
     }
 }

@@ -4,9 +4,9 @@ namespace Services
 {
     public class SoundsService : MonoBehaviour
     {
-        public void PlaySoundOneShot(AudioSource audioSource, AudioClip _audioClip)
+        public void PlaySoundOneShot(AudioSource audioSource, AudioClip audioClip)
         {
-            audioSource.PlayOneShot(_audioClip);
+            audioSource.PlayOneShot(audioClip);
         }
 
         public void PlaySound(AudioSource audioSource)

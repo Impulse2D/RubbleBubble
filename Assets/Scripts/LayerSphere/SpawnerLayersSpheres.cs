@@ -31,9 +31,9 @@ namespace LayerSpheres
 
             _maxQuantityInterlayers = 2;
 
-            int _maxQuantityInterlayersInitialized = 3;
+            int maxQuantityInterlayersInitialized = 3;
 
-            for (int i = 0; i < _maxQuantityInterlayersInitialized; i++)
+            for (int i = 0; i < maxQuantityInterlayersInitialized; i++)
             {
                 ObjectsPool.Initialize();
             }

@@ -1,5 +1,5 @@
-using UnityEngine.EventSystems;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Game—ontrolBlocker : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -17,4 +17,3 @@ public class Game—ontrolBlocker : MonoBehaviour, IPointerDownHandler, IPointerUp
         _inputReader.DisableControlBlocking();
     }
 }
-

@@ -4,7 +4,5 @@ namespace Canvases
 {
     public class CanvasMainUI : MonoBehaviour
     {
-
     }
 }
-

@@ -4,6 +4,5 @@ namespace Diamonds
 {
     public class SpawnPointDiamondPlus : MonoBehaviour
     {
-
     }
 }

@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectsPool<T> : MonoBehaviour where T : MonoBehaviour
+public class ObjectsPool<T> : MonoBehaviour
+
+    where T : MonoBehaviour
 {
     [SerializeField] private T _prefabObject;
 

@@ -1,6 +1,6 @@
-using UnityEngine;
 using DG.Tweening;
 using System;
+using UnityEngine;
 
 namespace Diamonds
 {

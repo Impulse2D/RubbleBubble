@@ -24,6 +24,7 @@ namespace Localization
         {
             SetInstallableLanguage(EnglishCode);
         }
+
         public void TranslateToTurkish()
         {
             SetInstallableLanguage(TurkishCode);

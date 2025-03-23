@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Gun
 {
-    public class Gunner : MonoBehaviour 
+    public class Gunner : MonoBehaviour
     {
         [SerializeField] private float _power = 12;
         [SerializeField] private InputReader _inputReader;

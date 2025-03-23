@@ -39,7 +39,6 @@ namespace MainScene
         {
             _objectsChangerService.DisableObject(_teachingPanelCanvas.gameObject);
 
-
             _pauseService.DisablePause();
         }
     }

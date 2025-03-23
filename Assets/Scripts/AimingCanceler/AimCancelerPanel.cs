@@ -4,6 +4,5 @@ namespace AimingCanceling
 {
     public class AimCancelerPanel : MonoBehaviour
     {
-
     }
 }

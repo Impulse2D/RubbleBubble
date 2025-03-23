@@ -4,6 +4,5 @@ namespace SecondStage
 {
     public class CanvasSecondStageTeachingArrow : MonoBehaviour
     {
-
     }
 }

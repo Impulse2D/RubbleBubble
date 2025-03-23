@@ -77,7 +77,7 @@ public class InputReader : MonoBehaviour
 
     public void DisableCanceledAiming()
     {
-        _isCanceledAiming = false; 
+        _isCanceledAiming = false;
     }
 
     private void EnableIs—anShoot()
@@ -155,7 +155,7 @@ public class InputReader : MonoBehaviour
         {
             ReportShootReleased();
         }
-        else if(_isCanceledAiming == true)
+        else if (_isCanceledAiming == true)
         {
             AimingCanceled?.Invoke();
         }

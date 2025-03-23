@@ -4,6 +4,5 @@ namespace LevelPanel
 {
     public class WinPanel : MonoBehaviour
     {
-
     }
 }

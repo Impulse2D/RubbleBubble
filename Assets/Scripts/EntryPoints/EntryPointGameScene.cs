@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace EntryPoints
 {
-    public class EntryPoint : MonoBehaviour
+    public class EntryPointGameScene : MonoBehaviour
     {
         [SerializeField] private LevelService _levelService;
         [SerializeField] private PauseService _pauseService;

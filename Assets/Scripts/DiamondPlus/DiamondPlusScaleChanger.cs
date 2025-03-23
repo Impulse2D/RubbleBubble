@@ -7,9 +7,9 @@ namespace Diamonds
     {
         private void OnEnable()
         {
-            Vector3 _defaultScale = Vector3.one;
+            Vector3 defaultScale = Vector3.one;
 
-            transform.localScale = _defaultScale;
+            transform.localScale = defaultScale;
 
             IncreaseScale();
         }

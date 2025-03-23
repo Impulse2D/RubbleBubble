@@ -1,6 +1,8 @@
 using UnityEngine;
 
-public class Spawner<T> : MonoBehaviour where T : MonoBehaviour
+public class Spawner<T> : MonoBehaviour
+
+    where T : MonoBehaviour
 {
     [SerializeField] private T _objectsPool;
 

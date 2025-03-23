@@ -4,7 +4,5 @@ namespace FirstStage
 {
     public class CanvasFirstStageTeachingMobile : MonoBehaviour
     {
-
     }
-
 }

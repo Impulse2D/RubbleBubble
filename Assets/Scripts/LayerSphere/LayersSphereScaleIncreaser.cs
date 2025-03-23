@@ -22,7 +22,7 @@ namespace LayerSpheres
             _scaleInterlayer = new List<Vector3>
         {
             new Vector3(1.5f, 1.5f, 1.5f),
-            new Vector3(1.8f, 1.8f, 1.8f)
+            new Vector3(1.8f, 1.8f, 1.8f),
         };
 
             _firstScaleTarget = _scaleInterlayer[0];
@@ -32,7 +32,6 @@ namespace LayerSpheres
         private void OnEnable()
         {
             _spawnerColoredBalls.CreatingCompleted += IncreaseInterlayers;
-
         }
 
         private void OnDisable()

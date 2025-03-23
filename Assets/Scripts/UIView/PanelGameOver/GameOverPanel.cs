@@ -4,6 +4,5 @@ namespace PanelGameOver
 {
     public class GameOverPanel : MonoBehaviour
     {
-
     }
 }

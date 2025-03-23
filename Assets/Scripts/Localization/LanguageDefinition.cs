@@ -11,7 +11,7 @@ namespace Localization
 
         public void Init()
         {
-            string emptyValue = "";
+            string emptyValue = string.Empty;
 
             _currentLanguage = _localizationSelect.GetLanguage();
 

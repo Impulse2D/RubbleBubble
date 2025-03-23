@@ -49,7 +49,7 @@ public class SceneAfterauthorizationLoader : MonoBehaviour
 
             YandexGame.SaveProgress();
         }
-        else if(_currentLevel <= cloudSaveLevel)
+        else if (_currentLevel <= cloudSaveLevel)
         {
             YandexGame.savesData.numberLevel = cloudSaveLevel;
 

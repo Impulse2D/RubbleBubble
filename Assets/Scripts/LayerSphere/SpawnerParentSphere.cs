@@ -10,9 +10,9 @@ namespace LayerSpheres
 
         private ParentSpheres _currentParentSpheres;
 
-        public ParentSpheres CurrentParentSpheres => _currentParentSpheres;
-
         public event Action<ParentSpheres> Created;
+
+        public ParentSpheres CurrentParentSpheres => _currentParentSpheres;
 
         public void Init()
         {

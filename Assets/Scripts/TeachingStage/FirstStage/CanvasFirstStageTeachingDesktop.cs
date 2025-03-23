@@ -4,6 +4,5 @@ namespace FirstStage
 {
     public class CanvasFirstStageTeachingDesktop : MonoBehaviour
     {
-
     }
 }

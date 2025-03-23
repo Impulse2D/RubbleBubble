@@ -4,6 +4,5 @@ namespace AimingCancelTeaching
 {
     public class CanvasAimingTeachingDesktop : MonoBehaviour
     {
-
     }
 }

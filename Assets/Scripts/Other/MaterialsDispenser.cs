@@ -16,7 +16,7 @@ public class MaterialsDispenser : MonoBehaviour
         {
             _violetMaterial,
             _greenMaterial,
-            _yellowMaterial
+            _yellowMaterial,
         };
     }
 
@@ -35,4 +35,3 @@ public class MaterialsDispenser : MonoBehaviour
         return _materialsColoredBalls[(int)index];
     }
 }
-

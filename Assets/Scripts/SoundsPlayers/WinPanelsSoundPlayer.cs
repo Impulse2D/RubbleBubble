@@ -19,7 +19,6 @@ namespace SoundsPlayers
             PauseService.FocusOnPauseNotDetected -= StopSound;
         }
 
-
         public override void PlaySound()
         {
             SoundsService.PlaySoundOneShot(AudioSource, AudioClip);

@@ -37,5 +37,4 @@ namespace SoundsPlayers
             _soundsService.PlaySound(_audioSource);
         }
     }
-
 }

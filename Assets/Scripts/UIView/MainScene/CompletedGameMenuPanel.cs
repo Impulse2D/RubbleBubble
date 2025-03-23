@@ -4,6 +4,5 @@ namespace MainScene
 {
     public class CompletedGameMenuPanel : MonoBehaviour
     {
-
     }
 }

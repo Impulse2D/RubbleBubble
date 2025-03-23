@@ -12,9 +12,9 @@ namespace LevelPanel
         [SerializeField] private GamePointsIndicator _gamePointsIndicator;
         [SerializeField] private PauseService _pauseService;
 
-        public event Action PanelOpened;
-
         private bool _isPanelOpened;
+
+        public event Action PanelOpened;
 
         private void OnEnable()
         {
