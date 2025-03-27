@@ -6,27 +6,27 @@ namespace Gun
 
     public class TrajectoryVisualizer : MonoBehaviour
     {
-        private LineRenderer _lineRenderer;
+        private LineRenderer _lineRendererTrajectory;
 
         public void Init()
         {
-            _lineRenderer = GetComponent<LineRenderer>();
+            _lineRendererTrajectory = GetComponent<LineRenderer>();
         }
 
         public void ShowTrajectory(Vector3 origin, Vector3 speed)
         {
             float divider = 2;
             float timeMultiplier = 0.1f;
-            float minQuantityPoints = 0f;
-            int indexPoint = 1;
-            int quantityPoints = 40;
+            int indexPointTrajectory = 1;
+            int quantityPointsTrajectory = 40;
             int quantityDeductibleIndexesRenderingRestrictions = 3;
             int minIndexRenderingRestrictions = 2;
             float radius = 0.03f;
 
-            Vector3[] points = new Vector3[quantityPoints];
 
-            _lineRenderer.positionCount = points.Length;
+            Vector3[] points = new Vector3[quantityPointsTrajectory];
+
+            _lineRendererTrajectory.positionCount = points.Length;
 
             for (int i = 0; i < points.Length; i++)
             {
@@ -38,50 +38,46 @@ namespace Gun
                 {
                     RaycastHit raycastHit;
 
-                    Vector3 direction = points[points.Length - quantityDeductibleIndexesRenderingRestrictions] - points[i - quantityDeductibleIndexesRenderingRestrictions];
+                    Vector3 direction = points[points.Length - quantityDeductibleIndexesRenderingRestrictions] - 
+                        points[i - quantityDeductibleIndexesRenderingRestrictions];
 
-                    if (Physics.SphereCast(points[i - quantityDeductibleIndexesRenderingRestrictions], radius, direction, out raycastHit))
+                    if (Physics.SphereCast(points[i - quantityDeductibleIndexesRenderingRestrictions], radius, direction, out raycastHit)
+                        && IsComponentGameplayParticipator(raycastHit) == true)
                     {
-                        if (raycastHit.collider.gameObject.TryGetComponent(out GameplayParticipator gameplayParticipator))
-                        {
-                            SetPositionCount(i, indexPoint);
+                        SetPositionCount(i, indexPointTrajectory);
 
-                            break;
-                        }
-                        else
-                        {
-                            if (points[i].y < minQuantityPoints)
-                            {
-                                SetPositionCount(i, indexPoint);
-
-                                break;
-                            }
-                        }
+                        break;
                     }
                 }
             }
 
-            _lineRenderer.SetPositions(points);
+            _lineRendererTrajectory.SetPositions(points);
         }
+
 
         public void EnableLinear()
         {
-            _lineRenderer.gameObject.SetActive(true);
+            _lineRendererTrajectory.gameObject.SetActive(true);
         }
 
         public void DisableLinear()
         {
-            _lineRenderer.gameObject.SetActive(false);
+            _lineRendererTrajectory.gameObject.SetActive(false);
         }
 
         public void SetColor(Color color)
         {
-            _lineRenderer.startColor = color;
+            _lineRendererTrajectory.startColor = color;
         }
 
         private void SetPositionCount(int index, int indexPoint)
         {
-            _lineRenderer.positionCount = index + indexPoint;
+            _lineRendererTrajectory.positionCount = index + indexPoint;
+        }
+
+        private bool IsComponentGameplayParticipator(RaycastHit raycastHit)
+        {
+            return raycastHit.collider.gameObject.TryGetComponent(out GameplayParticipator gameplayParticipator);
         }
     }
 }

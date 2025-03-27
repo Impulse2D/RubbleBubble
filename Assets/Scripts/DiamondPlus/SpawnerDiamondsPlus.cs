@@ -28,12 +28,12 @@ namespace Diamonds
 
             diamondPlus.Move(_targetPointDiamondPlus.transform.position);
 
-            diamondPlus.Released += ReportDiamondPlusReleased;
+            diamondPlus.DiamondReleased += ReportDiamondPlusReleased;
         }
 
         private void ReportDiamondPlusReleased(DiamondPlusMover diamondPlus)
         {
-            diamondPlus.Released -= ReportDiamondPlusReleased;
+            diamondPlus.DiamondReleased -= ReportDiamondPlusReleased;
 
             DiamondPlusReleased?.Invoke(diamondPlus);
         }

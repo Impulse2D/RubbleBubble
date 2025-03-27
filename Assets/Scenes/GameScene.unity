@@ -5621,7 +5621,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 8.998596, y: -34}
+  m_AnchoredPosition: {x: 8.998657, y: -34}
   m_SizeDelta: {x: 97.909, y: 52.064}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &734817309
@@ -12255,7 +12255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectsPool: {fileID: 1627875389}
   _spawnerLayersSpheres: {fileID: 2138190923}
-  _materialsDispenser: {fileID: 2068890559}
+  _materialsColoredBallsDispenser: {fileID: 2068890559}
   _spawnerPrototypeLayerSphere: {fileID: 739262515}
 --- !u!1 &1641556748
 GameObject:

@@ -19,12 +19,12 @@ namespace ColoredBalls
 
         private void OnEnable()
         {
-            _spawnerColoredSpheres.ColoredSphereCollisionDetected += TryTearOffMonochromeColoredSpheres;
+            _spawnerColoredSpheres.ColoredBallCollisionDetected += TryTearOffMonochromeColoredSpheres;
         }
 
         private void OnDisable()
         {
-            _spawnerColoredSpheres.ColoredSphereCollisionDetected -= TryTearOffMonochromeColoredSpheres;
+            _spawnerColoredSpheres.ColoredBallCollisionDetected -= TryTearOffMonochromeColoredSpheres;
         }
 
         private void TryTearOffMonochromeColoredSpheres(ColoredBall currentColoredSphere)
@@ -50,16 +50,13 @@ namespace ColoredBalls
 
             for (int i = 0; i < collidersShperes.Length; i++)
             {
-                if (collidersShperes[i].TryGetComponent(out ColoredBall coloredSphere))
+                if (collidersShperes[i].TryGetComponent(out ColoredBall coloredSphere) && coloredSphere.Color == sphere.Color)
                 {
-                    if (coloredSphere.Color == sphere.Color)
-                    {
-                        float currentDistance = Vector3.Distance(positionCurrentColoredSphere, coloredSphere.transform.position);
+                    float currentDistance = Vector3.Distance(positionCurrentColoredSphere, coloredSphere.transform.position);
 
-                        if (coloredSphere.LayerSphere.Identifier == sphere.LayerSphere.Identifier)
-                        {
-                            coloredSpheres.Add(coloredSphere, currentDistance);
-                        }
+                    if (coloredSphere.LayerSphere.Identifier == sphere.LayerSphere.Identifier)
+                    {
+                        coloredSpheres.Add(coloredSphere, currentDistance);
                     }
                 }
             }
@@ -78,16 +75,13 @@ namespace ColoredBalls
         {
             for (int i = 0; i < collidersShperes.Length; i++)
             {
-                if (collidersShperes[i].TryGetComponent(out ColoredBall coloredBall))
+                if (collidersShperes[i].TryGetComponent(out ColoredBall coloredBall) && coloredBall.Color == sphere.Color)
                 {
-                    if (coloredBall.Color == sphere.Color)
-                    {
-                        IncreaseDelayColoredSpheres(_increaserDelayColoredSpheres);
+                    IncreaseDelayColoredSpheres(_increaserDelayColoredSpheres);
 
-                        if (coloredBall.LayerSphere.Identifier > sphere.LayerSphere.Identifier)
-                        {
-                            TearOffColoredSphere(coloredBall);
-                        }
+                    if (coloredBall.LayerSphere.Identifier > sphere.LayerSphere.Identifier)
+                    {
+                        TearOffColoredSphere(coloredBall);
                     }
                 }
             }

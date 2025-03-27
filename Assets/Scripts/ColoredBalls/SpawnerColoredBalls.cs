@@ -7,27 +7,27 @@ namespace ColoredBalls
     public class SpawnerColoredBalls : Spawner<ColoredBallsPool>
     {
         [SerializeField] private SpawnerLayersSpheres _spawnerLayersSpheres;
-        [SerializeField] private MaterialsDispenser _materialsDispenser;
+        [SerializeField] private MaterialsDispenser _materialsColoredBallsDispenser;
         [SerializeField] private SpawnerPrototypeLayerSphere _spawnerPrototypeLayerSphere;
 
         private PrototypeLayerSphere _prototypeLayerSphere;
-        private Vector3 _centerPrototypeLayerSphere;
-        private Material _currentMaterial;
-        private int _maxQuantitySectors;
-        private int _quantityPointsSector;
+        private Vector3 _centerPointPositionPrototypeLayerSphere;
+        private Material _currentMaterialColoredBall;
+        private int _maxQuantityColoredBallsSectors;
+        private int _quantityPointsColoredBallsSector;
 
-        public event Action<int> ColoredSphereInitialized;
-        public event Action<ColoredBall> ColoredSphereCollisionDetected;
-        public event Action<ColoredBall> ColoredSphereReleased;
-        public event Action CreatingCompleted;
+        public event Action<int> ColoredBallInitialized;
+        public event Action<ColoredBall> ColoredBallCollisionDetected;
+        public event Action<ColoredBall> ColoredBallReleased;
+        public event Action CreatingColoredBallsCompleted;
 
         public void Init()
         {
             _prototypeLayerSphere = _spawnerPrototypeLayerSphere.GetCreatedInterLayer();
 
-            _maxQuantitySectors = 3;
+            _maxQuantityColoredBallsSectors = 3;
 
-            _quantityPointsSector = _prototypeLayerSphere.SpawnPointsPositionsColoredBalls.Length / _maxQuantitySectors;
+            _quantityPointsColoredBallsSector = _prototypeLayerSphere.SpawnPointsPositionsColoredBalls.Length / _maxQuantityColoredBallsSectors;
         }
 
         private void OnEnable()
@@ -51,9 +51,9 @@ namespace ColoredBalls
                 ObjectsPool.Initialize();
             }
 
-            ColoredSphereInitialized?.Invoke(maxQuantityColoredSpheres);
+            ColoredBallInitialized?.Invoke(maxQuantityColoredSpheres);
 
-            _centerPrototypeLayerSphere = _prototypeLayerSphere.Rigidbody.centerOfMass;
+            _centerPointPositionPrototypeLayerSphere = _prototypeLayerSphere.Rigidbody.centerOfMass;
         }
 
         private void Create(LayerSphere layerSphere)
@@ -62,27 +62,27 @@ namespace ColoredBalls
 
             int indexPointColoredSphere = 0;
 
-            for (int i = 0; i < _maxQuantitySectors; i++)
+            for (int i = 0; i < _maxQuantityColoredBallsSectors; i++)
             {
-                _currentMaterial = _materialsDispenser.GetRandomMaterial();
+                _currentMaterialColoredBall = _materialsColoredBallsDispenser.GetRandomMaterial();
 
-                for (int j = 0; j < _quantityPointsSector; j++)
+                for (int j = 0; j < _quantityPointsColoredBallsSector; j++)
                 {
-                    ColoredBall coloredSphere = ObjectsPool.GetRemoveLastObject();
+                    ColoredBall coloredBall = ObjectsPool.GetRemoveLastObject();
 
-                    coloredSphere.transform.position = _prototypeLayerSphere.SpawnPointsPositionsColoredBalls[indexPointColoredSphere];
+                    coloredBall.transform.position = _prototypeLayerSphere.SpawnPointsPositionsColoredBalls[indexPointColoredSphere];
 
-                    coloredSphere.transform.LookAt(_centerPrototypeLayerSphere);
+                    coloredBall.transform.LookAt(_centerPointPositionPrototypeLayerSphere);
 
-                    SetMaterial(coloredSphere, _currentMaterial);
+                    SetMaterial(coloredBall, _currentMaterialColoredBall);
 
-                    SetParent(coloredSphere, layerSphere.transform);
+                    SetParent(coloredBall, layerSphere.transform);
 
-                    AddSphere(coloredSphere, layerSphere);
+                    AddSphere(coloredBall, layerSphere);
 
-                    SetDefaultLocalScale(coloredSphere, defaultScaleColoredSphere);
+                    SetDefaultLocalScaleColoredBall(coloredBall, defaultScaleColoredSphere);
 
-                    coloredSphere.SetLayerSphere(layerSphere);
+                    coloredBall.SetLayerSphere(layerSphere);
 
                     ++indexPointColoredSphere;
                 }
@@ -97,41 +97,41 @@ namespace ColoredBalls
                 layerSphere.ColoredBalls[i].Released += ReportReleasedColoredSphere;
             }
 
-            CreatingCompleted?.Invoke();
+            CreatingColoredBallsCompleted?.Invoke();
         }
 
-        private void ReportCollisionDetectedColoredSphere(ColoredBall coloredSphere)
+        private void ReportCollisionDetectedColoredSphere(ColoredBall coloredBall)
         {
-            coloredSphere.CollisionDetected -= ReportCollisionDetectedColoredSphere;
+            coloredBall.CollisionDetected -= ReportCollisionDetectedColoredSphere;
 
-            ColoredSphereCollisionDetected?.Invoke(coloredSphere);
+            ColoredBallCollisionDetected?.Invoke(coloredBall);
         }
 
-        private void ReportReleasedColoredSphere(ColoredBall coloredSphere)
+        private void ReportReleasedColoredSphere(ColoredBall coloredBall)
         {
-            coloredSphere.Released -= ReportReleasedColoredSphere;
+            coloredBall.Released -= ReportReleasedColoredSphere;
 
-            ColoredSphereReleased?.Invoke(coloredSphere);
+            ColoredBallReleased?.Invoke(coloredBall);
         }
 
-        private void AddSphere(ColoredBall coloredSphere, LayerSphere layerSphere)
+        private void AddSphere(ColoredBall coloredBall, LayerSphere layerSphere)
         {
-            layerSphere.AddColoredBall(coloredSphere);
+            layerSphere.AddColoredBall(coloredBall);
         }
 
-        private void SetMaterial(ColoredBall coloredSphere, Material material)
+        private void SetMaterial(ColoredBall coloredBall, Material material)
         {
-            coloredSphere.SetMaterial(material);
+            coloredBall.SetMaterial(material);
         }
 
-        private void SetParent(ColoredBall coloredSphere, Transform parent)
+        private void SetParent(ColoredBall coloredBall, Transform parent)
         {
-            coloredSphere.transform.SetParent(parent, false);
+            coloredBall.transform.SetParent(parent, false);
         }
 
-        private void SetDefaultLocalScale(ColoredBall coloredSphere, Vector3 scale)
+        private void SetDefaultLocalScaleColoredBall(ColoredBall coloredBall, Vector3 scale)
         {
-            coloredSphere.transform.localScale = scale;
+            coloredBall.transform.localScale = scale;
         }
     }
 }

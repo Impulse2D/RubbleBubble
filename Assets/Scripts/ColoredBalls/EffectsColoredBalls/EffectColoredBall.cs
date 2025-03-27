@@ -6,24 +6,24 @@ namespace EffectsColoredBalls
 {
     public class EffectColoredBall : MonoBehaviour
     {
-        private Coroutine _coroutine;
-        private float _maxValueLifeTime;
+        private Coroutine _coroutineCountLifeTime;
+        private float _maxValueLifeTimeEffect;
 
         public event Action<EffectColoredBall> Released;
 
         private void OnEnable()
         {
-            _maxValueLifeTime = 3f;
+            _maxValueLifeTimeEffect = 3f;
 
-            if (_coroutine != null)
+            if (_coroutineCountLifeTime != null)
             {
-                StopCoroutine(_coroutine);
+                StopCoroutine(_coroutineCountLifeTime);
             }
 
-            StartCoroutine(CoutLifeTime(_maxValueLifeTime));
+            StartCoroutine(CountLifeTime(_maxValueLifeTimeEffect));
         }
 
-        private IEnumerator CoutLifeTime(float time)
+        private IEnumerator CountLifeTime(float time)
         {
             WaitForSeconds timeWait = new WaitForSeconds(time);
 

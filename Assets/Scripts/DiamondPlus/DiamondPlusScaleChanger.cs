@@ -7,20 +7,20 @@ namespace Diamonds
     {
         private void OnEnable()
         {
-            Vector3 defaultScale = Vector3.one;
+            Vector3 defaultScaleDiamond = Vector3.one;
 
-            transform.localScale = defaultScale;
+            transform.localScale = defaultScaleDiamond;
 
-            IncreaseScale();
+            IncreaseScaleDiamond();
         }
 
-        private void IncreaseScale()
+        private void IncreaseScaleDiamond()
         {
-            Vector3 targetScale = new Vector3(0f, 0f, 0f);
+            Vector3 targetScaleDiamond = new Vector3(0f, 0f, 0f);
 
-            float duraction = 0.9f;
+            float duractionDiamond = 0.9f;
 
-            transform.DOScale(targetScale, duraction);
+            transform.DOScale(targetScaleDiamond, duractionDiamond);
         }
     }
 }

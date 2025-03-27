@@ -38,8 +38,6 @@ namespace Bullets
                         _bullet.EnableCriticalCollision();
 
                         _bullet.DisableIsMoved();
-
-                        Debug.Log("”дарилс€ об цветной шар не своего цвета -  онец игры");
                     }
                 }
 
@@ -55,16 +53,6 @@ namespace Bullets
                     _bullet.EnableCriticalCollision();
 
                     _bullet.DisableIsMoved();
-
-                    Debug.Log("ударилс€ после выстрела, но не было столкновений - конец игры");
-                }
-                else if (_bullet.IsMoved == true && _bullet.IsOneColorCollision == true)
-                {
-                    Debug.Log("ударилс€ после выстрела, было столкновение с шаром своего цвета - игра продолжаетс€");
-                }
-                else if (_bullet.IsMoved == false)
-                {
-                    Debug.Log("ударилс€ после смены снар€да - игра продолжаетс€");
                 }
 
                 _bullet.ReportCollisionDetected();

@@ -31,12 +31,12 @@ namespace LayerSpheres
 
         private void OnEnable()
         {
-            _spawnerColoredBalls.CreatingCompleted += IncreaseInterlayers;
+            _spawnerColoredBalls.CreatingColoredBallsCompleted += IncreaseInterlayers;
         }
 
         private void OnDisable()
         {
-            _spawnerColoredBalls.CreatingCompleted -= IncreaseInterlayers;
+            _spawnerColoredBalls.CreatingColoredBallsCompleted -= IncreaseInterlayers;
         }
 
         private void IncreaseInterlayers()

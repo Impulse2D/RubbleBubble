@@ -42,7 +42,6 @@ namespace Bullets
             if (_force != null)
             {
                 DisableKinematic();
-
                 EnableIsMoved();
 
                 Rigidbody.AddForce(_force, ForceMode.VelocityChange);

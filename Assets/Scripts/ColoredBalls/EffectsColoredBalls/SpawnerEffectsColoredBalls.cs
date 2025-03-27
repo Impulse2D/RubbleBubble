@@ -12,14 +12,14 @@ namespace EffectsColoredBalls
 
         private void OnEnable()
         {
-            _spawnerColoredBalls.ColoredSphereInitialized += Initialize;
-            _spawnerColoredBalls.ColoredSphereReleased += Create;
+            _spawnerColoredBalls.ColoredBallInitialized += Initialize;
+            _spawnerColoredBalls.ColoredBallReleased += Create;
         }
 
         private void OnDisable()
         {
-            _spawnerColoredBalls.ColoredSphereInitialized -= Initialize;
-            _spawnerColoredBalls.ColoredSphereReleased -= Create;
+            _spawnerColoredBalls.ColoredBallInitialized -= Initialize;
+            _spawnerColoredBalls.ColoredBallReleased -= Create;
         }
 
         private void Initialize(int maxQuantityEffects)

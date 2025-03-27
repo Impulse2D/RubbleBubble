@@ -7,6 +7,7 @@ namespace Points
     {
         [SerializeField] private GamePointsHandler _gamePointsHandler;
         [SerializeField] private float _maxQuantityGamePoints;
+
         private float _currentQuantityGamePoints;
 
         public event Action<float> PointCounted;

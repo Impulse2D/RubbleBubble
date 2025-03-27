@@ -52,11 +52,11 @@ namespace Bullets
 
         private IEnumerator MoveProjectile(Bullet projectiles)
         {
-            float speedMovement = 15f;
+            float speedMovementProjectile = 15f;
 
             while (projectiles.transform.position != _mainBulletPosition)
             {
-                projectiles.transform.position = Vector3.Lerp(projectiles.transform.position, _mainBulletPosition, speedMovement * Time.deltaTime);
+                projectiles.transform.position = Vector3.Lerp(projectiles.transform.position, _mainBulletPosition, speedMovementProjectile * Time.deltaTime);
 
                 yield return null;
             }
