@@ -18,8 +18,8 @@ namespace AimingCancelTeaching
         [SerializeField] private DeviceTypeDetector _deviceTypeDetector;
         [SerializeField] private LevelService _levelService;
         [SerializeField] private InputReader _inputReader;
-        [SerializeField] int _minValueNumberLevel = 1;
-        [SerializeField] int _minQuantyActivatedTeachings = 0;
+        [SerializeField] private int _minValueNumberLevel = 1;
+        [SerializeField] private int _minQuantyActivatedTeachings = 0;
 
         private int _counterActivatedTeaching;
         private int _maxQuantyActivatedTeachings = 1;

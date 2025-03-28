@@ -939,6 +939,8 @@ MonoBehaviour:
   _audioClip: {fileID: 8300000, guid: 19d606c0b195ab24fb0242a562e12e5f, type: 3}
   _pauseService: {fileID: 604730870}
   _spawnerBullets: {fileID: 400932824}
+  _minValuePitch: 0.9
+  _maxValuePitch: 1.1
 --- !u!1 &153044177
 GameObject:
   m_ObjectHideFlags: 0
@@ -1778,6 +1780,8 @@ MonoBehaviour:
   _audioClip: {fileID: 8300000, guid: 66ecdd2194394394cbbb82b92020e7e4, type: 3}
   _pauseService: {fileID: 604730870}
   _coloredBallsSeparator: {fileID: 1641556749}
+  _minValuePitch: 0.9
+  _maxValuePitch: 1.1
 --- !u!1 &309825279
 GameObject:
   m_ObjectHideFlags: 0
@@ -4531,6 +4535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelService: {fileID: 604730863}
+  _delayCountingSavingValueRecord: 1
 --- !u!114 &604730866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4556,6 +4561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textLives: {fileID: 1042675203}
+  _minQuantitylives: 0
 --- !u!114 &604730869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4662,6 +4668,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gamePointsHandler: {fileID: 804049613}
   _maxQuantityGamePoints: 400
+  _minQuantityGamePoints: 0
+  _minRandomQuantityGamePoints: 300
+  _maxRandomQuantityGamePoints: 1000
 --- !u!1 &622028978
 GameObject:
   m_ObjectHideFlags: 0
@@ -5088,6 +5097,7 @@ MonoBehaviour:
   _firstCanvasFourthStageTeaching: {fileID: 1659412074}
   _secondCanvasFourthStageTeaching: {fileID: 120774700}
   _thirdStageTeachingView: {fileID: 1408937188}
+  _numberTeachingId: 0
 --- !u!1 &695846909
 GameObject:
   m_ObjectHideFlags: 0
@@ -8237,6 +8247,7 @@ MonoBehaviour:
   _inputReader: {fileID: 1375840410}
   _firstStageTeachingView: {fileID: 2050489049}
   _canvasSecondStageTeachingArrow: {fileID: 161405161}
+  _numberTeachingId: 0
 --- !u!1 &1063076904
 GameObject:
   m_ObjectHideFlags: 0
@@ -10049,6 +10060,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cb74cafbbc9ba7a48a117920def7636e, type: 3}
   - {fileID: 8300000, guid: 5b104c36b25cdb244afe9dae0fbf347f, type: 3}
   - {fileID: 8300000, guid: b061abdbd28508f42b659f2235b88c2c, type: 3}
+  _minIndexAudioClip: 0
 --- !u!1 &1327388343
 GameObject:
   m_ObjectHideFlags: 0
@@ -10846,6 +10858,7 @@ MonoBehaviour:
   _firstCanvasThirdStageTeaching: {fileID: 1390642644}
   _secondCanvasThirdStageTeaching: {fileID: 749958698}
   _secondStageTeachingView: {fileID: 1061295069}
+  _numberTeachingId: 0
 --- !u!850595691 &1409956516
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -22287,6 +22300,7 @@ MonoBehaviour:
   _canvasFirstStageTeachingDesktop: {fileID: 19623874}
   _canvasFirstStageArrow: {fileID: 675612261}
   _levelService: {fileID: 604730863}
+  _numberTeachingId: 1
 --- !u!1 &2053506260
 GameObject:
   m_ObjectHideFlags: 0
@@ -22523,6 +22537,7 @@ MonoBehaviour:
   _violetMaterial: {fileID: 2100000, guid: b8ba77029b1bc604c83e35f49d4c78f3, type: 2}
   _greenMaterial: {fileID: 2100000, guid: 558a5664689defe4d88462a5a0195269, type: 2}
   _yellowMaterial: {fileID: 2100000, guid: f8bfdf5a79cb8b2428649b58d40b67ad, type: 2}
+  _minIndexColor: 0
 --- !u!1 &2072457002
 GameObject:
   m_ObjectHideFlags: 0
@@ -23643,6 +23658,7 @@ MonoBehaviour:
   _objectsPool: {fileID: 2138190925}
   _pointPosition: {fileID: 937004719}
   _spawnerParentSpheres: {fileID: 1820121427}
+  _maxQuantityInterlayersInitialized: 3
 --- !u!4 &2138190924
 Transform:
   m_ObjectHideFlags: 0
