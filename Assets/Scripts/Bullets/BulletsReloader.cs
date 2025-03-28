@@ -9,6 +9,7 @@ namespace Bullets
         [SerializeField] private SpawnerBullets _spawnerBullets;
         [SerializeField] private List<SpawnPointBullet> _spawnPointBullets;
         [SerializeField] private BulletsPool _bulletsPool;
+        [SerializeField] private float _speedMovementProjectile;
 
         private Bullet _currentBullet;
         private List<Bullet> _bullets;
@@ -46,17 +47,14 @@ namespace Bullets
             _coroutine = StartCoroutine(MoveProjectile(_bullets[0]));
 
             SetCurrentProjectile(_bullets[0]);
-
             CreateNewProjectile();
         }
 
         private IEnumerator MoveProjectile(Bullet projectiles)
         {
-            float speedMovementProjectile = 15f;
-
             while (projectiles.transform.position != _mainBulletPosition)
             {
-                projectiles.transform.position = Vector3.Lerp(projectiles.transform.position, _mainBulletPosition, speedMovementProjectile * Time.deltaTime);
+                projectiles.transform.position = Vector3.Lerp(projectiles.transform.position, _mainBulletPosition, _speedMovementProjectile * Time.deltaTime);
 
                 yield return null;
             }

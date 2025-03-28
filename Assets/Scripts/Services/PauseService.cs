@@ -30,7 +30,6 @@ namespace Services
             if (IsPause() == true)
             {
                 DisablePause();
-
                 ReportDisablePause();
             }
         }
@@ -38,14 +37,12 @@ namespace Services
         public void EnablePause()
         {
             ÑhangeTime(_minValueTime);
-
             ReportEnabledPause();
         }
 
         public void DisablePause()
         {
             ÑhangeTime(_maxValueTime);
-
             ReportDisablePause();
         }
 

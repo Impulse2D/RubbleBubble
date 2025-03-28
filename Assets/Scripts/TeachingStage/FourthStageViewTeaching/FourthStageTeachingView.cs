@@ -10,6 +10,7 @@ namespace FourthStageViewTeaching
         [SerializeField] private FirstCanvasFourthStageTeaching _firstCanvasFourthStageTeaching;
         [SerializeField] private SecondCanvasFourthStageTeaching _secondCanvasFourthStageTeaching;
         [SerializeField] private ThirdStageTeachingView _thirdStageTeachingView;
+        [SerializeField] private int _numberTeachingId;
 
         private int _counterClicks;
 
@@ -17,9 +18,9 @@ namespace FourthStageViewTeaching
 
         private void OnEnable()
         {
-            int namberId = 4;
+            _numberTeachingId = 4;
 
-            SetId(namberId);
+            SetId(_numberTeachingId);
 
             _thirdStageTeachingView.StageCompleted += Show;
             InputReader.ShootReleased += Hide;
@@ -41,19 +42,18 @@ namespace FourthStageViewTeaching
         {
             int maxQuantyClicks = 1;
 
-            if (StagesTeachingService.NumberStage == Id)
+            if (StagesTeachingService.NumberStage != Id)
+                return;
+
+            _counterClicks++;
+
+            if (_counterClicks > maxQuantyClicks)
             {
-                _counterClicks++;
+                ObjectsChangerService.DisableObject(_firstCanvasFourthStageTeaching.gameObject);
+                ObjectsChangerService.DisableObject(_secondCanvasFourthStageTeaching.gameObject);
+                StagesTeachingService.IncreaseNumberStage();
 
-                if (_counterClicks > maxQuantyClicks)
-                {
-                    ObjectsChangerService.DisableObject(_firstCanvasFourthStageTeaching.gameObject);
-                    ObjectsChangerService.DisableObject(_secondCanvasFourthStageTeaching.gameObject);
-
-                    StagesTeachingService.IncreaseNumberStage();
-
-                    StageCompleted?.Invoke();
-                }
+                StageCompleted?.Invoke();
             }
         }
     }

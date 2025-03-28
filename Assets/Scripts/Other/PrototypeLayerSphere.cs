@@ -10,13 +10,11 @@ public class PrototypeLayerSphere : MonoBehaviour
     private Vector3[] _spawnPointsPositionsColoredBalls;
 
     public Vector3[] SpawnPointsPositionsColoredBalls => _spawnPointsPositionsColoredBalls;
-
     public Rigidbody Rigidbody => _rigidbody;
 
     private void OnEnable()
     {
         _meshFilter = GetComponent<MeshFilter>();
-
         _rigidbody = GetComponent<Rigidbody>();
 
         SetSpawnPointsPositionsColoredBalls(_meshFilter.mesh.vertices);

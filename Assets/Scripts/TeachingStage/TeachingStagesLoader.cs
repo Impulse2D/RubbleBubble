@@ -20,18 +20,20 @@ namespace TeachingStage
         [SerializeField] private FourthStageTeachingView _fourthStageTeachingView;
         [SerializeField] private AimingTeachingCancelingView _aimingCancelTeachingView;
 
+        private int _maxNumberLevel;
+        private int _maxQuantyCounterActivatedTeaching;
+
         public void Init()
         {
             TryLoadStagesTeaching();
-
             TryLoadAminigTeaching();
         }
 
         private void TryLoadStagesTeaching()
         {
-            int maxNumberLevel = 1;
+            _maxNumberLevel = 1;
 
-            if (_levelService.NumberLevel == maxNumberLevel)
+            if (_levelService.NumberLevel == _maxNumberLevel)
             {
                 _objectsChangerService.EnableObject(_firstStageTeachingView.gameObject);
                 _objectsChangerService.EnableObject(_secondStageTeachingView.gameObject);
@@ -44,11 +46,9 @@ namespace TeachingStage
 
         private void TryLoadAminigTeaching()
         {
-            int maxQuantyCounterActivatedTeaching = 1;
-
             _aimingCancelTeachingView.Init();
 
-            if (_aimingCancelTeachingView.CounterTeaching < maxQuantyCounterActivatedTeaching)
+            if (_aimingCancelTeachingView.CounterTeaching < _maxQuantyCounterActivatedTeaching)
             {
                 _objectsChangerService.EnableObject(_aimingCancelTeachingView.gameObject);
             }

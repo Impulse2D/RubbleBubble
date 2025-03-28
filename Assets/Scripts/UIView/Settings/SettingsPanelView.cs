@@ -29,16 +29,13 @@ namespace Settings
         private void Show()
         {
             _objectsChangerService.EnableObject(_canvasSettings.gameObject);
-
             _pauseService.EnablePause();
-
             _uIPanelsSoundsPlayer.PlaySound();
         }
 
         private void Hide()
         {
             _objectsChangerService.DisableObject(_canvasSettings.gameObject);
-
             _pauseService.DisablePause();
         }
     }

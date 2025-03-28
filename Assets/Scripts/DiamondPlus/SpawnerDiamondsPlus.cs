@@ -25,7 +25,6 @@ namespace Diamonds
         private void Create()
         {
             DiamondPlusMover diamondPlus = ObjectsPool.GetObject(_spawnPointDiamondPlus.transform.position, Quaternion.identity);
-
             diamondPlus.Move(_targetPointDiamondPlus.transform.position);
 
             diamondPlus.DiamondReleased += ReportDiamondPlusReleased;

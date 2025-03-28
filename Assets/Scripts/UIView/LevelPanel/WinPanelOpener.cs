@@ -33,7 +33,6 @@ namespace LevelPanel
             if (_isPanelOpened == false)
             {
                 _isPanelOpened = true;
-
                 _objectsChangerService.EnableObject(_winPanel.gameObject);
 
                 PanelOpened?.Invoke();

@@ -21,7 +21,6 @@ namespace PanelGameOver
             _buttonAdReward.onClick.AddListener(ShowRewardAd);
 
             YandexGame.OpenVideoEvent += EnablePause;
-
             YandexGame.RewardVideoEvent += Reward;
         }
 
@@ -30,7 +29,6 @@ namespace PanelGameOver
             _buttonAdReward.onClick.RemoveListener(ShowRewardAd);
 
             YandexGame.OpenVideoEvent -= EnablePause;
-
             YandexGame.RewardVideoEvent -= Reward;
         }
 
@@ -46,9 +44,7 @@ namespace PanelGameOver
             if (id == _idAdReward)
             {
                 EnablePause();
-
                 DisableObject(_gameOverPanel.gameObject);
-
                 EnableObject(_pausePanel.gameObject);
 
                 _lifeService.ResetQuantitylives();

@@ -9,6 +9,7 @@ namespace Services
         private const string NameLiderBoard = "LevelScore";
 
         [SerializeField] private LevelService _levelService;
+        [SerializeField] private float _delayCountingSavingValueRecord = 1f;
 
         private int _newScore;
 
@@ -31,7 +32,6 @@ namespace Services
             if (_newScore > _currentScore)
             {
                 YandexGame.NewLeaderboardScores(NameLiderBoard, _newScore);
-
                 YandexGame.savesData.currentRecord = _newScore;
 
                 SaveDataLeaderboard();
@@ -39,7 +39,6 @@ namespace Services
             else
             {
                 YandexGame.NewLeaderboardScores(NameLiderBoard, _currentScore);
-
                 YandexGame.savesData.currentRecord = _currentScore;
 
                 SaveDataLeaderboard();
@@ -58,9 +57,7 @@ namespace Services
 
         private IEnumerator CountDelayAfterSaveValueRecord()
         {
-            float delay = 1f;
-
-            WaitForSeconds timeWait = new WaitForSeconds(delay);
+            WaitForSeconds timeWait = new WaitForSeconds(_delayCountingSavingValueRecord);
 
             yield return timeWait;
 

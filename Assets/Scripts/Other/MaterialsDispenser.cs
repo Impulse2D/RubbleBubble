@@ -6,6 +6,7 @@ public class MaterialsDispenser : MonoBehaviour
     [SerializeField] private Material _violetMaterial;
     [SerializeField] private Material _greenMaterial;
     [SerializeField] private Material _yellowMaterial;
+    [SerializeField] private float _minIndexColor = 0f;
 
     private List<Material> _materialsColoredBalls;
     public List<Material> MaterialsColoredBalls => _materialsColoredBalls;
@@ -22,10 +23,7 @@ public class MaterialsDispenser : MonoBehaviour
 
     public Material GetRandomMaterial()
     {
-        float minIndexColor = 0f;
-        float maxIndexColor = _materialsColoredBalls.Count;
-
-        float randomMaterial = Random.Range(minIndexColor, maxIndexColor);
+        float randomMaterial = Random.Range(_minIndexColor, _materialsColoredBalls.Count);
 
         return GetMaterial(randomMaterial);
     }

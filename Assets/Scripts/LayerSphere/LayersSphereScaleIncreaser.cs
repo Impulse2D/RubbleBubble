@@ -11,8 +11,10 @@ namespace LayerSpheres
 
         [SerializeField] private SpawnPointFirstLayerSphere _spawnPointFirstInterlayer;
         [SerializeField] private SpawnerColoredBalls _spawnerColoredBalls;
+        [SerializeField] private float _radius = 100f;
+        [SerializeField] private float _valueFirstSizeLayerSphere = 1.5f;
+        [SerializeField] private float _valueSecondSizeLayerSphere = 1.8f;
 
-        private float _radius = 100f;
         private List<Vector3> _scaleInterlayer;
         private Vector3 _firstScaleTarget;
         private Vector3 _secondScaleTarget;
@@ -21,8 +23,8 @@ namespace LayerSpheres
         {
             _scaleInterlayer = new List<Vector3>
         {
-            new Vector3(1.5f, 1.5f, 1.5f),
-            new Vector3(1.8f, 1.8f, 1.8f),
+            new Vector3(_valueFirstSizeLayerSphere, _valueFirstSizeLayerSphere, _valueFirstSizeLayerSphere),
+            new Vector3(_valueSecondSizeLayerSphere, _valueSecondSizeLayerSphere, _valueSecondSizeLayerSphere),
         };
 
             _firstScaleTarget = _scaleInterlayer[0];
@@ -45,22 +47,21 @@ namespace LayerSpheres
 
             for (int i = 0; i < overlappedColliders.Length; i++)
             {
-                if (overlappedColliders[i].TryGetComponent(out LayerSphere interlayer))
-                {
-                    interlayer.IncreaseIdentifier();
+                if (overlappedColliders[i].TryGetComponent(out LayerSphere interlayer) == false) continue;
 
-                    TryIncreaseInterlayer(FirstIdentifier, interlayer, _firstScaleTarget);
-                    TryIncreaseInterlayer(SecondIdentifier, interlayer, _secondScaleTarget);
-                }
+                interlayer.IncreaseIdentifier();
+
+                TryIncreaseInterlayer(FirstIdentifier, interlayer, _firstScaleTarget);
+                TryIncreaseInterlayer(SecondIdentifier, interlayer, _secondScaleTarget);
             }
         }
 
         private void TryIncreaseInterlayer(float identifierInterlayer, LayerSphere interlayer, Vector3 targetScale)
         {
-            if (interlayer.Identifier == identifierInterlayer)
-            {
-                interlayer.IncreaseScale(targetScale);
-            }
+            if (interlayer.Identifier != identifierInterlayer)
+                return;
+
+            interlayer.IncreaseScale(targetScale);
         }
     }
 }

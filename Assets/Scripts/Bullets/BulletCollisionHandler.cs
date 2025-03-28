@@ -10,9 +10,7 @@ namespace Bullets
         private void OnEnable()
         {
             _bullet.DisableCriticalCollision();
-
             _bullet.DisableIsOneColorCollision();
-
             _bullet.DisableIsBallCollision();
         }
 
@@ -25,20 +23,16 @@ namespace Bullets
                 if (coloredBall.Color == _bullet.Color)
                 {
                     _bullet.EnableIsOneColorCollision();
-
                     coloredBall.FallDown();
-
                     coloredBall.EnableIsCollision();
                 }
 
-                if (coloredBall.Color != _bullet.Color)
+                if (coloredBall.Color != _bullet.Color &&
+                    _bullet.IsMoved == true &&
+                    _bullet.IsOneColorCollision == false)
                 {
-                    if (_bullet.IsMoved == true && _bullet.IsOneColorCollision == false)
-                    {
-                        _bullet.EnableCriticalCollision();
-
-                        _bullet.DisableIsMoved();
-                    }
+                    _bullet.EnableCriticalCollision();
+                    _bullet.DisableIsMoved();
                 }
 
                 _bullet.ReportCollisionDetected();
@@ -51,12 +45,10 @@ namespace Bullets
                 if (_bullet.IsMoved == true && _bullet.IsOneColorCollision == false)
                 {
                     _bullet.EnableCriticalCollision();
-
                     _bullet.DisableIsMoved();
                 }
 
                 _bullet.ReportCollisionDetected();
-
                 _bullet.ReportRelease();
             }
         }

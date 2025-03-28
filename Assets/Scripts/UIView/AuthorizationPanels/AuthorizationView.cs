@@ -31,7 +31,6 @@ namespace AuthorizationPanels
         private void LogIn()
         {
             _authorizationService.ShowAuthDialog();
-
             DisableAuthorizationOfferPanel();
 
             AuthorizationOfferPanelClosed?.Invoke();
@@ -40,7 +39,6 @@ namespace AuthorizationPanels
         private void Hide()
         {
             DisableAuthorizationOfferPanel();
-
             _pauseService.DisablePause();
         }
 

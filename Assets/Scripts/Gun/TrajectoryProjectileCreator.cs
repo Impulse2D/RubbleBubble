@@ -25,7 +25,6 @@ namespace Gun
         private void TryShowTrajectoryProjectile()
         {
             _trajectoryVisualizer.EnableLinear();
-
             _trajectoryVisualizer.ShowTrajectory(transform.position, _gunner.ForceProjectile);
 
             if (_projectileReloader.CurrentBullet != null)
@@ -37,7 +36,6 @@ namespace Gun
         private void EnableTrajectoryProjectile()
         {
             _trajectoryVisualizer.EnableLinear();
-
             TryShowTrajectoryProjectile();
         }
 

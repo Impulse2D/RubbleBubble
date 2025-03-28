@@ -29,7 +29,6 @@ namespace AuthorizationPanels
             if (YandexGame.auth == true)
             {
                 _pauseService.DisablePause();
-
                 _scenesService.LoadLoadingScene();
             }
             else
@@ -41,7 +40,6 @@ namespace AuthorizationPanels
         private void Hide()
         {
             _objectsChangerService.DisableObject(_pausePanelAuthorization.gameObject);
-
             _pauseService.DisablePause();
         }
     }

@@ -22,7 +22,6 @@ namespace PausePanelView
         private void Show()
         {
             _objectsChangerService.EnableObject(_pausePanel.gameObject);
-
             _pauseService.EnablePause();
         }
     }

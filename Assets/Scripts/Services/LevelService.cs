@@ -25,7 +25,6 @@ namespace Services
         public void LoadData()
         {
             _numberLevel = YandexGame.savesData.numberLevel;
-
             PlayerPrefs.SetInt(CurrentLevel, _numberLevel);
 
             LeveliInstalled?.Invoke(_numberLevel.ToString());
@@ -34,7 +33,6 @@ namespace Services
         public void SaveData()
         {
             YandexGame.savesData.numberLevel = _numberLevel;
-
             YandexGame.SaveProgress();
         }
 
@@ -46,9 +44,7 @@ namespace Services
         public void GoNextLevel()
         {
             IncreaseLevel();
-
             SaveData();
-
             ReloadLevel();
         }
 
@@ -62,7 +58,6 @@ namespace Services
             _numberLevel = 1;
 
             YandexGame.savesData.numberLevel = _numberLevel;
-
             YandexGame.SaveProgress();
 
             SetScene(GameScene);
@@ -71,9 +66,7 @@ namespace Services
         public void LoadMainScene()
         {
             IncreaseLevel();
-
             SaveData();
-
             SetScene(MainScene);
         }
 

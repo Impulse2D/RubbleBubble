@@ -4,7 +4,9 @@ namespace LayerSpheres
 {
     public class ParentSphereRotator : MonoBehaviour
     {
-        private float _speedRotation = 10f;
+        [SerializeField] private float _speedRotation = 10f;
+        [SerializeField] private float _valueAxisXLocalRotation = 0f;
+        [SerializeField] private float _valueAxisYLocalRotation = 0f;
 
         private void FixedUpdate()
         {
@@ -13,7 +15,7 @@ namespace LayerSpheres
 
         private void Rotate()
         {
-            transform.localRotation *= Quaternion.Euler(0f, _speedRotation * Time.fixedDeltaTime, 0f);
+            transform.localRotation *= Quaternion.Euler(_valueAxisXLocalRotation, _speedRotation * Time.fixedDeltaTime, _valueAxisYLocalRotation);
         }
     }
 }

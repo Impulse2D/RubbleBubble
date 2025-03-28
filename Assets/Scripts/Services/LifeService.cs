@@ -7,6 +7,7 @@ namespace Services
     public class LifeService : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _textLives;
+        [SerializeField] private int _minQuantitylives = 0;
 
         private int _quantitylives;
 
@@ -19,13 +20,11 @@ namespace Services
 
         public void TryReduceQuantitylives()
         {
-            int minQuantitylives = 0;
-
             _quantitylives--;
 
-            if (_quantitylives <= minQuantitylives)
+            if (_quantitylives <= _minQuantitylives)
             {
-                _quantitylives = 0;
+                _quantitylives = _minQuantitylives;
 
                 SetQuantitylives(_textLives);
 

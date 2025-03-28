@@ -192,6 +192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _image: {fileID: 7952996168037367834}
   "_transparent\u0421olor": {r: 0, g: 0, b: 0, a: 0}
+  _defaultColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &7145543295762351612
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,6 +239,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f047f1496c97d3b499a762907197dc78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _targetScaleDiamond: {x: 0, y: 0, z: 0}
+  _duractionDiamond: 0.9
 --- !u!114 &5307304416584913440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,3 +253,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b3bcd632832a1b47be05e24d250086c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _duractionMoving: 2

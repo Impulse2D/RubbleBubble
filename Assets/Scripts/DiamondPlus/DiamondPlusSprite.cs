@@ -7,15 +7,14 @@ namespace Diamonds
     {
         [SerializeField] private Image _image;
         [SerializeField] private Color _transparent—olor;
+        [SerializeField] private Color _defaultColor;
 
         public Image Image => _image;
         public Color Color => _transparent—olor;
 
         private void OnEnable()
         {
-            Color defaultColor = new Color(255f, 255f, 255f, 255f);
-
-            _image.color = defaultColor;
+            _image.color = _defaultColor;
         }
     }
 }

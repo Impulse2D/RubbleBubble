@@ -6,15 +6,14 @@ namespace EffectsColoredBalls
 {
     public class EffectColoredBall : MonoBehaviour
     {
+        [SerializeField] private float _maxValueLifeTimeEffect;
+
         private Coroutine _coroutineCountLifeTime;
-        private float _maxValueLifeTimeEffect;
 
         public event Action<EffectColoredBall> Released;
 
         private void OnEnable()
         {
-            _maxValueLifeTimeEffect = 3f;
-
             if (_coroutineCountLifeTime != null)
             {
                 StopCoroutine(_coroutineCountLifeTime);

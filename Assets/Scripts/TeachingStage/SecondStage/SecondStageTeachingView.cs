@@ -9,14 +9,15 @@ namespace SecondStage
     {
         [SerializeField] private FirstStageTeachingView _firstStageTeachingView;
         [SerializeField] private CanvasSecondStageTeachingArrow _canvasSecondStageTeachingArrow;
+        [SerializeField] private int _numberTeachingId;
 
         public event Action StageCompleted;
 
         private void OnEnable()
         {
-            int namberId = 2;
+            _numberTeachingId = 2;
 
-            SetId(namberId);
+            SetId(_numberTeachingId);
 
             _firstStageTeachingView.StageCompleted += Show;
             InputReader.ShootReleased += Hide;

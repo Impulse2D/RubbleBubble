@@ -10,6 +10,8 @@ namespace ColoredBalls
         private const string ResidentSphere = "ResidentSphere";
         private const string Ball = "Ball";
 
+        [SerializeField] private Vector3 _force;
+
         private LayerSphere _currentLayerSphere;
         private bool _isCollision;
         private Coroutine _coroutine;
@@ -35,15 +37,15 @@ namespace ColoredBalls
 
         public void TryFallDown(float delay)
         {
-            if (_currentLayerSphere != null)
-            {
-                if (_coroutine != null)
-                {
-                    StopCoroutine(_coroutine);
-                }
+            if (_currentLayerSphere == null)
+                return;
 
-                _coroutine = StartCoroutine(CountDownFallDown(delay));
+            if (_coroutine != null)
+            {
+                StopCoroutine(_coroutine);
             }
+
+            _coroutine = StartCoroutine(CountDownFallDown(delay));
         }
 
         public void SetLayerSphere(LayerSphere layerSphere)
@@ -65,15 +67,12 @@ namespace ColoredBalls
 
         public void FallDown()
         {
-            Vector3 force = new Vector3(0f, 0f, -1.2f);
-
             DisableKinematic();
 
             transform.SetParent(null);
-
             transform.localScale = _defaultScale;
 
-            Rigidbody.AddForce(force, ForceMode.VelocityChange);
+            Rigidbody.AddForce(_force, ForceMode.VelocityChange);
 
             _currentLayerSphere.RemoveColoredBall(this);
 

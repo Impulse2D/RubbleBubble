@@ -970,6 +970,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnPointFirstInterlayer: {fileID: 937004719}
   _spawnerColoredBalls: {fileID: 1627875391}
+  _radius: 100
+  _valueFirstSizeLayerSphere: 1.5
+  _valueSecondSizeLayerSphere: 1.8
 --- !u!4 &153044179
 Transform:
   m_ObjectHideFlags: 0
@@ -2578,6 +2581,7 @@ MonoBehaviour:
   - {fileID: 1429644404}
   - {fileID: 653962983}
   _bulletsPool: {fileID: 400932825}
+  _speedMovementProjectile: 15
 --- !u!1 &369242155
 GameObject:
   m_ObjectHideFlags: 0
@@ -2727,6 +2731,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46002259bbb8cfa42a380f936a9575a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _divider: 2
+  _timeMultiplier: 0.1
+  _indexPointTrajectory: 1
+  _quantityPointsTrajectory: 40
+  _quantityDeductibleIndexesRenderingRestrictions: 3
+  _minIndexRenderingRestrictions: 2
+  _radius: 0.03
 --- !u!1 &370353434
 GameObject:
   m_ObjectHideFlags: 0
@@ -3219,6 +3230,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectsPool: {fileID: 400932825}
   _materialsDispenser: {fileID: 2068890559}
+  _valueLengthSubtracted: 1
+  _minValueIndex: 0
 --- !u!114 &400932825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3655,6 +3668,7 @@ MonoBehaviour:
   _power: 10
   _inputReader: {fileID: 1375840410}
   _projectileReloader: {fileID: 363602544}
+  _direction: {x: 0, y: 1, z: -1}
 --- !u!23 &442102435
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12257,6 +12271,7 @@ MonoBehaviour:
   _spawnerLayersSpheres: {fileID: 2138190923}
   _materialsColoredBallsDispenser: {fileID: 2068890559}
   _spawnerPrototypeLayerSphere: {fileID: 739262515}
+  _defaultScaleColoredSphere: {x: 0.15, y: 0.15, z: 0.15}
 --- !u!1 &1641556748
 GameObject:
   m_ObjectHideFlags: 0
@@ -12288,6 +12303,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnPointFirstLayerSphere: {fileID: 937004719}
   _spawnerColoredSpheres: {fileID: 1627875391}
+  _radius: 100
+  _minValuedelayColoredSpheres: 0.002
 --- !u!4 &1641556750
 Transform:
   m_ObjectHideFlags: 0

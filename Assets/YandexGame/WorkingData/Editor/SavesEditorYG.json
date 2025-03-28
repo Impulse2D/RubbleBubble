@@ -1,7 +1,7 @@
 {
-  "idSave": 1656,
+  "idSave": 1682,
   "isFirstSession": false,
-  "language": "ru",
+  "language": "en",
   "promptDone": false,
   "money": 1,
   "newPlayerName": "Hello!",
@@ -10,7 +10,7 @@
     true,
     false
   ],
-  "numberLevel": 6,
+  "numberLevel": 3,
   "currentRecord": 236,
-  "counterActivatedTeaching": 1
+  "counterActivatedTeaching": 0
 }

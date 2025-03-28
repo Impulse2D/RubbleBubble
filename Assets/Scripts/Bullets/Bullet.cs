@@ -18,7 +18,6 @@ namespace Bullets
 
         public bool IsMoved => _isMoved;
         public bool IsCriticalCollision => _isCriticalCollision;
-
         public bool IsOneColorCollision => _isOneColorCollision;
         public bool IsBallCollision => _isBallCollision;
 
@@ -39,13 +38,10 @@ namespace Bullets
 
         public void UseForce()
         {
-            if (_force != null)
-            {
                 DisableKinematic();
                 EnableIsMoved();
 
                 Rigidbody.AddForce(_force, ForceMode.VelocityChange);
-            }
         }
 
         public void EnableIsOneColorCollision()

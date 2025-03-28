@@ -28,7 +28,6 @@ namespace UIPanelsVisibleChanger
         private void EnablePause()
         {
             _objectsChangerService.DisableObject(_trajectoryVisualizer.gameObject);
-
             _objectsChangerService.DisableObject(_inputReader.gameObject);
         }
 

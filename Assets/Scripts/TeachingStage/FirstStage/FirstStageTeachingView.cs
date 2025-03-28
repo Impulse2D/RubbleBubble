@@ -12,14 +12,15 @@ namespace FirstStage
         [SerializeField] private CanvasFirstStageTeachingDesktop _canvasFirstStageTeachingDesktop;
         [SerializeField] private CanvasFirstStageArrow _canvasFirstStageArrow;
         [SerializeField] private LevelService _levelService;
+        [SerializeField] int _numberTeachingId;
 
         public event Action StageCompleted;
 
         private void OnEnable()
         {
-            int namberId = 1;
+            _numberTeachingId = 1;
 
-            SetId(namberId);
+            SetId(_numberTeachingId);
 
             InputReader.AimingEnabled += Hide;
         }

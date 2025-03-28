@@ -18,6 +18,8 @@ namespace AimingCancelTeaching
         [SerializeField] private DeviceTypeDetector _deviceTypeDetector;
         [SerializeField] private LevelService _levelService;
         [SerializeField] private InputReader _inputReader;
+        [SerializeField] int _minValueNumberLevel = 1;
+        [SerializeField] int _minQuantyActivatedTeachings = 0;
 
         private int _counterActivatedTeaching;
         private int _maxQuantyActivatedTeachings = 1;
@@ -69,12 +71,9 @@ namespace AimingCancelTeaching
 
         private void TryResetCounterActivatedTeaching()
         {
-            int minValueNumberLevel = 1;
-            int minQuantyActivatedTeachings = 0;
-
-            if (_levelService.NumberLevel == minValueNumberLevel)
+            if (_levelService.NumberLevel == _minValueNumberLevel)
             {
-                _counterActivatedTeaching = minQuantyActivatedTeachings;
+                _counterActivatedTeaching = _minQuantyActivatedTeachings;
 
                 SetSavedCounterActivatedTeaching(_counterActivatedTeaching);
             }
@@ -87,16 +86,16 @@ namespace AimingCancelTeaching
 
         private void TryEnableAimingCancelArmTeaching()
         {
-            if (IsMaxQuantyActivatedTeaching() == true && _enableAimingCancelActivePanel == false)
+            if ((IsMaxQuantyActivatedTeaching() == true && _enableAimingCancelActivePanel == false) == false)
+                return;
+
+            if (IsMobileDevice() == true)
             {
-                if (IsMobileDevice() == true)
-                {
-                    ShowArm();
-                }
-                else
-                {
-                    ShowMouse();
-                }
+                ShowArm();
+            }
+            else
+            {
+                ShowMouse();
             }
         }
 
@@ -104,16 +103,16 @@ namespace AimingCancelTeaching
         {
             SetIsEnableAimingCancelActivePanel(true);
 
-            if (IsMaxQuantyActivatedTeaching() == true)
+            if (IsMaxQuantyActivatedTeaching() == false)
+                return;
+
+            if (IsMobileDevice() == true)
             {
-                if (IsMobileDevice() == true)
-                {
-                    ShowCanvasActivePanelMobile();
-                }
-                else
-                {
-                    ShowCanvasActivePanelDesktop();
-                }
+                ShowCanvasActivePanelMobile();
+            }
+            else
+            {
+                ShowCanvasActivePanelDesktop();
             }
         }
 

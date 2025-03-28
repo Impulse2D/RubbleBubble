@@ -16,6 +16,8 @@ namespace LevelPanel
         [SerializeField] private AdFullscreenOpener _adFullscreenOpener;
         [SerializeField] private WinPanel _winPanel;
 
+        private int _maxValueTimerShowAd;
+
         private void OnEnable()
         {
             _buttonNextLevel.onClick.AddListener(GoNextLevel);
@@ -32,16 +34,15 @@ namespace LevelPanel
 
         private void GoNextLevel()
         {
-            int maxValueTimerShowAd = 60;
+            _maxValueTimerShowAd = 60;
 
             if (YandexGame.savesData.numberLevel == 99999999)
             {
                 _levelService.IncreaseLevel();
                 _levelService.SaveData();
-
                 _levelService.LoadMainScene();
             }
-            else if (YandexGame.timerShowAd > maxValueTimerShowAd)
+            else if (YandexGame.timerShowAd > _maxValueTimerShowAd)
             {
                 _objectsChangerService.DisableObject(_winPanel.gameObject);
                 _objectsChangerService.EnableObject(_loadingPanel.gameObject);

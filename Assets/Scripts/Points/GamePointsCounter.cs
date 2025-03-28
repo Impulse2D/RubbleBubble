@@ -7,6 +7,9 @@ namespace Points
     {
         [SerializeField] private GamePointsHandler _gamePointsHandler;
         [SerializeField] private float _maxQuantityGamePoints;
+        [SerializeField] private float _minQuantityGamePoints = 0f;
+        [SerializeField] private int _minRandomQuantityGamePoints = 300;
+        [SerializeField] private int _maxRandomQuantityGamePoints = 1000;
 
         private float _currentQuantityGamePoints;
 
@@ -18,7 +21,6 @@ namespace Points
         public void Init()
         {
             CalculateMaxQuantityGamePoints();
-
             ResetCurrentQuantityGamePoints();
         }
 
@@ -51,18 +53,12 @@ namespace Points
 
         private void ResetCurrentQuantityGamePoints()
         {
-            float minQuantityGamePoints = 0f;
-
-            _currentQuantityGamePoints = minQuantityGamePoints;
+            _currentQuantityGamePoints = _minQuantityGamePoints;
         }
 
         private void CalculateMaxQuantityGamePoints()
         {
-            int minRandomQuantityGamePoints = 300;
-            int maxRandomQuantityGamePoints = 1000;
-
-            int randomQuantityGamePoints = UnityEngine.Random.Range(minRandomQuantityGamePoints, maxRandomQuantityGamePoints);
-
+            int randomQuantityGamePoints = UnityEngine.Random.Range(_minRandomQuantityGamePoints, _maxRandomQuantityGamePoints);
             _maxQuantityGamePoints = randomQuantityGamePoints;
         }
     }

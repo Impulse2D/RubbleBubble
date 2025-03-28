@@ -6,6 +6,14 @@ namespace Gun
 
     public class TrajectoryVisualizer : MonoBehaviour
     {
+        [SerializeField] private float _divider = 2;
+        [SerializeField] private float _timeMultiplier = 0.1f;
+        [SerializeField] private int _indexPointTrajectory = 1;
+        [SerializeField] private int _quantityPointsTrajectory = 40;
+        [SerializeField] private int _quantityDeductibleIndexesRenderingRestrictions = 3;
+        [SerializeField] private int _minIndexRenderingRestrictions = 2;
+        [SerializeField] private float _radius = 0.03f;
+
         private LineRenderer _lineRendererTrajectory;
 
         public void Init()
@@ -15,40 +23,29 @@ namespace Gun
 
         public void ShowTrajectory(Vector3 origin, Vector3 speed)
         {
-            float divider = 2;
-            float timeMultiplier = 0.1f;
-            int indexPointTrajectory = 1;
-            int quantityPointsTrajectory = 40;
-            int quantityDeductibleIndexesRenderingRestrictions = 3;
-            int minIndexRenderingRestrictions = 2;
-            float radius = 0.03f;
-
-
-            Vector3[] points = new Vector3[quantityPointsTrajectory];
+            Vector3[] points = new Vector3[_quantityPointsTrajectory];
 
             _lineRendererTrajectory.positionCount = points.Length;
 
             for (int i = 0; i < points.Length; i++)
             {
-                float time = i * timeMultiplier;
+                float time = i * _timeMultiplier;
 
-                points[i] = origin + speed * time + Physics.gravity * time * time / divider;
+                points[i] = origin + speed * time + Physics.gravity * time * time / _divider;
 
-                if (i > minIndexRenderingRestrictions)
-                {
-                    RaycastHit raycastHit;
+                if ((i > _minIndexRenderingRestrictions) == false) continue;
 
-                    Vector3 direction = points[points.Length - quantityDeductibleIndexesRenderingRestrictions] - 
-                        points[i - quantityDeductibleIndexesRenderingRestrictions];
+                RaycastHit raycastHit;
 
-                    if (Physics.SphereCast(points[i - quantityDeductibleIndexesRenderingRestrictions], radius, direction, out raycastHit)
-                        && IsComponentGameplayParticipator(raycastHit) == true)
-                    {
-                        SetPositionCount(i, indexPointTrajectory);
+                Vector3 direction = points[points.Length - _quantityDeductibleIndexesRenderingRestrictions] -
+                    points[i - _quantityDeductibleIndexesRenderingRestrictions];
 
-                        break;
-                    }
-                }
+                if (Physics.SphereCast(points[i - _quantityDeductibleIndexesRenderingRestrictions], _radius, direction, out raycastHit)
+                    && IsComponentGameplayParticipator(raycastHit) == false) continue;
+
+                SetPositionCount(i, _indexPointTrajectory);
+
+                break;
             }
 
             _lineRendererTrajectory.SetPositions(points);

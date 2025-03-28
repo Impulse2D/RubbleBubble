@@ -8,6 +8,11 @@ namespace LayerSpheres
 {
     public class LayerSphere : MonoBehaviour
     {
+        [SerializeField] private float _startScaleX = 0.7f;
+        [SerializeField] private float _startScaleY = 0.7f;
+        [SerializeField] private float _startScaleZ = 0.7f;
+        [SerializeField] private float _minQuantityColoredBalls = 0f;
+
         private List<ColoredBall> _coloredBalls;
         private Coroutine _coroutine;
         private float _identifier;
@@ -21,13 +26,9 @@ namespace LayerSpheres
 
         private void OnEnable()
         {
-            float startScaleX = 0.7f;
-            float startScaleY = 0.7f;
-            float startScaleZ = 0.7f;
-
             _coloredBalls = new List<ColoredBall>();
 
-            Vector3 defaultScale = new Vector3(startScaleX, startScaleY, startScaleZ);
+            Vector3 defaultScale = new Vector3(_startScaleX, _startScaleY, _startScaleZ);
 
             SetDefaultScale(defaultScale);
 
@@ -47,11 +48,9 @@ namespace LayerSpheres
 
         public void RemoveColoredBall(ColoredBall coloredBall)
         {
-            float minQuantityColoredBalls = 0f;
-
             _coloredBalls.Remove(coloredBall);
 
-            if (_coloredBalls.Count == minQuantityColoredBalls)
+            if (_coloredBalls.Count == _minQuantityColoredBalls)
             {
                 ColoredBallsLosted?.Invoke(this);
             }

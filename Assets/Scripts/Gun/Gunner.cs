@@ -8,6 +8,7 @@ namespace Gun
         [SerializeField] private float _power = 12;
         [SerializeField] private InputReader _inputReader;
         [SerializeField] private BulletsReloader _projectileReloader;
+        [SerializeField] private Vector3 _direction;
 
         private Camera _mainCamera;
         private Vector3 _forceProjectile;
@@ -51,11 +52,10 @@ namespace Gun
         private void SetTrajectoryPath(Vector3 position)
         {
             float enter;
-            Vector3 direction = new Vector3(0f, 1f, -1f);
 
             Ray ray = _mainCamera.ScreenPointToRay(position);
 
-            new Plane(direction, transform.position).Raycast(ray, out enter);
+            new Plane(_direction, transform.position).Raycast(ray, out enter);
 
             _endPositionProjectile = ray.GetPoint(enter);
 

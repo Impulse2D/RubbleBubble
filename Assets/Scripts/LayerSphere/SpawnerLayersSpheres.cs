@@ -7,6 +7,7 @@ namespace LayerSpheres
     {
         [SerializeField] private SpawnPointFirstLayerSphere _pointPosition;
         [SerializeField] private SpawnerParentSphere _spawnerParentSpheres;
+        [SerializeField] protected int _maxQuantityInterlayersInitialized = 3;
 
         private int _maxQuantityInterlayers;
         private ParentSpheres _currentParentSpheres;
@@ -28,12 +29,9 @@ namespace LayerSpheres
         private void ÑreationInitial(ParentSpheres parentSpheres)
         {
             _currentParentSpheres = parentSpheres;
-
             _maxQuantityInterlayers = 2;
 
-            int maxQuantityInterlayersInitialized = 3;
-
-            for (int i = 0; i < maxQuantityInterlayersInitialized; i++)
+            for (int i = 0; i < _maxQuantityInterlayersInitialized; i++)
             {
                 ObjectsPool.Initialize();
             }
@@ -59,7 +57,6 @@ namespace LayerSpheres
             InterlayerReleased?.Invoke(sphereLayer);
 
             sphereLayer.ColoredBallsLosted += ReportColoredballsLosted;
-
             sphereLayer.Released += CreteNextLayerSphere;
         }
 

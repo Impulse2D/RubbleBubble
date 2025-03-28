@@ -29,16 +29,13 @@ namespace MainScene
         private void Show()
         {
             _objectsChangerService.EnableObject(_teachingPanelCanvas.gameObject);
-
             _pauseService.EnablePause();
-
             _uIPanelsSoundsPlayer.PlaySound();
         }
 
         private void Hide()
         {
             _objectsChangerService.DisableObject(_teachingPanelCanvas.gameObject);
-
             _pauseService.DisablePause();
         }
     }

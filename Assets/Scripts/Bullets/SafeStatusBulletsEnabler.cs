@@ -1,4 +1,3 @@
-using System;
 using LayerSpheres;
 using Services;
 using UnityEngine;
@@ -10,10 +9,12 @@ namespace Bullets
         [SerializeField] private LifeService _lifeService;
         [SerializeField] private SpawnPointFirstLayerSphere _spawnPointFirstLayerSphere;
 
-        private Collider _currentCollider;
+        private float _radius;
 
         private void OnEnable()
         {
+            _radius = 1000;
+
             _lifeService.LivesExhausted += TryRemoveAllProjectile;
         }
 
@@ -24,22 +25,14 @@ namespace Bullets
 
         private void TryRemoveAllProjectile()
         {
-            float radius = 1000f;
-
-            Collider[] overlappedColliders = Physics.OverlapSphere(_spawnPointFirstLayerSphere.transform.position, radius);
+            Collider[] overlappedColliders = Physics.OverlapSphere(_spawnPointFirstLayerSphere.transform.position, _radius);
 
             for (int i = 0; i < overlappedColliders.Length; i++)
             {
-                _currentCollider = overlappedColliders[i];
+                if (overlappedColliders[i] == null) continue;
+                if (overlappedColliders[i].TryGetComponent(out Bullet projectile) == false) continue;
+                if (projectile.IsMoved == false) continue;
 
-                Action interactionWithProjectile = overlappedColliders[i] != null ? TryDisableIsMovedProjectile : null;
-            }
-        }
-
-        private void TryDisableIsMovedProjectile()
-        {
-            if (_currentCollider.TryGetComponent(out Bullet projectile) && projectile.IsMoved == true)
-            {
                 projectile.DisableIsMoved();
             }
         }

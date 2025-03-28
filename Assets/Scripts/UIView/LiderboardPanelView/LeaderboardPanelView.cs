@@ -45,16 +45,13 @@ namespace LiderboardPanelView
         private void Hide()
         {
             _objectsChangerService.DisableObject(_liderBoard.gameObject);
-
             _pauseService.DisablePause();
         }
 
         private void ReactToAuthorizationStatus(GameObject gameObject)
         {
             _objectsChangerService.EnableObject(gameObject);
-
             _pauseService.EnablePause();
-
             _uIPanelsSoundsPlayer.PlaySound();
         }
     }

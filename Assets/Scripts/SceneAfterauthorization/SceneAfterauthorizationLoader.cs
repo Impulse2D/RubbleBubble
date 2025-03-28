@@ -10,6 +10,7 @@ namespace SceneAfterauthorization
         private const string CurrentLevel = "CurrentLevel";
 
         [SerializeField] private ScenesService _scenesService;
+        [SerializeField] private float _delayCoroutine = 3f;
 
         private int _currentLevel;
 
@@ -37,9 +38,7 @@ namespace SceneAfterauthorization
 
         private IEnumerator CountPauseBeforeLoadingGameScene()
         {
-            float delay = 3f;
-
-            WaitForSeconds timeWait = new WaitForSeconds(delay);
+            WaitForSeconds timeWait = new WaitForSeconds(_delayCoroutine);
 
             yield return timeWait;
 
@@ -48,13 +47,11 @@ namespace SceneAfterauthorization
             if (_currentLevel > cloudSaveLevel)
             {
                 YandexGame.savesData.numberLevel = _currentLevel;
-
                 YandexGame.SaveProgress();
             }
             else if (_currentLevel <= cloudSaveLevel)
             {
                 YandexGame.savesData.numberLevel = cloudSaveLevel;
-
                 YandexGame.SaveProgress();
             }
 

@@ -13,6 +13,12 @@ namespace GamePointsSlidebar
 
         private float _currentValuePercentage;
         private Coroutine _coroutine;
+        private float _minValueFillAmount;
+        private float _maxValueFillAmount;
+        private float _cuurentValueFillAmount;
+        private float _valueTarget;
+        private float _speedFillAmount;
+        private float _delay;
 
         public event Action Filled;
 
@@ -31,15 +37,13 @@ namespace GamePointsSlidebar
         private void ShowFillAmount(float valuePoints)
         {
             CalculatePercentage(valuePoints);
-
             SetValueFillAmount(_currentValuePercentage);
         }
 
         private void ResetFillAmount()
         {
-            float minValueFillAmount = 0f;
-
-            Image.fillAmount = minValueFillAmount;
+            _minValueFillAmount = 0f;
+            Image.fillAmount = _minValueFillAmount;
         }
 
         private void CalculatePercentage(float valuePoints)
@@ -59,25 +63,25 @@ namespace GamePointsSlidebar
 
         private IEnumerator ShiftSlowlyValueFillAmoun(float valuePoints)
         {
-            float maxValueFillAmount = 1f;
-            float cuurentValueFillAmount = Image.fillAmount;
-            float valueTarget = valuePoints;
-            float speedFillAmount = 1f;
-            float delay = 1f;
+            _maxValueFillAmount = 1f;
+            _cuurentValueFillAmount = Image.fillAmount;
+            _valueTarget = valuePoints;
+            _speedFillAmount = 1f;
+            _delay = 1f;
 
-            for (float i = 0; i < delay; i += speedFillAmount * Time.deltaTime)
+            for (float i = 0; i < _delay; i += _speedFillAmount * Time.deltaTime)
             {
                 yield return null;
 
-                Image.fillAmount = Mathf.Lerp(cuurentValueFillAmount, valueTarget, i);
+                Image.fillAmount = Mathf.Lerp(_cuurentValueFillAmount, _valueTarget, i);
 
-                if (Image.fillAmount == maxValueFillAmount)
+                if (Image.fillAmount == _maxValueFillAmount)
                 {
                     Filled?.Invoke();
                 }
             }
 
-            Image.fillAmount = valueTarget;
+            Image.fillAmount = _valueTarget;
         }
     }
 }

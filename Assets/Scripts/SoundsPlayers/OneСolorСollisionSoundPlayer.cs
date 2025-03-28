@@ -7,29 +7,26 @@ namespace SoundsPlayers
     {
         [SerializeField] private ColoredBallsSeparator _coloredBallsSeparator;
 
+        [SerializeField] float _minValuePitch = 0.9f;
+        [SerializeField] float _maxValuePitch = 1.1f;
+
         private void OnEnable()
         {
             _coloredBallsSeparator.AttemptedTearOffEnabled += PlaySound;
-
             PauseService.PauseEnabled += StopSound;
         }
 
         private void OnDisable()
         {
             _coloredBallsSeparator.AttemptedTearOffEnabled -= PlaySound;
-
             PauseService.PauseEnabled -= StopSound;
         }
 
         public override void PlaySound()
         {
-            float minValuePitch = 0.9f;
-            float maxValuePitch = 1.1f;
+            StopSound();    
 
-            StopSound();
-
-            AudioSource.pitch = Random.Range(minValuePitch, maxValuePitch);
-
+            AudioSource.pitch = Random.Range(_minValuePitch, _maxValuePitch);
             SoundsService.PlaySound(AudioSource);
         }
     }
